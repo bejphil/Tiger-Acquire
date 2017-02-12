@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPalette>
 
 namespace Ui {
 class MainWindow;
@@ -17,6 +18,11 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+    void SetupNetworkAnalzyerView();
+    void SetupSpectrumAnalzyerView();
+
+    QPalette dark_palette;
 };
 
 #endif // MAINWINDOW_H

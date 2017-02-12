@@ -1,0 +1,85 @@
+\hypertarget{class_network_analyzer}{}\section{Network\+Analyzer Class Reference}
+\label{class_network_analyzer}\index{Network\+Analyzer@{Network\+Analyzer}}
+
+
+Object to communicate with the H\+P8757 C Network Analyzer.  
+
+
+
+
+{\ttfamily \#include $<$network\+\_\+analyzer.\+h$>$}
+
+
+
+Inheritance diagram for Network\+Analyzer\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{class_network_analyzer__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Network\+Analyzer\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{class_network_analyzer__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Network\+Analyzer} (std\+::string ip\+\_\+addr, uint port\+\_\+number)\hypertarget{class_network_analyzer_a80259e258ac41d5750f53565362f7420}{}\label{class_network_analyzer_a80259e258ac41d5750f53565362f7420}
+
+\item 
+\hyperlink{class_network_analyzer}{Network\+Analyzer} \& {\bfseries operator=} (const \hyperlink{class_network_analyzer}{Network\+Analyzer} \&)=delete\hypertarget{class_network_analyzer_a2785c012d28fb621e7218a9e471716e3}{}\label{class_network_analyzer_a2785c012d28fb621e7218a9e471716e3}
+
+\item 
+std\+::vector$<$ float $>$ \hyperlink{class_network_analyzer_a628344447ef7939877e49acb8ed72dab}{Take\+Data\+Multiple} (std\+::vector$<$ float $>$ frequency\+\_\+centers)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_network_analyzer_a628344447ef7939877e49acb8ed72dab}{Network\+Analyzer\+::\+Take\+Data\+Multiple}. \end{DoxyCompactList}\item 
+std\+::vector$<$ float $>$ {\bfseries Take\+Data\+Single} (double center\+\_\+frequency)\hypertarget{class_network_analyzer_a501cea89865657ee19c3bc457658092c}{}\label{class_network_analyzer_a501cea89865657ee19c3bc457658092c}
+
+\item 
+void {\bfseries Set\+Frequency\+Window} (double frequency\+\_\+span)\hypertarget{class_network_analyzer_a2fee24f238cc8ad5ecdb72da4fc7c848}{}\label{class_network_analyzer_a2fee24f238cc8ad5ecdb72da4fc7c848}
+
+\item 
+void \hyperlink{class_network_analyzer_a6d4e76a043fd30788167c4c0e187ed00}{Turn\+On\+R\+F\+Source} ()\hypertarget{class_network_analyzer_a6d4e76a043fd30788167c4c0e187ed00}{}\label{class_network_analyzer_a6d4e76a043fd30788167c4c0e187ed00}
+
+\begin{DoxyCompactList}\small\item\em Turn the RF source on, at whatever power it was set to most recently. \end{DoxyCompactList}\item 
+void \hyperlink{class_network_analyzer_aeeb9823df08d7b602d524583fcc94c26}{Turn\+Off\+R\+F\+Source} ()\hypertarget{class_network_analyzer_aeeb9823df08d7b602d524583fcc94c26}{}\label{class_network_analyzer_aeeb9823df08d7b602d524583fcc94c26}
+
+\begin{DoxyCompactList}\small\item\em Turn the RF source off. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Object to communicate with the H\+P8757 C Network Analyzer. 
+
+\subsection{Member Function Documentation}
+\index{Network\+Analyzer@{Network\+Analyzer}!Take\+Data\+Multiple@{Take\+Data\+Multiple}}
+\index{Take\+Data\+Multiple@{Take\+Data\+Multiple}!Network\+Analyzer@{Network\+Analyzer}}
+\subsubsection[{\texorpdfstring{Take\+Data\+Multiple(std\+::vector$<$ float $>$ frequency\+\_\+centers)}{TakeDataMultiple(std::vector< float > frequency_centers)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ float $>$ Network\+Analyzer\+::\+Take\+Data\+Multiple (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ float $>$}]{frequency\+\_\+centers}
+\end{DoxyParamCaption}
+)}\hypertarget{class_network_analyzer_a628344447ef7939877e49acb8ed72dab}{}\label{class_network_analyzer_a628344447ef7939877e49acb8ed72dab}
+
+
+\hyperlink{class_network_analyzer_a628344447ef7939877e49acb8ed72dab}{Network\+Analyzer\+::\+Take\+Data\+Multiple}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em frequency\+\_\+centers} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/bephillips2/\+Qt-\/\+Projects/\+Electric\+\_\+\+Tiger\+\_\+\+D\+A\+Q/\+Socket\+Communicators/\+Network\+Analyzer/network\+\_\+analyzer.\+h\item 
+/home/bephillips2/\+Qt-\/\+Projects/\+Electric\+\_\+\+Tiger\+\_\+\+D\+A\+Q/\+Socket\+Communicators/\+Network\+Analyzer/network\+\_\+analyzer.\+cpp\end{DoxyCompactItemize}
