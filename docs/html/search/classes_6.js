@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rightclickmenu',['RightClickMenu',['../class_right_click_menu.html',1,'']]]
+  ['networkanalyzer',['NetworkAnalyzer',['../class_network_analyzer.html',1,'']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['frequencycontrols',['FrequencyControls',['../class_frequency_controls.html',1,'']]]
+  ['configprocessor',['ConfigProcessor',['../class_config_processor.html',1,'']]]
 ];

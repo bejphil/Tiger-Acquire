@@ -1,5 +1,34 @@
 \hypertarget{class_stepper_motor}{}\section{Stepper\+Motor Class Reference}
 \label{class_stepper_motor}\index{Stepper\+Motor@{Stepper\+Motor}}
+
+
+Object to sends commands to an Applied Motion products stepper motor.  
+
+
+
+
+{\ttfamily \#include $<$stepper\+\_\+motor.\+h$>$}
+
+
+
+Inheritance diagram for Stepper\+Motor\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{class_stepper_motor__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Stepper\+Motor\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{class_stepper_motor__coll__graph}
+\end{center}
+\end{figure}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -8,9 +37,26 @@
 \item 
 \hyperlink{class_stepper_motor}{Stepper\+Motor} \& {\bfseries operator=} (const \hyperlink{class_stepper_motor}{Stepper\+Motor} \&)=delete\hypertarget{class_stepper_motor_aeeceb8eefbcffef0cb0c2b742ffe3603}{}\label{class_stepper_motor_aeeceb8eefbcffef0cb0c2b742ffe3603}
 
-\end{DoxyCompactItemize}
-
-
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-/home/bephillips2/\+Qt-\/\+Projects/\+Electric\+\_\+\+Tiger\+\_\+\+D\+A\+Q/\+Socket\+Communicators/\+Stepper\+Motor/stepper\+\_\+motor.\+h\end{DoxyCompactItemize}
+void {\bfseries Set\+To\+Initial\+Length} (double initial\+\_\+length, double current\+\_\+length)\hypertarget{class_stepper_motor_aa3782b6fa0a79f6e30c1547b23e62a76}{}\label{class_stepper_motor_aa3782b6fa0a79f6e30c1547b23e62a76}
+
+\item 
+void {\bfseries Reset\+Cavity} (double length\+\_\+of\+\_\+tune)\hypertarget{class_stepper_motor_a3fb36356f54f20d9e5f5b4d0e56c41d9}{}\label{class_stepper_motor_a3fb36356f54f20d9e5f5b4d0e56c41d9}
+
+\item 
+void {\bfseries Panic\+Reset\+Cavity} (uint iteration, double revs\+\_\+per\+\_\+iter)\hypertarget{class_stepper_motor_a260af15a346488150de82fa3801df94c}{}\label{class_stepper_motor_a260af15a346488150de82fa3801df94c}
+
+\item 
+void {\bfseries Tuning\+Loop} (double len\+\_\+of\+\_\+tune, double revs, uint iters, uint num\+\_\+of\+\_\+iters)\hypertarget{class_stepper_motor_a299c95250f7b1cbbf1928e05fdfb0c6c}{}\label{class_stepper_motor_a299c95250f7b1cbbf1928e05fdfb0c6c}
+
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Object to sends commands to an Applied Motion products stepper motor. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/bephillips2/\+Qt-\/\+Projects/\+Electric\+\_\+\+Tiger\+\_\+\+D\+A\+Q/\+Socket\+Communicators/\+Stepper\+Motor/stepper\+\_\+motor.\+h\item 
+/home/bephillips2/\+Qt-\/\+Projects/\+Electric\+\_\+\+Tiger\+\_\+\+D\+A\+Q/\+Socket\+Communicators/\+Stepper\+Motor/stepper\+\_\+motor.\+cpp\end{DoxyCompactItemize}

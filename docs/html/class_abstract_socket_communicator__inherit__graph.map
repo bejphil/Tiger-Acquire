@@ -1,4 +1,7 @@
 <map id="AbstractSocketCommunicator" name="AbstractSocketCommunicator">
-<area shape="rect" id="node2" href="$class_arduino.html" title="Object to send and receive commands from an Arduino Uno (R3) " alt="" coords="12,80,79,107"/>
-<area shape="rect" id="node3" href="$class_network_analyzer.html" title="Object to communicate with the HP8757 C Network Analyzer. " alt="" coords="103,80,225,107"/>
+<area shape="rect" id="node2" href="$class_arduino.html" title="Object to send and receive commands from an Arduino Uno (R3) " alt="" coords="5,80,72,107"/>
+<area shape="rect" id="node3" href="$class_network_analyzer.html" title="Object to communicate with the HP8757 C Network Analyzer. " alt="" coords="96,80,219,107"/>
+<area shape="rect" id="node4" href="$class_signal_generator.html" title="SignalGenerator" alt="" coords="243,80,357,107"/>
+<area shape="rect" id="node5" href="$class_stepper_motor.html" title="Object to sends commands to an Applied Motion products stepper motor. " alt="" coords="382,80,482,107"/>
+<area shape="rect" id="node6" href="$class_switch.html" title="Switch" alt="" coords="506,80,569,107"/>
 </map>

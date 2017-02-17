@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['takedatamultiple',['TakeDataMultiple',['../class_network_analyzer.html#a628344447ef7939877e49acb8ed72dab',1,'NetworkAnalyzer']]],
-  ['turnoffrfsource',['TurnOffRFSource',['../class_network_analyzer.html#aeeb9823df08d7b602d524583fcc94c26',1,'NetworkAnalyzer']]],
-  ['turnonrfsource',['TurnOnRFSource',['../class_network_analyzer.html#a6d4e76a043fd30788167c4c0e187ed00',1,'NetworkAnalyzer']]]
+  ['getcavitylength',['GetCavityLength',['../class_arduino.html#a0ae462174c61881ccd5f78af5130eceb',1,'Arduino']]],
+  ['getmaxpeak',['GetMaxPeak',['../class_mode_track.html#ab471ed8393b84636edb129d1c77b4df4',1,'ModeTrack']]],
+  ['getpeaksbilat',['GetPeaksBiLat',['../class_mode_track.html#a974e74566b3baf1343d5942a6af7445e',1,'ModeTrack']]],
+  ['getpeaksgauss',['GetPeaksGauss',['../class_mode_track.html#a2b3cc468fae5bca487871ad2b71fc974',1,'ModeTrack']]]
 ];

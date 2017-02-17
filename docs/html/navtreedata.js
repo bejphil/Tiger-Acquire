@@ -18,7 +18,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"abstractsocketcommunictor_8h_source.html"
+"abstractsocketcommunictor_8h_source.html",
+"struct_t_c_p_socket_param.html#a1440243b424ee42cf29c972b609b044a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

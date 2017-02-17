@@ -18,7 +18,6 @@ class SignalGenerator : public AbstractSocketCommunicator {
   public:
     SignalGenerator( std::string ip_addr, uint port_number );
     SignalGenerator& operator=( const SignalGenerator& ) = delete; // non copyable
-    ~SignalGenerator();
 
     void RFOn();
     void RFOff();

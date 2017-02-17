@@ -38,7 +38,7 @@ QMAKE_LFLAGS +=  -fopenmp
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    ConfigProcessors/config_processor.cpp \
+    #ConfigProcessor/configprocessor.cpp \
     SocketCommunicators/Arduino/arduino.cpp \
     SocketCommunicators/NetworkAnalyzer/network_analyzer.cpp \
     SocketCommunicators/SignalGenerator/signal_generator.cpp \
@@ -54,11 +54,20 @@ SOURCES += main.cpp\
     SpectrumAnalyzer/spectrumanalyzer.tpp \
     SocketCommunicators/AbstractSocketCommunicator/abstractsocketcommunictor.cpp \
     ConfigProcessor/configprocessor.cpp \
+    Program/ProgramCore/programcore.cpp \
+    ConfigProcessor/testconfigprocessor.cpp \
+    DataTransformatoions/datatransformations.cpp \
+    InstrumentView/instrumentview.cpp \
+    Program/ProgramFrame/programframe.cpp \
+    ModeTracker/modetrack.cpp \
+    Generics/generics.cpp \
+    ModeCharacterization/modecharacterization.cpp \
     Program/Program/program.cpp \
-    Program/ProgramCore/programcore.cpp
+    DataSaver/FlatFileSaver/flatfilesaver.cpp \
+    ModeTracker/mode_track_failure.cpp
 
 HEADERS  += mainwindow.h \
-    ConfigProcessors/config_processor.h \
+   # ConfigProcessor/configprocessor.h \
     SocketCommunicators/Arduino/arduino.h \
     SocketCommunicators/NetworkAnalyzer/network_analyzer.h \
     SocketCommunicators/SignalGenerator/signal_generator.h \
@@ -72,8 +81,20 @@ HEADERS  += mainwindow.h \
     SpectrumAnalyzer/spectrumanalyzer.h \
     SocketCommunicators/AbstractSocketCommunicator/abstractsocketcommunictor.h \
     ConfigProcessor/configprocessor.h \
+    Program/ProgramCore/programcore.h \
+    SocketCommunicators/socketcommunicators.h \
+    ConfigProcessor/experiment_parameters.h \
+    ConfigProcessor/testconfigprocessor.h \
+    DataTransformatoions/datatransformations.h \
+    InstrumentView/instrumentview.h \
+    Program/ProgramFrame/programframe.h \
+    ModeTracker/modetrack.h \
+    Generics/generics.h \
+    ModeCharacterization/modecharacterization.h \
     Program/Program/program.h \
-    Program/ProgramCore/programcore.h
+    DataSaver/FlatFileSaver/flatfilesaver.h \
+    ModeTracker/mode_track_failure.h \
+    Program/ProgramCore/daq_failure.h
 
 FORMS    += mainwindow.ui \
     SpectrumAnalyzer/GraphicObjects/chartscalecontrols.ui \

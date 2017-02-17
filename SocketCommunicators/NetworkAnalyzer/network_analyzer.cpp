@@ -3,6 +3,7 @@
 //C++ System headers
 //
 //Boost Headers
+#include <boost/algorithm/string.hpp>//split(), is_any_of
 #include <boost/lexical_cast.hpp>
 //Qt Headers
 //
@@ -15,21 +16,111 @@ NetworkAnalyzer::NetworkAnalyzer( std::string ip_addr, uint port_number, uint po
     SetRFParameters( span, power );
 }
 
+std::vector< double > NetworkAnalyzer::TakeDataMultiple() {
+
+    const std::vector< double > frequency_centers { 3200.0, 3600.0, 4000.0, 4400.0 };
+
+    std::string raw_power_spectrum = "";
+
+    for( const auto& center : frequency_centers ) {
+
+        //Set passthrought mode to source
+        socket->Send( "PT19" );
+        //Change GPIB address to passthrough -- sends commands to signal sweeper
+        socket->Send( "++addr 17" );
+        std::string frequency_str = boost::lexical_cast<std::string>( center );
+        //Set center frequency
+        socket->Send( "CF " + frequency_str + "MZ" );
+        //Set signal sweep time to 100ms ( fastest possible )
+        socket->Send( "ST100MS" );
+        sleep(1);
+
+        //Return to Network Analyzer
+        socket->Send( "++addr 16" );
+
+        //Turn off swept mode
+        socket->Send( "SW0" );
+        //Set Analyzer to perform exactly one sweep
+        socket->Send( "TS1" );
+        //Give Network Analyzer time to complete sweep
+        //This delay time needs to be much longer than the transfer time
+        // for a single series of ASCII values ( ~0.8 ) for some reason.
+        // If the Analyzer does not have time to complete a sweep
+        // we will gather the most recent data set --
+        // usually an old data set or garbage.
+        sleep( 3 );
+
+        //Take measurement, Input A absolute power measurement
+        socket->Send( "C1IA" );
+        socket->Send( "C1OD" );
+        //Date output in ASCII mode takes ~0.8 seconds -- wait before trying to read data
+        sleep(1);
+        socket->Send( "++read10" );
+
+        raw_power_spectrum += socket->Receive();
+
+    }
+
+    return raw_str_to_vector( raw_power_spectrum );
+}
+
 /*!
- * \brief NetworkAnalyzer::TakeDataMultiple
- * \param frequency_centers
+ * \brief Collect a single power spectrum from the Network Analyzer
+ *
+ * Settings will be whatever the Network Analyzer was set to when this function is called.
  * \return
  */
-std::vector< float > NetworkAnalyzer::TakeDataMultiple( std::vector< float > frequency_centers ) {
+std::vector< double > NetworkAnalyzer::TakeDataSingle() {
+    //Change GPIB address to passthrough -- send commands to signal sweeper
+   socket->Send( "++addr 17" );
 
+   //Set signal sweep time to 100ms (fastest possible)
+   socket->Send( "ST100MS" );
+   sleep(1);
+
+   //Return to network analyzer
+   socket->Send( "++addr 16" );
+
+   //Turn off swept mode
+   socket->Send( "SW0" );
+   //Set Analyzer to perform exactly one sweep
+   socket->Send( "TS1" );
+   //Give Network Analyzer time to complete sweep
+   sleep(3);
+
+   //Take measurement
+   // Input A absolute power measurement
+   socket->Send( "C1IA" );
+   socket->Send( "C1OD" );
+   //Date output in ASCII mode takes ~0.8 seconds -- wait before trying to read data
+   sleep(1);
+   socket->Send( "++read10" );
+
+   std::string raw_power_spectrum = socket->Receive();
+
+   return raw_str_to_vector( raw_power_spectrum );
 }
 
-std::vector< float > NetworkAnalyzer::TakeDataSingle( double center_frequency ) {
+void NetworkAnalyzer::SetFrequencyWindow( double frequency, double frequency_span ) {
 
-}
+    // set passthrough mode to source
+    socket->Send( "PT19" );
+    // change GPIB address to passthrough, send commands to signal sweeper
+    socket->Send( "++addr 17" );
 
-void NetworkAnalyzer::SetFrequencyWindow( double frequency_span ) {
+    // set center frequency to frequency specified
+    std::string freq_str = boost::lexical_cast<std::string>( frequency );
 
+    socket->Send( "CF " + freq_str + "MZ" );
+    sleep(1);
+
+    std::string span_str = boost::lexical_cast<std::string>( frequency_span );
+    // set frequency window around center to specified span
+    socket->Send( "DF " + span_str + "MZ" );
+    sleep(1);
+
+    // return to network analyzer
+    socket->Send( "++addr 16" );
 }
 
 /*!
@@ -140,5 +231,30 @@ void NetworkAnalyzer::SetRFSource( bool source_on ) {
     }
 
     socket->Send( "++addr 16" );  // change back GPIB address to network analyzer
+
+}
+
+/*!
+ * \brief Convert raw string pulled from network analyzer to a vector
+ *
+ * \param raw_data
+ *
+ * Raw string with comma-seperated list of values ended with "\n"
+ *
+ * \return Vector of power values
+ */
+std::vector< double > NetworkAnalyzer::raw_str_to_vector( std::string raw_data ) {
+
+    std::vector<std::string> strs;
+    boost::split(strs, raw_data, boost::is_any_of(","));
+
+    std::vector< double > power_values;
+    power_values.reserve( strs.size() );
+
+    for( uint i = 0; i < strs.size() ; i++ ) {
+        power_values.push_back( boost::lexical_cast<double>( strs.at(i) ) );
+    }
+
+    return power_values;
 
 }

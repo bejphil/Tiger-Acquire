@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['networkanalyzer',['NetworkAnalyzer',['../class_network_analyzer.html',1,'']]]
+  ['experimentparameters',['ExperimentParameters',['../class_experiment_parameters.html',1,'']]]
 ];

@@ -32,18 +32,18 @@ Collaboration diagram for Network\+Analyzer\+:
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries Network\+Analyzer} (std\+::string ip\+\_\+addr, uint port\+\_\+number)\hypertarget{class_network_analyzer_a80259e258ac41d5750f53565362f7420}{}\label{class_network_analyzer_a80259e258ac41d5750f53565362f7420}
+{\bfseries Network\+Analyzer} (std\+::string ip\+\_\+addr, uint port\+\_\+number, uint points, double span, double power)\hypertarget{class_network_analyzer_a1d8a2de50a5079e392e912e3bc25cbbb}{}\label{class_network_analyzer_a1d8a2de50a5079e392e912e3bc25cbbb}
 
 \item 
 \hyperlink{class_network_analyzer}{Network\+Analyzer} \& {\bfseries operator=} (const \hyperlink{class_network_analyzer}{Network\+Analyzer} \&)=delete\hypertarget{class_network_analyzer_a2785c012d28fb621e7218a9e471716e3}{}\label{class_network_analyzer_a2785c012d28fb621e7218a9e471716e3}
 
 \item 
-std\+::vector$<$ float $>$ \hyperlink{class_network_analyzer_a628344447ef7939877e49acb8ed72dab}{Take\+Data\+Multiple} (std\+::vector$<$ float $>$ frequency\+\_\+centers)
-\begin{DoxyCompactList}\small\item\em \hyperlink{class_network_analyzer_a628344447ef7939877e49acb8ed72dab}{Network\+Analyzer\+::\+Take\+Data\+Multiple}. \end{DoxyCompactList}\item 
-std\+::vector$<$ float $>$ {\bfseries Take\+Data\+Single} (double center\+\_\+frequency)\hypertarget{class_network_analyzer_a501cea89865657ee19c3bc457658092c}{}\label{class_network_analyzer_a501cea89865657ee19c3bc457658092c}
+std\+::vector$<$ double $>$ {\bfseries Take\+Data\+Multiple} ()\hypertarget{class_network_analyzer_a667cf86a80639bb57c67061b7c9df210}{}\label{class_network_analyzer_a667cf86a80639bb57c67061b7c9df210}
 
 \item 
-void {\bfseries Set\+Frequency\+Window} (double frequency\+\_\+span)\hypertarget{class_network_analyzer_a2fee24f238cc8ad5ecdb72da4fc7c848}{}\label{class_network_analyzer_a2fee24f238cc8ad5ecdb72da4fc7c848}
+std\+::vector$<$ double $>$ \hyperlink{class_network_analyzer_aa7ae9c649f4d7a5828e2d24ad8dee65d}{Take\+Data\+Single} ()
+\begin{DoxyCompactList}\small\item\em Collect a single power spectrum from the Network Analyzer. \end{DoxyCompactList}\item 
+void {\bfseries Set\+Frequency\+Window} (double frequency, double frequency\+\_\+span)\hypertarget{class_network_analyzer_a65864fe6142eadfd8e3e976e592e4bf0}{}\label{class_network_analyzer_a65864fe6142eadfd8e3e976e592e4bf0}
 
 \item 
 void \hyperlink{class_network_analyzer_a6d4e76a043fd30788167c4c0e187ed00}{Turn\+On\+R\+F\+Source} ()\hypertarget{class_network_analyzer_a6d4e76a043fd30788167c4c0e187ed00}{}\label{class_network_analyzer_a6d4e76a043fd30788167c4c0e187ed00}
@@ -52,29 +52,25 @@ void \hyperlink{class_network_analyzer_a6d4e76a043fd30788167c4c0e187ed00}{Turn\+
 void \hyperlink{class_network_analyzer_aeeb9823df08d7b602d524583fcc94c26}{Turn\+Off\+R\+F\+Source} ()\hypertarget{class_network_analyzer_aeeb9823df08d7b602d524583fcc94c26}{}\label{class_network_analyzer_aeeb9823df08d7b602d524583fcc94c26}
 
 \begin{DoxyCompactList}\small\item\em Turn the RF source off. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
 
 
 \subsection{Detailed Description}
 Object to communicate with the H\+P8757 C Network Analyzer. 
 
 \subsection{Member Function Documentation}
-\index{Network\+Analyzer@{Network\+Analyzer}!Take\+Data\+Multiple@{Take\+Data\+Multiple}}
-\index{Take\+Data\+Multiple@{Take\+Data\+Multiple}!Network\+Analyzer@{Network\+Analyzer}}
-\subsubsection[{\texorpdfstring{Take\+Data\+Multiple(std\+::vector$<$ float $>$ frequency\+\_\+centers)}{TakeDataMultiple(std::vector< float > frequency_centers)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ float $>$ Network\+Analyzer\+::\+Take\+Data\+Multiple (
+\index{Network\+Analyzer@{Network\+Analyzer}!Take\+Data\+Single@{Take\+Data\+Single}}
+\index{Take\+Data\+Single@{Take\+Data\+Single}!Network\+Analyzer@{Network\+Analyzer}}
+\subsubsection[{\texorpdfstring{Take\+Data\+Single()}{TakeDataSingle()}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ double $>$ Network\+Analyzer\+::\+Take\+Data\+Single (
 \begin{DoxyParamCaption}
-\item[{std\+::vector$<$ float $>$}]{frequency\+\_\+centers}
+{}
 \end{DoxyParamCaption}
-)}\hypertarget{class_network_analyzer_a628344447ef7939877e49acb8ed72dab}{}\label{class_network_analyzer_a628344447ef7939877e49acb8ed72dab}
+)}\hypertarget{class_network_analyzer_aa7ae9c649f4d7a5828e2d24ad8dee65d}{}\label{class_network_analyzer_aa7ae9c649f4d7a5828e2d24ad8dee65d}
 
 
-\hyperlink{class_network_analyzer_a628344447ef7939877e49acb8ed72dab}{Network\+Analyzer\+::\+Take\+Data\+Multiple}. 
+Collect a single power spectrum from the Network Analyzer. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em frequency\+\_\+centers} & \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
+Settings will be whatever the Network Analyzer was set to when this function is called. \begin{DoxyReturn}{Returns}
 
 \end{DoxyReturn}
 

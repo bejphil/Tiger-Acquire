@@ -19,12 +19,12 @@
 class NetworkAnalyzer : public AbstractSocketCommunicator {
 
   public:
-    NetworkAnalyzer(std::string ip_addr, uint port_number , uint points, double span, double power);
+    NetworkAnalyzer( std::string ip_addr, uint port_number , uint points, double span, double power );
     NetworkAnalyzer& operator=( const NetworkAnalyzer& ) = delete; // non copyable
 
-    std::vector< float > TakeDataMultiple( std::vector< float > frequency_centers );
-    std::vector< float > TakeDataSingle( double center_frequency );
-    void SetFrequencyWindow( double frequency_span );
+    std::vector< double > TakeDataMultiple();
+    std::vector< double > TakeDataSingle();
+    void SetFrequencyWindow( double frequency, double frequency_span );
     void TurnOnRFSource();
     void TurnOffRFSource();
 
@@ -33,6 +33,8 @@ class NetworkAnalyzer : public AbstractSocketCommunicator {
     void SetNetworkAnalyzer( uint points_per_scan = 401, bool do_averaging = false );
     void SetRFParameters( double frequency_span, double RF_source_power );
     void SetRFSource( bool source_on );
+
+    std::vector< double > raw_str_to_vector( std::string raw_data );
 
 };
 
