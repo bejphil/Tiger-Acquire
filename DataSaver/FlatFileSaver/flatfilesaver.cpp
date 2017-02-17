@@ -16,6 +16,10 @@
 //Project specific headers
 //
 
+FlatFileSaver::FlatFileSaver( std::string save_file_path ) {
+    root_dir = save_file_path + GetFolderName();
+    MakeEmptyDataFolder( root_dir );
+}
 
 void FlatFileSaver::Save( std::vector< data_triple<double> > data_values, std::string header ) {
 
@@ -59,7 +63,7 @@ void FlatFileSaver::MakeEmptyDataFolder( std::string data_folder ) {
 
     if( boost::filesystem::create_directory(dir) ) {
 
-        std::cerr << "Directory Created: " << data_folder << std::endl;
+        std::cout << "Directory Created: " << data_folder << std::endl;
 
     }
 

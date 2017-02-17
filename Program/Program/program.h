@@ -25,12 +25,10 @@ class Program : public ProgramFrame {
     double FindModeReflection();
     double FindModeTransmission( double mode_frequency );
     data_list TakeData( double mode_frequency );
-    void SetBackground();
-    void SavePowerSpectrum();
+    void SavePowerSpectrum(data_list scan);
     void PanicCleanUp();
 
     void Run();
-
 
   private:
     double DeriveLengthFromStart();

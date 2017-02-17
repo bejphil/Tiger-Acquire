@@ -16,8 +16,13 @@ void ProgramFrame::Prequel() {
     mxg_n5183b->SetPower( signal_generator_power_dBm );
 }
 
-void ProgramFrame::SetBackground( data_list blank_data ) {
+void ProgramFrame::SetBackground() {
+
+    std::vector< double > background = hp8757_c->TakeDataMultiple();
+    data_list blank_data = power_to_data_list( background );
+
     mode_tracker.SetBackground( blank_data );
+
 }
 
 double ProgramFrame::FindMinimaPeak(data_list formatted_points ) {
@@ -53,7 +58,12 @@ double ProgramFrame::DeriveCavityLength() {
 
 double ProgramFrame::RecenterPeak( std::vector< data_triple<double> > to_check ) {
 
-    return mode_tracker.GetMaxPeak( to_check );
+    try {
+        return mode_tracker.GetMaxPeak( to_check );
+    } catch (const daq_failure& e) {
+        throw daq_failure( "Could not find a local maxima in provided data set." );
+    }
+
 }
 
 void ProgramFrame::ShiftFrequencyWindow( double center_frequency ) {
@@ -66,8 +76,10 @@ void ProgramFrame::ShiftFrequencyWindow( double center_frequency ) {
 
 double ProgramFrame::CheckPeak( double possible_mode_position ) {
 
-    if( possible_mode_position == 0.0 ) {
-        return -1.0;
+    if( possible_mode_position <= 0.0 ) {
+
+        throw daq_failure( "Mode position to less than or equal to 0 MHz" );
+//        return -1.0;
     }
 
     // Since we identified the position of our mode using reflection measurements
@@ -98,29 +110,56 @@ double ProgramFrame::CheckPeak( double possible_mode_position ) {
 
 }
 
-std::vector< data_triple<double> > ProgramFrame::power_to_data_list ( std::vector< double > power_list ) {
+std::vector< data_triple<double> > ProgramFrame::power_to_data_list ( std::vector< float > power_list ) {
 
-        uint number_of_points = power_list.size();
-        double max_freq = center_frequency + nwa_span_MHz / 2.0;
-        double min_freq = center_frequency - nwa_span_MHz / 2.0;
+    uint number_of_points = power_list.size();
+    float max_freq = center_frequency + nwa_span_MHz / 2.0f;
+    float min_freq = center_frequency - nwa_span_MHz / 2.0f;
 
-        double cavity_length = arduino->GetCavityLength();
+    float cavity_length = static_cast<float>( arduino->GetCavityLength() );
 
-        std::vector< data_triple<double> > processed;
-        processed.reserve( number_of_points );
+    std::vector< data_triple< double > > processed;
+    processed.reserve( number_of_points );
 
-        for( uint i = 0; i < number_of_points ; i++ ) {
+    for( uint i = 0; i < number_of_points ; i++ ) {
 
-            double i_f = static_cast<double>(i);
-            double num_points_f = static_cast<double>(number_of_points);
+        double i_f = static_cast<double>(i);
+        double num_points_f = static_cast<double>(number_of_points);
 
-            double frequency = (i_f + 1.0)*(max_freq - min_freq)/(num_points_f) + min_freq;
-            double power = power_list.at(i);
+        double frequency = ( i_f + 1.0 )*( max_freq - min_freq )/( num_points_f ) + min_freq;
+        double power = static_cast<double>( power_list.at(i) );
 
-            processed.push_back( data_triple<double>( round(frequency), cavity_length, power ) );
-
-        }
-
-        return processed;
+        processed.push_back( data_triple< double >( std::round( frequency ), cavity_length, power ) );
 
     }
+
+    return processed;
+
+}
+
+std::vector< data_triple<double> > ProgramFrame::power_to_data_list ( std::vector< double > power_list ) {
+
+    uint number_of_points = power_list.size();
+    double max_freq = center_frequency + nwa_span_MHz / 2.0;
+    double min_freq = center_frequency - nwa_span_MHz / 2.0;
+
+    double cavity_length = arduino->GetCavityLength();
+
+    std::vector< data_triple<double> > processed;
+    processed.reserve( number_of_points );
+
+    for( uint i = 0; i < number_of_points ; i++ ) {
+
+        double i_f = static_cast<double>(i);
+        double num_points_f = static_cast<double>(number_of_points);
+
+        double frequency = (i_f + 1.0)*(max_freq - min_freq)/(num_points_f) + min_freq;
+        double power = power_list.at(i);
+
+        processed.push_back( data_triple<double>( round(frequency), cavity_length, power ) );
+
+    }
+
+    return processed;
+
+}
