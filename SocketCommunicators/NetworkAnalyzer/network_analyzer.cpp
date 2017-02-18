@@ -3,11 +3,12 @@
 //C++ System headers
 //
 //Boost Headers
-#include <boost/algorithm/string.hpp>//split(), is_any_of
+#include <boost/algorithm/string.hpp>//split(), is_any_of, trim
 #include <boost/lexical_cast.hpp>
 //Qt Headers
 //
 //Project specific headers
+#include "../../Algorithm/algorithm.h" // remove_newlines
 #include "network_analyzer.h"
 
 NetworkAnalyzer::NetworkAnalyzer( std::string ip_addr, uint port_number, uint points, double span, double power ) : AbstractSocketCommunicator( ip_addr, port_number ) {
@@ -59,9 +60,20 @@ std::vector< double > NetworkAnalyzer::TakeDataMultiple() {
         sleep(1);
         socket->Send( "++read10" );
 
-        raw_power_spectrum += socket->Receive();
+        std::string single_scan = socket->Receive();
 
+        // Remove white space
+        boost::algorithm::trim( single_scan );
+        // Remove newlines
+        etig::remove_newlines( single_scan );
+
+        raw_power_spectrum += single_scan;
+        raw_power_spectrum += ","; // Need to manually insert comma at end of previous scan
     }
+
+    // Our composite power spectrum will have a single extra ','
+    // at the end, which we need to remove before converting
+    raw_power_spectrum.pop_back();
 
     return raw_str_to_vector( raw_power_spectrum );
 }
@@ -74,33 +86,35 @@ std::vector< double > NetworkAnalyzer::TakeDataMultiple() {
  */
 std::vector< double > NetworkAnalyzer::TakeDataSingle() {
     //Change GPIB address to passthrough -- send commands to signal sweeper
-   socket->Send( "++addr 17" );
+    socket->Send( "++addr 17" );
 
-   //Set signal sweep time to 100ms (fastest possible)
-   socket->Send( "ST100MS" );
-   sleep(1);
+    //Set signal sweep time to 100ms (fastest possible)
+    socket->Send( "ST100MS" );
+    sleep(1);
 
-   //Return to network analyzer
-   socket->Send( "++addr 16" );
+    //Return to network analyzer
+    socket->Send( "++addr 16" );
 
-   //Turn off swept mode
-   socket->Send( "SW0" );
-   //Set Analyzer to perform exactly one sweep
-   socket->Send( "TS1" );
-   //Give Network Analyzer time to complete sweep
-   sleep(3);
+    //Turn off swept mode
+    socket->Send( "SW0" );
+    //Set Analyzer to perform exactly one sweep
+    socket->Send( "TS1" );
+    //Give Network Analyzer time to complete sweep
+    sleep(3);
 
-   //Take measurement
-   // Input A absolute power measurement
-   socket->Send( "C1IA" );
-   socket->Send( "C1OD" );
-   //Date output in ASCII mode takes ~0.8 seconds -- wait before trying to read data
-   sleep(1);
-   socket->Send( "++read10" );
+    // Take measurement
+    // Input A absolute power measurement
+    socket->Send( "C1IA" );
+    socket->Send( "C1OD" );
+    //Date output in ASCII mode takes ~0.8 seconds -- wait before trying to read data
+    sleep(1);
+    socket->Send( "++read10" );
 
-   std::string raw_power_spectrum = socket->Receive();
+    std::string raw_power_spectrum = socket->Receive();
+    // remove any white space and newlines from raw data string
+    boost::algorithm::trim( raw_power_spectrum );
 
-   return raw_str_to_vector( raw_power_spectrum );
+    return raw_str_to_vector( raw_power_spectrum );
 }
 
 void NetworkAnalyzer::SetFrequencySpan( double frequency_span ) {
@@ -164,7 +178,7 @@ void NetworkAnalyzer::SetGPIB() {
     socket->Send( "++addr 16" ); // Set to network analyzer GPIB address
     socket->Send( "++auto 0" ); // Disable Auto-Read
     socket->Send( "++eoi 1" ); // Enable EOI assertion at end of commands
-    socket->Send( "eos 0" ); // Append CR+LF to instrument commands
+    socket->Send( "++eos 0" ); // Append CR+LF to instrument commands
 
 }
 
@@ -269,7 +283,12 @@ std::vector< double > NetworkAnalyzer::raw_str_to_vector( std::string raw_data )
     power_values.reserve( strs.size() );
 
     for( uint i = 0; i < strs.size() ; i++ ) {
-        power_values.push_back( boost::lexical_cast<double>( strs.at(i) ) );
+
+        try {
+            power_values.push_back( boost::lexical_cast<double>( strs.at(i) ) );
+        } catch (const boost::bad_lexical_cast& bad_cast) {
+            std::cout << "Failed to cast entry " << strs.at(i) << " to numeric type." << std::endl;
+        }
     }
 
     return power_values;

@@ -21,6 +21,9 @@ class QSocketIntermitten : public QObject {
     explicit QSocketIntermitten( std::string host_name, uint port_number, QObject *parent = 0 );
     ~QSocketIntermitten();
 
+    void OpenConnection();
+    void CloseConnection();
+
     void Send( std::string command, std::string terminator="\n" );
     void SendScl( std::string command );
 
@@ -30,6 +33,7 @@ class QSocketIntermitten : public QObject {
   private:
     QString ip_addr;
     uint port;
+    bool connection_open = false;
 
     QTcpSocket *socket;
 

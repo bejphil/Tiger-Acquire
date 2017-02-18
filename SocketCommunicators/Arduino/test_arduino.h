@@ -17,7 +17,7 @@ void TestArduino() {
 
     std::cout << "Testing Arduino" << std::endl;
 
-    const TCPSocketParam arduino_info = TCPSocketParam( "Arduino", ";10.66.192.41", 23 );
+    const TCPSocketParam arduino_info = TCPSocketParam( "Arduino", "10.95.100.173", 23 );
     std::shared_ptr<Arduino> arduino = std::shared_ptr<Arduino>( new Arduino( arduino_info.ip_addr,\
                                        arduino_info.port_addr ) );
 

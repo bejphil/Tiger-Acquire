@@ -46,7 +46,7 @@ class ProgramCore {
     const TCPSocketParam network_analyzer = TCPSocketParam( "NetworkAnalyzer", "10.95.100.176", 1234 );
     const TCPSocketParam stepper = TCPSocketParam( "Stepper", "10.95.100.177", 7776 );
     const TCPSocketParam signal_generator = TCPSocketParam( "SignalGenerator", "10.95.100.175", 5025 );
-    const TCPSocketParam arduino_info = TCPSocketParam( "Arduino", ";10.66.192.41", 23 );
+    const TCPSocketParam arduino_info = TCPSocketParam( "Arduino", "10.95.100.173", 23 );
 
 
     //std::shared_ptr<ATS9462Engine> ats9462;

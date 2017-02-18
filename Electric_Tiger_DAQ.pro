@@ -67,7 +67,8 @@ SOURCES += main.cpp\
     ModeTracker/mode_track_failure.cpp \
     SocketCommunicators/NetworkAnalyzer/test_network_analyzer.cpp \
     SocketCommunicators/SocketComm/qsocketintermitten.cpp \
-    SocketCommunicators/AbstractSocketCommunicator/abstractintermittensocket.cpp
+    SocketCommunicators/AbstractSocketCommunicator/abstractintermittensocket.cpp \
+    Algorithm/algorithm.cpp
 
 HEADERS  += mainwindow.h \
    # ConfigProcessor/configprocessor.h \
@@ -105,7 +106,8 @@ HEADERS  += mainwindow.h \
     SocketCommunicators/AbstractSocketCommunicator/abstractintermittensocket.h \
     SocketCommunicators/StepperMotor/test_stepper_motor.h \
     SocketCommunicators/Switch/test_switch.h \
-    SocketCommunicators/test_socketcommunicators.h
+    SocketCommunicators/test_socketcommunicators.h \
+    Algorithm/algorithm.h
 
 FORMS    += mainwindow.ui \
     SpectrumAnalyzer/GraphicObjects/chartscalecontrols.ui \

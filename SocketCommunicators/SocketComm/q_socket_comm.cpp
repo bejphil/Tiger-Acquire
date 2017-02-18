@@ -59,7 +59,7 @@ void QSocketComm::Send( std::string command, std::string terminator ) {
 
 void QSocketComm::SendScl( std::string command ) {
 
-    std::string message = "\0\a" + command;
+    std::string message = "\0\a" + command + "\r";
 
     socket->write( message.c_str() );
     socket->waitForBytesWritten(1000);

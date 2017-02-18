@@ -6,10 +6,12 @@
 #include <stdexcept>
 #include <iostream>
 //Boost Headers
+#include <boost/algorithm/string.hpp>//split(), is_any_of, trim
 #include <boost/lexical_cast.hpp>
 //Qt Headers
 //
 //Project specific headers
+#include "../../Algorithm/algorithm.h"
 #include "arduino.h"
 
 Arduino::Arduino( std::string ip_addr, uint port_number ) : AbstractSocketCommunicator( ip_addr, port_number ) {}
@@ -19,7 +21,12 @@ double Arduino::GetCavityLength() {
 
     // Arduino can take an unusually long time to respond, need to use a timeout > 2 seconds
     // need to strip any whiteespace that that will cause a bad cast from string to float
-    std::string cavity_length = socket->Receive();
+    std::string raw_response = socket->Receive();
 
-    return boost::lexical_cast< double >( cavity_length );
+    // Remove white space
+    boost::algorithm::trim( raw_response );
+    // Remove newlines
+    etig::remove_newlines( raw_response );
+
+    return boost::lexical_cast< double >( raw_response );
 }

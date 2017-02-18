@@ -21,7 +21,8 @@ QSocketIntermitten::QSocketIntermitten( std::string host_name, uint port_number,
     ip_addr = QString::fromStdString( host_name );
     port = port_number;
 
-    if( socket->waitForConnected(3000) ) {
+    //Check to make sure we can connect
+    if( socket->waitForConnected(5000) ) {
         qDebug() << "Connected!";
     } else {
 
@@ -29,7 +30,7 @@ QSocketIntermitten::QSocketIntermitten( std::string host_name, uint port_number,
         std::string sock_error = q_sock_error.toStdString();
 
         std::string err_mesg = "Failed to connect to socket\n";
-        err_mesg +="IP Address: " + host_name;
+        err_mesg +=" IP Address: " + host_name;
         err_mesg +=" Port Number: " + boost::lexical_cast<std::string>( port_number );
         err_mesg += "\nSocket Error: " + sock_error;
 
@@ -38,6 +39,10 @@ QSocketIntermitten::QSocketIntermitten( std::string host_name, uint port_number,
 
     socket->disconnectFromHost();
 
+    if (socket->state() != QAbstractSocket::UnconnectedState) {
+        socket->waitForDisconnected(5000);
+    }
+
 }
 
 QSocketIntermitten::~QSocketIntermitten() {
@@ -45,7 +50,7 @@ QSocketIntermitten::~QSocketIntermitten() {
     socket->disconnectFromHost();
 
     if (socket->state() != QAbstractSocket::UnconnectedState) {
-        socket->waitForDisconnected(3000);
+        socket->waitForDisconnected(5000);
     }
 
     socket->close();
@@ -53,13 +58,12 @@ QSocketIntermitten::~QSocketIntermitten() {
 
 }
 
-void QSocketIntermitten::Send( std::string command, std::string terminator ) {
-
-    std::string message = command + terminator;
+void QSocketIntermitten::OpenConnection() {
 
     socket->connectToHost( ip_addr, port );
 
-    if( socket->waitForConnected(3000) ) {
+    if( socket->waitForConnected(5000) ) {
+        connection_open = true;
         qDebug() << "Connected!";
     } else {
 
@@ -74,64 +78,61 @@ void QSocketIntermitten::Send( std::string command, std::string terminator ) {
         throw std::runtime_error(err_mesg);
     }
 
-    socket->write( message.c_str() );
-    socket->waitForBytesWritten(1000);
+}
+
+void QSocketIntermitten::CloseConnection() {
 
     socket->disconnectFromHost();
 
     if (socket->state() != QAbstractSocket::UnconnectedState) {
-        socket->waitForDisconnected(3000);
+        socket->waitForDisconnected(5000);
     }
+
+    connection_open = false;
+
+}
+
+void QSocketIntermitten::Send( std::string command, std::string terminator ) {
+
+    if( connection_open == false ) {
+        return;
+    }
+
+    std::string message = command + terminator;
+
+    socket->write( message.c_str() );
+    socket->waitForBytesWritten(5000);
 
 }
 
 void QSocketIntermitten::SendScl( std::string command ) {
 
-    std::string message = "\0\a" + command;
-
-    socket->connectToHost( ip_addr, port );
-
-    if( socket->waitForConnected(3000) ) {
-        qDebug() << "Connected!";
-    } else {
-
-        QString q_sock_error = socket->errorString();
-        std::string sock_error = q_sock_error.toStdString();
-
-        std::string err_mesg = "Failed to connect to socket\n";
-        err_mesg +="IP Address: " + ip_addr.toStdString();
-        err_mesg +=" Port Number: " + boost::lexical_cast<std::string>( port );
-        err_mesg += "\nSocket Error: " + sock_error;
-
-        throw std::runtime_error(err_mesg);
+    if( connection_open == false ) {
+        return;
     }
 
-    socket->write( message.c_str() );
-    socket->waitForBytesWritten(1000);
+    // Yes, we really do have to build the string in exactly this way
+    // The more intuitive, std::string message = "\0\a" + command + "\r",
+    // Will indeed fail.
+    std::string message;
+    message.push_back( '\0' );
+    message.push_back( '\a' );
+    message += command;
+    message.push_back( '\r' );
 
-    socket->disconnectFromHost();
+    QByteArray message_array( message.c_str(), message.length() );
+    socket->write( message_array );
 
-    if (socket->state() != QAbstractSocket::UnconnectedState) {
-        socket->waitForDisconnected(3000);
-    }
+    socket->waitForBytesWritten(5000);
 
 }
 
 std::string QSocketIntermitten::Receive() {
 
-    socket->connectToHost( ip_addr, port );
+    if( connection_open == false ) {
 
-    if( socket->waitForConnected(3000) ) {
-        qDebug() << "Connected!";
-    } else {
-
-        QString q_sock_error = socket->errorString();
-        std::string sock_error = q_sock_error.toStdString();
-
-        std::string err_mesg = "Failed to connect to socket\n";
-        err_mesg +="IP Address: " + ip_addr.toStdString();
-        err_mesg +=" Port Number: " + boost::lexical_cast<std::string>( port );
-        err_mesg += "\nSocket Error: " + sock_error;
+        std::string err_mesg = "Connection to socket is closed! ";
+        err_mesg +="Must call QSocketIntermitten::OpenConnection before reading.";
 
         throw std::runtime_error(err_mesg);
     }
@@ -147,12 +148,6 @@ std::string QSocketIntermitten::Receive() {
     int bytes = array.indexOf('\n') + 1;     // Find the end of message
     QByteArray message = array.left(bytes);  // Cut the message
     array = array.mid(bytes);                // Keep the data read too early
-
-    socket->disconnectFromHost();
-
-    if (socket->state() != QAbstractSocket::UnconnectedState) {
-        socket->waitForDisconnected(3000);
-    }
 
     return std::string( message.data(), message.size() );
 

@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-//    test_socket_comm();
+    TestSignalGenerator();
 
     return a.exec();
 }

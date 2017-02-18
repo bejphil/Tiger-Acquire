@@ -61,17 +61,6 @@ struct data_triple {
         return *this;
     }
 
-    /*
-    friend std::ostream& operator << (std::ostream& stream, data_triple& triple) {
-
-        stream << triple.cavity_length << "," \
-               << triple.frequency_MHz << ","\
-               << triple.power_dBm;
-
-        return stream;
-    }
-    */
-
     friend std::ofstream& operator << (std::ofstream& stream, const data_triple& triple) {
 
         stream << triple.cavity_length << "," \

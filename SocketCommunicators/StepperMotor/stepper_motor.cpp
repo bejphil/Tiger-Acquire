@@ -16,20 +16,26 @@ StepperMotor::StepperMotor( std::string ip_addr, uint port_number ) : AbstractIn
 
 
 void StepperMotor::SetToInitialLength( double initial_length, double current_length ) {
-    SetUpStepperMotor( 5.0 );
+
     double delta_l = initial_length - current_length;
     int delta_steps = static_cast<int>( std::round( 16.0*200*delta_l ) );
 
     std::string command = "FL";
     command += boost::lexical_cast<std::string>( delta_steps );
 
+    socket->OpenConnection();
+    SetUpStepperMotor( 5.0 );
+
     socket->SendScl( command );
 
     double delay_time = std::abs( delta_l );
     sleep( delay_time );
+
+    socket->CloseConnection();
 }
 
 void StepperMotor::TuneCavity( double length_of_tune ) {
+
     int revs = static_cast<int>( length_of_tune*16.0 );
 
     int number_steps = revs*200;
@@ -37,7 +43,12 @@ void StepperMotor::TuneCavity( double length_of_tune ) {
     std::string command = "FL";
     command += boost::lexical_cast<std::string>( number_steps );
 
+    socket->OpenConnection();
+    SetUpStepperMotor( 5.0 );
+
     socket->SendScl( command );
+
+    socket->CloseConnection();
 }
 
 void StepperMotor::PanicResetCavity( uint iteration, double revs_per_iter ) {
@@ -48,7 +59,12 @@ void StepperMotor::PanicResetCavity( uint iteration, double revs_per_iter ) {
     std::string command = "FL";
     command += boost::lexical_cast<std::string>( number_steps );
 
+    socket->OpenConnection();
+    SetUpStepperMotor( 5.0 );
+
     socket->SendScl( command );
+
+    socket->CloseConnection();
 }
 
 void StepperMotor::TuningLoop( double len_of_tune, double revs, uint iters ) {

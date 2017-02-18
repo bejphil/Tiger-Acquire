@@ -11,6 +11,7 @@
 //
 //Project specific headers
 #include "../AbstractSocketCommunicator/abstractintermittensocket.h"
+#include "../AbstractSocketCommunicator/abstractsocketcommunictor.h"
 
 /*!
  * \brief Object to sends commands to an Applied Motion products stepper motor.
@@ -27,7 +28,7 @@ class StepperMotor : public AbstractIntermittenSocket {
     void TuningLoop(double len_of_tune, double revs, uint iters);
 
   private:
-    void SetUpStepperMotor( double traverse_speed );
+    void SetUpStepperMotor( double traverse_speed = 5.0 );
 
 };
 

@@ -15,16 +15,16 @@
 SignalGenerator::SignalGenerator( std::string ip_addr, uint port_number ) : AbstractSocketCommunicator( ip_addr, port_number ) {}
 
 void SignalGenerator::RFOn() {
-    socket->Send( "OUTP:STAT ON" );
+    socket->Send( "OUTP ON" );
 }
 
 void SignalGenerator::RFOff() {
-    socket->Send( "OUTP:STAT OFF" );
+    socket->Send( "OUTP OFF" );
 }
 
 void SignalGenerator::SetFrequency( double freq_MHz ) {
 
-    std::string command = ":FREQ:CENT ";
+    std::string command = "FREQ ";
     command += boost::lexical_cast<std::string>( freq_MHz );
     command += " MHz";
 
@@ -34,7 +34,8 @@ void SignalGenerator::SetFrequency( double freq_MHz ) {
 
 void SignalGenerator::SetPower( double power_dBm ) {
 
-    std::string command = ":SOUR:POW:LEV:IMM:AMP ";
+//    std::string command = "POW:LEV:IMM:AMP ";
+    std::string command = "POW:LEV ";
     command += boost::lexical_cast<std::string>( power_dBm );
     command += " dB";
 

@@ -18,16 +18,14 @@ void TestStepperMotor() {
 
     std::cout << "Testing Stepper Motor." << std::endl;
 
-    const TCPSocketParam arduino_info = TCPSocketParam( "Arduino", ";10.66.192.41", 23 );
-    std::shared_ptr<Arduino> arduino = std::shared_ptr<Arduino>( new Arduino( arduino_info.ip_addr,\
-                                       arduino_info.port_addr ) );
-
     const TCPSocketParam stepper = TCPSocketParam( "Stepper", "10.95.100.177", 7776 );
     std::shared_ptr<StepperMotor> stm23_ee = std::shared_ptr<StepperMotor>( new StepperMotor( stepper.ip_addr,\
             stepper.port_addr ) );
 
     std::cout << "Tuning cavity by + 1 inch." << std::endl;
     stm23_ee->TuneCavity( 1.0 );
+
+    sleep(5);
 
     std::cout << "Tuning cavity by - 1 inch." << std::endl;
     stm23_ee->TuneCavity( -1.0 );
