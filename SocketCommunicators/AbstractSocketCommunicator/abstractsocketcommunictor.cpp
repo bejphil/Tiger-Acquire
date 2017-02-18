@@ -1,12 +1,9 @@
 //C System-Headers
 //
 //C++ System headers
-#include <sstream>
-#include <string>
-#include <stdexcept>
-#include <iostream>
+//
 //Boost Headers
-#include <boost/lexical_cast.hpp>
+//
 //Qt Headers
 //
 //Project specific headers

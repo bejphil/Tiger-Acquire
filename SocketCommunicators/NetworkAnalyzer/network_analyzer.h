@@ -25,6 +25,7 @@ class NetworkAnalyzer : public AbstractSocketCommunicator {
     std::vector< double > TakeDataMultiple();
     std::vector< double > TakeDataSingle();
     void SetFrequencyWindow( double frequency, double frequency_span );
+    void SetFrequencySpan( double frequency_span );
     void TurnOnRFSource();
     void TurnOffRFSource();
 

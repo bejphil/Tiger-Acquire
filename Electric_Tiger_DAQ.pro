@@ -64,7 +64,10 @@ SOURCES += main.cpp\
     ModeCharacterization/modecharacterization.cpp \
     Program/Program/program.cpp \
     DataSaver/FlatFileSaver/flatfilesaver.cpp \
-    ModeTracker/mode_track_failure.cpp
+    ModeTracker/mode_track_failure.cpp \
+    SocketCommunicators/NetworkAnalyzer/test_network_analyzer.cpp \
+    SocketCommunicators/SocketComm/qsocketintermitten.cpp \
+    SocketCommunicators/AbstractSocketCommunicator/abstractintermittensocket.cpp
 
 HEADERS  += mainwindow.h \
    # ConfigProcessor/configprocessor.h \
@@ -94,7 +97,15 @@ HEADERS  += mainwindow.h \
     Program/Program/program.h \
     DataSaver/FlatFileSaver/flatfilesaver.h \
     ModeTracker/mode_track_failure.h \
-    Program/ProgramCore/daq_failure.h
+    Program/ProgramCore/daq_failure.h \
+    SocketCommunicators/Arduino/test_arduino.h \
+    SocketCommunicators/NetworkAnalyzer/test_network_analyzer.h \
+    SocketCommunicators/SignalGenerator/test_signal_generator.h \
+    SocketCommunicators/SocketComm/qsocketintermitten.h \
+    SocketCommunicators/AbstractSocketCommunicator/abstractintermittensocket.h \
+    SocketCommunicators/StepperMotor/test_stepper_motor.h \
+    SocketCommunicators/Switch/test_switch.h \
+    SocketCommunicators/test_socketcommunicators.h
 
 FORMS    += mainwindow.ui \
     SpectrumAnalyzer/GraphicObjects/chartscalecontrols.ui \

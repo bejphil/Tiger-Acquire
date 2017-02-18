@@ -76,7 +76,7 @@ void Program::SavePowerSpectrum( data_list scan ) {
 void Program::PanicCleanUp() {
 
     double cavity_length = arduino->GetCavityLength();
-    stm23_ee->ResetCavity( cavity_length );
+    stm23_ee->TuneCavity( cavity_length );
 
 }
 

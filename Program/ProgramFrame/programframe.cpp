@@ -41,7 +41,7 @@ std::string ProgramFrame::BuildHeader() {
     header += "nwa_power_dBm;" + boost::lexical_cast<std::string>( nwa_power_dBm ) + "\n";
     header += "freq_window_MHz;" + boost::lexical_cast<std::string>( freq_window_MHz ) + "\n";
     header += "digitizer_rate_MHz;" + boost::lexical_cast<std::string>( digitizer_rate_MHz ) + "\n";
-    header += "num_averages;" + boost::lexical_cast<std::string>( 10000 ) + "\n";
+    header += "num_averages;" + boost::lexical_cast<std::string>( num_averages ) + "\n";
 
     return header;
 }

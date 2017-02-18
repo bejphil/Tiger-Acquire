@@ -24,6 +24,17 @@ class Arduino : public AbstractSocketCommunicator {
     Arduino( std::string ip_addr, uint port_number );
     Arduino& operator=( const Arduino& ) = delete; // non copyable
 
+    /*!
+     * \brief  Get the current cavity length from the Arduino.
+     *
+     * This function will poll the Arduino until a non-empty string is returned,
+     * guaranteeing that the return value will be valid.
+     *
+     * Note that this does not elminate the problem of getting 'doubled' responses, e.g.
+     * "7.5\r\n7.5"
+     *
+     * \return Current length of the cavity, in inches
+     */
     double GetCavityLength();
 
   private:

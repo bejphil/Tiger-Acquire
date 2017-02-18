@@ -51,7 +51,7 @@ void ProgramCore::InitializeDigitizer() {
 }
 
 void ProgramCore::RetractCavity() {
-    stm23_ee->ResetCavity( length_of_tune );
+    stm23_ee->TuneCavity( length_of_tune );
 }
 
 void ProgramCore::RapidTraverse() {
@@ -73,14 +73,14 @@ void ProgramCore::PrequelReflection() {
 void ProgramCore::NextIteration() {
 
     iteration += 1;
-    stm23_ee->TuningLoop( length_of_tune, revs_per_iterations, iteration, number_of_iterations );
+    stm23_ee->TuningLoop( length_of_tune, revs_per_iterations, iteration );
 
 }
 
 //Begin private functions
 int ProgramCore::DeriveNumberofIterations() {
     double tune_length = length_of_tune*16.0;
-    double revs = abs( revs_per_iterations );
+    double revs = std::abs( revs_per_iterations );
     return static_cast<int>( tune_length/revs );
 }
 

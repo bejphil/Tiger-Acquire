@@ -20,6 +20,8 @@ std::vector< double > NetworkAnalyzer::TakeDataMultiple() {
 
     const std::vector< double > frequency_centers { 3200.0, 3600.0, 4000.0, 4400.0 };
 
+    SetFrequencySpan( 400.0 );
+
     std::string raw_power_spectrum = "";
 
     for( const auto& center : frequency_centers ) {
@@ -99,6 +101,21 @@ std::vector< double > NetworkAnalyzer::TakeDataSingle() {
    std::string raw_power_spectrum = socket->Receive();
 
    return raw_str_to_vector( raw_power_spectrum );
+}
+
+void NetworkAnalyzer::SetFrequencySpan( double frequency_span ) {
+    // set passthrough mode to source
+    socket->Send( "PT19" );
+    // change GPIB address to passthrough, send commands to signal sweeper
+    socket->Send( "++addr 17" );
+
+    std::string span_str = boost::lexical_cast<std::string>( frequency_span );
+    // set frequency window around center to specified span
+    socket->Send( "DF " + span_str + "MZ" );
+    sleep(1);
+
+    // return to network analyzer
+    socket->Send( "++addr 16" );
 }
 
 void NetworkAnalyzer::SetFrequencyWindow( double frequency, double frequency_span ) {

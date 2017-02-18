@@ -36,6 +36,7 @@ QSocketComm::QSocketComm( std::string host_name, uint port_number, QObject *pare
 }
 
 QSocketComm::~QSocketComm() {
+
     socket->disconnectFromHost();
 
     if (socket->state() != QAbstractSocket::UnconnectedState) {
@@ -58,7 +59,7 @@ void QSocketComm::Send( std::string command, std::string terminator ) {
 
 void QSocketComm::SendScl( std::string command ) {
 
-    std::string message = command+"\0\a";
+    std::string message = "\0\a" + command;
 
     socket->write( message.c_str() );
     socket->waitForBytesWritten(1000);

@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include <QApplication>
 
-#include "SocketCommunicators/SocketComm/test_socket_comm.cpp"
+#include "SocketCommunicators/test_socketcommunicators.h"
 
 int main(int argc, char *argv[])
 {

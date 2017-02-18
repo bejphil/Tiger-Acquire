@@ -12,7 +12,7 @@
 //Project specific headers
 #include "stepper_motor.h"
 
-StepperMotor::StepperMotor( std::string ip_addr, uint port_number ) : AbstractSocketCommunicator( ip_addr, port_number ) {}
+StepperMotor::StepperMotor( std::string ip_addr, uint port_number ) : AbstractIntermittenSocket( ip_addr, port_number ) {}
 
 
 void StepperMotor::SetToInitialLength( double initial_length, double current_length ) {
@@ -29,7 +29,7 @@ void StepperMotor::SetToInitialLength( double initial_length, double current_len
     sleep( delay_time );
 }
 
-void StepperMotor::ResetCavity( double length_of_tune ) {
+void StepperMotor::TuneCavity( double length_of_tune ) {
     int revs = static_cast<int>( length_of_tune*16.0 );
 
     int number_steps = revs*200;
@@ -51,7 +51,7 @@ void StepperMotor::PanicResetCavity( uint iteration, double revs_per_iter ) {
     socket->SendScl( command );
 }
 
-void StepperMotor::TuningLoop( double len_of_tune, double revs, uint iters, uint num_of_iters ) {
+void StepperMotor::TuningLoop( double len_of_tune, double revs, uint iters ) {
 
     int iteration_steps = static_cast<int>( revs*200 );
 
