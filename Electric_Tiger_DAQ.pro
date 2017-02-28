@@ -107,7 +107,8 @@ HEADERS  += mainwindow.h \
     SocketCommunicators/StepperMotor/test_stepper_motor.h \
     SocketCommunicators/Switch/test_switch.h \
     SocketCommunicators/test_socketcommunicators.h \
-    Algorithm/algorithm.h
+    Algorithm/algorithm.h \
+    ModeCharacterization/test_modecharacterization.h
 
 FORMS    += mainwindow.ui \
     SpectrumAnalyzer/GraphicObjects/chartscalecontrols.ui \

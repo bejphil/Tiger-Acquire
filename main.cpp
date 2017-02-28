@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include <QApplication>
 
-#include "SocketCommunicators/test_socketcommunicators.h"
+#include "ModeCharacterization/test_modecharacterization.h"
 
 int main(int argc, char *argv[])
 {
@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    TestSignalGenerator();
+    TestModeCharacterization();
 
     return a.exec();
 }
