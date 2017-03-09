@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    TestModeCharacterization( 47247, 54, 100000 );
+    etig::test::TestModeCharacterization( 47247, 54, 100000 );
 
     return a.exec();
 }

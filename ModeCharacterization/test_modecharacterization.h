@@ -17,6 +17,10 @@
 //Project specific headers
 #include "modecharacterization.h"
 
+namespace etig {
+
+namespace test {
+
 double volts_sqr_to_dbm( double voltage ) {
     return 10.0 * log10( voltage / std::sqrt(0.05) );
 }
@@ -29,10 +33,7 @@ struct VoltsSqrTodBm {
 };
 
 inline double lorentzian( double f, double Q, double f_0 ) {
-//    double gamma = frequency/( 2.0 * Q );
 
-//    double num = gamma*gamma;
-//    double denom = ( frequency - f_0 )*( frequency - f_0 ) + gamma*gamma;
     double fwhm = f_0/Q;
     double gamma = ( f_0 - f )/( fwhm/2.0 );
 
@@ -75,6 +76,10 @@ void TestModeCharacterization( double f_0, double Q, uint data_size ) {
               << " and Q of "
               << computed_Q
               << std::endl;
+}
+
+}
+
 }
 
 #endif // TEST_MODECHARACTERIZATION_H

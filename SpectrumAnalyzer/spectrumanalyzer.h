@@ -53,7 +53,7 @@ class SpectrumAnalyzer : public QChartView {
     QLineSeries *spectrum_series;
     QValueAxis *x_axis;
     QValueAxis *y_axis;
-//    QChartView *chartView;
+
     QTimer *auto_timer;
     QChart *chart;
 
