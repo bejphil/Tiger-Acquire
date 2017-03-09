@@ -17,14 +17,14 @@
 //Project specific headers
 #include "modecharacterization.h"
 
-double volts_to_dbm( double voltage ) {
-    return 20.0 * log10( voltage / std::sqrt(0.05) );
+double volts_sqr_to_dbm( double voltage ) {
+    return 10.0 * log10( voltage / std::sqrt(0.05) );
 }
 
-struct VoltsTodBm {
+struct VoltsSqrTodBm {
 
     void operator()(data_triple<double> &data) const {
-        data.power_dBm = volts_to_dbm( data.power_dBm );
+        data.power_dBm = volts_sqr_to_dbm( data.power_dBm );
     }
 };
 
@@ -40,15 +40,10 @@ inline double lorentzian( double f, double Q, double f_0 ) {
 }
 
 
-void TestModeCharacterization() {
-
-    const uint data_size = 10000;
+void TestModeCharacterization( double f_0, double Q, uint data_size ) {
 
     std::vector< data_triple<double> > test_data;
     test_data.reserve( data_size );
-
-    double f_0 = 4000.0;
-    double Q = 250.0;
 
     std::cout << "Testing mode characretizatipn.\n"
               << "Test mode has center frequency of "
@@ -67,7 +62,7 @@ void TestModeCharacterization() {
 
     }
 
-    std::for_each( test_data.begin(), test_data.end(), VoltsTodBm() );
+    std::for_each( test_data.begin(), test_data.end(), VoltsSqrTodBm() );
 
     ModeTraits characterization( test_data );
 

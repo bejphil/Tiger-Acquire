@@ -59,7 +59,7 @@ class SpectrumAnalyzer : public QChartView {
 
     QString title = "Spectrum Analyzer";
 
-    jaspl::JFFT fft_er;
+    jaspl::JFFT< std::vector< float > > fft_er;
     const uint fft_points = 1024;
 
     jaspl::RecurseMean < std::vector <float > > avg;

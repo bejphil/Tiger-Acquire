@@ -13,9 +13,10 @@
 //Qt Headers
 #include <QThread>
 //Project specific headers
-#include "../JASPL/jFFT/jfft.cpp"
 
-SpectrumAnalyzer::SpectrumAnalyzer( QWidget *parent ) : QChartView(parent) , avg( fft_points /2 ) {
+SpectrumAnalyzer::SpectrumAnalyzer( QWidget *parent ) : QChartView(parent),
+    fft_er(  fft_points, true ),
+    avg( fft_points /2 ) {
 
   spectrum_series = new QLineSeries();
 
@@ -38,8 +39,6 @@ SpectrumAnalyzer::SpectrumAnalyzer( QWidget *parent ) : QChartView(parent) , avg
 
   this->setChart( chart );
   this->setRenderHint(QPainter::Antialiasing);
-
-  fft_er.SetUp(fft_points);
 
 }
 
@@ -124,6 +123,4 @@ void SpectrumAnalyzer::UpdateAndAverage(std::vector< float > time_series,
   Plot( avg.ReturnValue() , fft_span );
 }
 
-SpectrumAnalyzer::~SpectrumAnalyzer() {
-  fft_er.TearDown();
-}
+SpectrumAnalyzer::~SpectrumAnalyzer() {}

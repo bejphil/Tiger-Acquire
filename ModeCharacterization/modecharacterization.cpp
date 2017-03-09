@@ -31,7 +31,7 @@ ModeTraits::ModeTraits( std::vector< data_triple<double> > data_values ) {
 
     std::cout << max_val << std::endl;
 
-    data_triple<double> three_dB_drop ( max_val.cavity_length, max_val.frequency_MHz, max_val.power_dBm - 6.0 );
+    data_triple<double> three_dB_drop ( max_val.cavity_length, max_val.frequency_MHz, max_val.power_dBm - 3.0 );
 
     auto distance = [] (data_triple<double> i, data_triple<double> j) { return std::abs( i.power_dBm - j.power_dBm ); };
 
