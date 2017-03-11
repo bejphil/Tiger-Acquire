@@ -13,16 +13,22 @@ TEMPLATE = app
 
 CONFIG += c++11
 
+DEFINES += "DEBUG"
+
 CONFIG(debug, debug|release) {
     DEFINES += "DEBUG"
 } else {
     DEFINES += "NDEBUG"
 }
 
-INCLUDEPATH += ../../../include
-LIBS += -L$$OUT_PWD/../../../lib
+INCLUDEPATH += -I "../ATS9462"
 
-LIBS += -L/usr/local/lib -L/usr/lib -lboost_iostreams -lboost_system -lboost_filesystem -lboost_thread
+LIBS += -L/usr/local/lib \
+        -L/usr/lib \
+        -lboost_iostreams \
+        -lboost_system \
+        -lboost_filesystem \
+        -lboost_thread
 
 INCLUDEPATH +=-I "/usr/local/cuda/include"
 LIBS +=-L "/usr/local/cuda/lib64" -lOpenCL
@@ -30,14 +36,17 @@ LIBS +=-L "/usr/local/cuda/lib64" -lOpenCL
 INCLUDEPATH +=-I/usr/local/include
 LIBS +=-L/usr/local/lib64 -lclFFT
 
-LIBS +=-lfftw3_threads -lfftw3 -lm
+LIBS +=-lfftw3f_threads -lfftw3f -lm
+
+# AlazarTech API
+LIBS += -lATSApi -L/usr/local/AlazarTech/lib
 
 QMAKE_CXXFLAGS+= -fopenmp
 #QMAKE_CXXFLAGS+= -O3
 QMAKE_LFLAGS +=  -fopenmp
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
+        Windows/mainwindow.cpp \
     #ConfigProcessor/configprocessor.cpp \
     SocketCommunicators/Arduino/arduino.cpp \
     SocketCommunicators/NetworkAnalyzer/network_analyzer.cpp \
@@ -68,9 +77,10 @@ SOURCES += main.cpp\
     SocketCommunicators/NetworkAnalyzer/test_network_analyzer.cpp \
     SocketCommunicators/SocketComm/qsocketintermitten.cpp \
     SocketCommunicators/AbstractSocketCommunicator/abstractintermittensocket.cpp \
-    Algorithm/algorithm.cpp
+    Algorithm/algorithm.cpp \
+    SpectrumAnalyzer/test_spectrum_analyzer.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += Windows/mainwindow.h \
    # ConfigProcessor/configprocessor.h \
     SocketCommunicators/Arduino/arduino.h \
     SocketCommunicators/NetworkAnalyzer/network_analyzer.h \
@@ -108,8 +118,9 @@ HEADERS  += mainwindow.h \
     SocketCommunicators/Switch/test_switch.h \
     SocketCommunicators/test_socketcommunicators.h \
     Algorithm/algorithm.h \
-    ModeCharacterization/test_modecharacterization.h
+    ModeCharacterization/test_modecharacterization.h \
+    SpectrumAnalyzer/test_spectrum_analyzer.h
 
-FORMS    += mainwindow.ui \
+FORMS    += Windows/mainwindow.ui \
     SpectrumAnalyzer/GraphicObjects/chartscalecontrols.ui \
     SpectrumAnalyzer/GraphicObjects/frequencycontrols.ui

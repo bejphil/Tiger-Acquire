@@ -5,7 +5,7 @@
 //C System-Headers
 #include <math.h>
 //C++ System headers
-//
+#include <algorithm>
 //OpenCL Headers
 //
 //Boost Headers
@@ -15,31 +15,33 @@
 //Project specific headers
 
 SpectrumAnalyzer::SpectrumAnalyzer( QWidget *parent ) : QChartView(parent),
-    fft_er(  fft_points, true ),
-    avg( fft_points /2 ) {
+    fft_er( true ) {
 
-  spectrum_series = new QLineSeries();
+    spectrum_series = new QLineSeries();
 
-  x_axis = new QValueAxis;
-  y_axis = new QValueAxis;
-  chart = new QChart();
+    x_axis = new QValueAxis;
+    y_axis = new QValueAxis;
+    chart = new QChart();
 
-  chart->addSeries(spectrum_series);
-  chart->legend()->hide();
+    chart->addSeries(spectrum_series);
+    chart->legend()->hide();
 
-  chart->createDefaultAxes();
-  chart->setAxisX(x_axis, spectrum_series);
-  chart->setAxisY(y_axis, spectrum_series);
+    chart->createDefaultAxes();
+    chart->setAxisX(x_axis, spectrum_series);
+    chart->setAxisY(y_axis, spectrum_series);
 
-  chart->setTheme(QChart::ChartThemeDark);
+    chart->setTheme(QChart::ChartThemeDark);
 
-  QPen pen(Qt::yellow);
-  pen.setWidth(1);
-  spectrum_series->setPen(pen);
+    QPen pen(Qt::yellow);
+    pen.setWidth(1);
+    spectrum_series->setPen(pen);
 
-  this->setChart( chart );
-  this->setRenderHint(QPainter::Antialiasing);
+    this->setChart( chart );
+    this->setRenderHint(QPainter::Antialiasing);
 
+    fft_er.SetUp( fft_points );
+
+    unit_conversion = &SpectrumAnalyzer::identity;
 }
 
 void SpectrumAnalyzer::SetFrequencyMin( double min_frequency ) {
@@ -51,59 +53,74 @@ void SpectrumAnalyzer::SetPowerMin( double min_power ) {
 }
 
 void SpectrumAnalyzer::SetFrequencyMax( double max_frequency ) {
-    chart->axisX()->setMin( max_frequency );
+    chart->axisX()->setMax( max_frequency );
 }
 
 void SpectrumAnalyzer::SetPowerMax( double max_power ) {
-    chart->axisY()->setMin( max_power );
+    chart->axisY()->setMax( max_power );
 }
 
 void SpectrumAnalyzer::Activate() {
-  //
+    //
 }
 
-double volts_sqr_to_dbm( double voltage ) {
-    return 10.0 * log10( voltage / std::sqrt(0.05) );
+//double volts_sqr_to_dbm( double voltage ) {
+//    return 10.0 * log10( voltage / 0.05 );
+//}
+
+//struct VoltsSqrTodBm {
+//    void operator()( float& data_point ) const {
+//        data_point = volts_sqr_to_dbm( data_point );
+//    }
+//};
+
+void SpectrumAnalyzer::volt_sqr_to_dbm( float& volt_sqr ) {
+    volt_sqr = 10.0f * log10f( volt_sqr / 0.05f );
 }
 
-struct VoltsSqrTodBm {
-    void operator()( float& data_point ) const {
-        data_point = volts_sqr_to_dbm( data_point );
+void SpectrumAnalyzer::identity( float& val ) {
+    val = std::sqrt( val );
+}
+
+void SpectrumAnalyzer::ChangeToVolts() {
+    unit_conversion = &SpectrumAnalyzer::identity;
+}
+
+void SpectrumAnalyzer::ChangeTodBm() {
+    unit_conversion = &SpectrumAnalyzer::volt_sqr_to_dbm;
+}
+
+void SpectrumAnalyzer::UpdateSignal(const std::vector<float> &time_series, uint sample_rate ) {
+    ;
+
+    std::cout << "Time series size "
+              << time_series.size()
+              << " FFT'er expected points "
+              << fft_points <<
+              std::endl;
+
+    std::vector< float > power_spec = fft_er.PowerSpectrum( time_series );
+
+//    auto f = std::bind(&SpectrumAnalyzer::unit_conversion, this, std::placeholders::_1);
+//    std::for_each(power_spec.begin(), power_spec.end(), std::bind1st(&SpectrumAnalyzer::unit_conversion, this));
+    for( auto& val : power_spec ) {
+        (this->*unit_conversion)( val );
     }
-};
 
-void SpectrumAnalyzer::ProcessSignal(std::vector < float > &time_series) {
+    float fft_span = static_cast<float>( sample_rate / 2 );
 
-  fft_er.PowerSpectrum( time_series );
-  uint spectrum_size = time_series.size();
-
-  uint n_half = (spectrum_size % 2 == 0) ? (spectrum_size / 2) : (( spectrum_size - 1) / 2);
-
-  time_series.erase( time_series.end() - n_half, time_series.end() );
-
-  std::for_each(time_series.begin(), time_series.end(), VoltsSqrTodBm());
-
+    Plot( power_spec , fft_span );
 }
 
-void SpectrumAnalyzer::UpdateSignal( std::vector< float > time_series, uint sample_rate ) {
+//void SpectrumAnalyzer::UpdateAndAverage(std::vector< float > time_series, uint sample_rate) {
 
-  ProcessSignal(time_series);
+//    ProcessSignal(time_series);
 
-  float fft_span = static_cast<float>( sample_rate / 2 );
+//    avg( time_series );
 
-  Plot( time_series , fft_span );
-}
+//    float fft_span = static_cast<float>( sample_rate / 2 );
 
-void SpectrumAnalyzer::UpdateAndAverage(std::vector< float > time_series,
-                                     uint sample_rate) {
-
-  ProcessSignal(time_series);
-
-  avg( time_series );
-
-  float fft_span = static_cast<float>( sample_rate / 2 );
-
-  Plot( avg.ReturnValue() , fft_span );
-}
+//    Plot( avg.ReturnValue() , fft_span );
+//}
 
 SpectrumAnalyzer::~SpectrumAnalyzer() {}

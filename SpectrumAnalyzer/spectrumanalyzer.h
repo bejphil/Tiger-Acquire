@@ -1,5 +1,5 @@
-#ifndef JSPECTRUMANALYZER_H
-#define JSPECTRUMANALYZER_H
+#ifndef SPECTRUMANALYZER_H
+#define SPECTRUMANALYZER_H
 
 //C System-Headers
 #include <cxxabi.h> //abi::__cxa_demangle
@@ -41,14 +41,19 @@ class SpectrumAnalyzer : public QChartView {
     void Activate();
 
     template <class T, typename F>
-    void PlotAutoScale(T y_signal_elements , F x_frequency_range);
+    void PlotAutoScale( const T& y_signal_elements , F x_frequency_range);
 
     template <class T>
-    void Plot(T y_signal_elements , double x_frequency_range);
+    void Plot( const T& y_signal_elements , double x_frequency_range);
+
+    void UpdateSignal( const std::vector<float>& time_series , uint sample_rate );
 
   private:
 
-    void ProcessSignal( std::vector < float > & series );
+    void (SpectrumAnalyzer::*unit_conversion)( float& ) = NULL;
+
+    void volt_sqr_to_dbm( float& volt_sqr );
+    void identity( float& val );
 
     QLineSeries *spectrum_series;
     QValueAxis *x_axis;
@@ -62,17 +67,17 @@ class SpectrumAnalyzer : public QChartView {
     jaspl::JFFT< std::vector< float > > fft_er;
     const uint fft_points = 1024;
 
-    jaspl::RecurseMean < std::vector <float > > avg;
-
   public slots:
-    void UpdateSignal( std::vector<float> time_series , uint sample_rate );
-    void UpdateAndAverage( std::vector<float> time_series , uint sample_rate );
+//    void UpdateSignal( std::vector<float> time_series , uint sample_rate );
+//    void UpdateAndAverage( std::vector<float> time_series , uint sample_rate );
 
     void SetFrequencyMin( double min_frequency );
     void SetPowerMin( double min_power );
     void SetFrequencyMax( double max_frequency );
     void SetPowerMax( double max_power );
 
+    void ChangeToVolts();
+    void ChangeTodBm();
 
   signals:
     void SignalChanged();
@@ -80,4 +85,4 @@ class SpectrumAnalyzer : public QChartView {
 
 #include "../SpectrumAnalyzer/spectrumanalyzer.tpp"
 
-#endif // JSPECTRUMANALYZER_H
+#endif // SPECTRUMANALYZER_H

@@ -24,6 +24,8 @@ class PowerControls : public QDockWidget {
   void UnitSelected(QString units);
   void SpanSet(int span_val);
   void CenterSet(int cent_val);
+  void SelectedVolts();
+  void SelecteddBm();
 
  public slots:
   void SetFreqSpan(int span);
