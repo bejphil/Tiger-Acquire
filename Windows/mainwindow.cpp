@@ -38,20 +38,17 @@ void MainWindow::SetNetworkAnalyzerView( InstrumentView* network_analyzer ) {
 
     network_analyzer->setAttribute(Qt::WA_DeleteOnClose);
 
-    auto power_ctrls = new PowerControls();
-    power_ctrls->setAttribute(Qt::WA_DeleteOnClose);
-    power_ctrls->setPalette(dark_palette);
+//    auto power_ctrls = new PowerControls();
+//    power_ctrls->setAttribute(Qt::WA_DeleteOnClose);
+//    power_ctrls->setPalette(dark_palette);
 
 //        setCentralWidget( network_analyzer );
     ui->panelLayout->addWidget( network_analyzer );
 
-    connect(power_ctrls, &PowerControls::MinSet, network_analyzer, &InstrumentView::SetPowerMin);
-    connect(power_ctrls, &PowerControls::MaxSet, network_analyzer, &InstrumentView::SetPowerMax);
+//    connect(power_ctrls, &PowerControls::MinSet, network_analyzer, &InstrumentView::SetPowerMin);
+//    connect(power_ctrls, &PowerControls::MaxSet, network_analyzer, &InstrumentView::SetPowerMax);
 
-    connect(power_ctrls, &PowerControls::SelectedVolts, network_analyzer, &InstrumentView::ChangeToVolts);
-    connect(power_ctrls, &PowerControls::SelecteddBm, network_analyzer, &InstrumentView::ChangeTodBm);
-
-    addDockWidget(Qt::LeftDockWidgetArea, power_ctrls);
+//    addDockWidget(Qt::LeftDockWidgetArea, power_ctrls);
 }
 
 void MainWindow::SetSpectrumAnalyzerView( SpectrumAnalyzer* spec_analyzer ) {
@@ -73,6 +70,6 @@ void MainWindow::SetSpectrumAnalyzerView( SpectrumAnalyzer* spec_analyzer ) {
     connect(power_ctrls, &PowerControls::SelectedVolts, spec_analyzer, &SpectrumAnalyzer::ChangeToVolts);
     connect(power_ctrls, &PowerControls::SelecteddBm, spec_analyzer, &SpectrumAnalyzer::ChangeTodBm);
 
-    addDockWidget(Qt::RightDockWidgetArea, power_ctrls);
+    addDockWidget(Qt::BottomDockWidgetArea, power_ctrls);
 
 }

@@ -1,16 +1,21 @@
 #include "Windows/mainwindow.h"
 #include <QApplication>
 
-#include "SpectrumAnalyzer/test_spectrum_analyzer.h"
-#include "SpectrumAnalyzer/test_spectrum_analyzer.cpp"
+//#include "Panels/SpectrumAnalyzer/test_spectrum_analyzer.h"
+//#include "Panels/InstrumentView/test_instrumentview.h"
+#include "Panels/testpanels.h"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
-//    MainWindow w;
-//    w.show();
-    etig::test::TestSpectrumAnalyzer tester;
+
+    etig::test::TestPanels tester;
     tester.Test();
+
+//    etig::test::TestSpectrumAnalyzer tester;
+//    tester.Test();
+
+//    etig::test::TestInstrumentView tester;
+//    tester.Test();
 //    MainWindow w;
 //    w.show();
 

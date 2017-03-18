@@ -23,12 +23,12 @@ InstrumentView::InstrumentView( QString title, QWidget *parent ) : QChartView(pa
     y_axis = new QValueAxis;
     chart = new QChart();
 
-    chart->addSeries(spectrum_series);
+    chart->addSeries(data_series);
     chart->legend()->hide();
 
     chart->createDefaultAxes();
-    chart->setAxisX(x_axis, spectrum_series);
-    chart->setAxisY(y_axis, spectrum_series);
+    chart->setAxisX(x_axis, data_series);
+    chart->setAxisY(y_axis, data_series);
 
     chart->setTheme(QChart::ChartThemeDark);
 
@@ -62,10 +62,10 @@ void InstrumentView::SetPowerMax( double max_power ) {
     chart->axisY()->setMax( max_power );
 }
 
-void InstrumentView::UpdateSignal(const std::vector<float> &data, double freq_span ) {
+//void InstrumentView::UpdateSignal(const std::vector<float> &data, double freq_span ) {
 
-    Plot( data , freq_span );
+//    Plot( data , freq_span );
 
-}
+//}
 
 InstrumentView::~InstrumentView() {}

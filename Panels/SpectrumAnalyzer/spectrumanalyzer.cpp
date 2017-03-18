@@ -66,10 +66,6 @@ void SpectrumAnalyzer::SetPowerMax( double max_power ) {
     chart->axisY()->setMax( max_power );
 }
 
-void SpectrumAnalyzer::Activate() {
-    //
-}
-
 void SpectrumAnalyzer::volt_sqr_to_dbm( float& volt_sqr ) {
     volt_sqr = 10.0f * log10f( volt_sqr / 0.05f );
 }

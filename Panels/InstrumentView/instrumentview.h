@@ -41,7 +41,8 @@ class InstrumentView : public QChartView {
     template <class T>
     void Plot( const T& y_signal_elements , double x_frequency_range);
 
-    void UpdateSignal(const std::vector<float>& data , double freq_span );
+    template < typename T >
+    void UpdateSignal(const std::vector<T>& data , double freq_span );
 
   private:
 

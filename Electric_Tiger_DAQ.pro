@@ -21,7 +21,7 @@ CONFIG(debug, debug|release) {
     DEFINES += "NDEBUG"
 }
 
-INCLUDEPATH += -I "../ATS9462"
+INCLUDEPATH +=../ATS9462
 
 LIBS += -L/usr/local/lib \
         -L/usr/lib \
@@ -30,10 +30,10 @@ LIBS += -L/usr/local/lib \
         -lboost_filesystem \
         -lboost_thread
 
-INCLUDEPATH +=-I "/usr/local/cuda/include"
+INCLUDEPATH +=/usr/local/cuda/include
 LIBS +=-L "/usr/local/cuda/lib64" -lOpenCL
 
-INCLUDEPATH +=-I/usr/local/include
+INCLUDEPATH +=/usr/local/include
 LIBS +=-L/usr/local/lib64 -lclFFT
 
 LIBS +=-lfftw3f_threads -lfftw3f -lm
@@ -80,7 +80,8 @@ SOURCES += main.cpp\
     Algorithm/algorithm.cpp \
     Panels/SpectrumAnalyzer/test_spectrum_analyzer.cpp \
     Panels/InstrumentView/instrumentview.tpp \
-    Panels/InstrumentView/test_instrumentview.cpp
+    Panels/InstrumentView/test_instrumentview.cpp \
+    Panels/testpanels.cpp
 
 HEADERS  += Windows/mainwindow.h \
    # ConfigProcessor/configprocessor.h \
@@ -122,7 +123,8 @@ HEADERS  += Windows/mainwindow.h \
     Algorithm/algorithm.h \
     ModeCharacterization/test_modecharacterization.h \
     Panels/SpectrumAnalyzer/test_spectrum_analyzer.h \
-    Panels/InstrumentView/test_instrumentview.h
+    Panels/InstrumentView/test_instrumentview.h \
+    Panels/testpanels.h
 
 FORMS    += Windows/mainwindow.ui \
     Panels/GraphicObjects/chartscalecontrols.ui \

@@ -13,8 +13,8 @@
 //Boost Headers
 //
 //Project specific headers
-#include "ats9462_top_level.h"
-#include "../Windows/mainwindow.h"
+#include "Digitizer/ATS9462Engine/ats9462engine.h"
+#include "../../Windows/mainwindow.h"
 #include "spectrumanalyzer.h"
 
 namespace etig {
@@ -26,10 +26,11 @@ TestSpectrumAnalyzer{
 
 public:
     void Test();
+
 private:
     MainWindow* w;
     SpectrumAnalyzer* spec;
-    std::unique_ptr<ATS9462Engine> digitizer;
+    std::shared_ptr<ATS9462Engine> digitizer;
 
 };
 
