@@ -52,7 +52,7 @@ void TestInstrumentView::Test() {
     } );
 
     sleep(1);
-    auto_timer->start( 33 );//timer refreshes every 500 ms
+    auto_timer->start( 500 );//timer refreshes every 500 ms
 
 //    sleep( 1 );
 
