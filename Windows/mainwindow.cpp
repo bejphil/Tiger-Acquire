@@ -12,9 +12,9 @@
 //Qt Headers
 //
 //Project specific headers
-#include "SpectrumAnalyzer/spectrumanalyzer.h"
-#include "SpectrumAnalyzer/GraphicObjects/frequencycontrols.h"
-#include "SpectrumAnalyzer/GraphicObjects/chartscalecontrols.h"
+#include "Panels/SpectrumAnalyzer/spectrumanalyzer.h"
+#include "Panels/GraphicObjects/frequencycontrols.h"
+#include "Panels/GraphicObjects/chartscalecontrols.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -34,8 +34,23 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
-void MainWindow::SetupNetworkAnalzyerView() {
+void MainWindow::SetNetworkAnalyzerView( InstrumentView* network_analyzer ) {
 
+        network_analyzer->setAttribute(Qt::WA_DeleteOnClose);
+
+        auto power_ctrls = new PowerControls();
+        power_ctrls->setAttribute(Qt::WA_DeleteOnClose);
+        power_ctrls->setPalette(dark_palette);
+
+        setCentralWidget( network_analyzer );
+
+        connect(power_ctrls, &PowerControls::MinSet, network_analyzer, &InstrumentView::SetPowerMin);
+        connect(power_ctrls, &PowerControls::MaxSet, network_analyzer, &InstrumentView::SetPowerMax);
+
+        connect(power_ctrls, &PowerControls::SelectedVolts, network_analyzer, &InstrumentView::ChangeToVolts);
+        connect(power_ctrls, &PowerControls::SelecteddBm, network_analyzer, &InstrumentView::ChangeTodBm);
+
+        addDockWidget(Qt::LeftDockWidgetArea, power_ctrls);
 }
 
 void MainWindow::SetSpectrumAnalyzerView( SpectrumAnalyzer* spec_analyzer ) {

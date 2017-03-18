@@ -1,7 +1,7 @@
 //Header for this file
-#include "SpectrumAnalyzer/spectrumanalyzer.h"
-#include "SpectrumAnalyzer/GraphicObjects/chartscalecontrols.h"
-#include "SpectrumAnalyzer/GraphicObjects/frequencycontrols.h"
+#include "spectrumanalyzer.h"
+#include "../GraphicObjects/chartscalecontrols.h"
+#include "../GraphicObjects/frequencycontrols.h"
 //C System-Headers
 #include <math.h>
 //C++ System headers
@@ -42,6 +42,12 @@ SpectrumAnalyzer::SpectrumAnalyzer( QWidget *parent ) : QChartView(parent),
     fft_er.SetUp( fft_points );
 
     unit_conversion = &SpectrumAnalyzer::identity;
+
+    QFont font;
+    font.setPixelSize(18);
+    chart->setTitleFont(font);
+    chart->setTitleBrush(QBrush(Qt::yellow));
+    chart->setTitle( "Spectrum Analyzer" );
 }
 
 void SpectrumAnalyzer::SetFrequencyMin( double min_frequency ) {
@@ -63,16 +69,6 @@ void SpectrumAnalyzer::SetPowerMax( double max_power ) {
 void SpectrumAnalyzer::Activate() {
     //
 }
-
-//double volts_sqr_to_dbm( double voltage ) {
-//    return 10.0 * log10( voltage / 0.05 );
-//}
-
-//struct VoltsSqrTodBm {
-//    void operator()( float& data_point ) const {
-//        data_point = volts_sqr_to_dbm( data_point );
-//    }
-//};
 
 void SpectrumAnalyzer::volt_sqr_to_dbm( float& volt_sqr ) {
     volt_sqr = 10.0f * log10f( volt_sqr / 0.05f );

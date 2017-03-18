@@ -38,8 +38,6 @@ class SpectrumAnalyzer : public QChartView {
     explicit SpectrumAnalyzer(QWidget *parent = 0);
     ~SpectrumAnalyzer();
 
-    void Activate();
-
     template <class T, typename F>
     void PlotAutoScale( const T& y_signal_elements , F x_frequency_range);
 
@@ -83,6 +81,6 @@ class SpectrumAnalyzer : public QChartView {
     void SignalChanged();
 };
 
-#include "../SpectrumAnalyzer/spectrumanalyzer.tpp"
+#include "spectrumanalyzer.tpp"
 
 #endif // SPECTRUMANALYZER_H

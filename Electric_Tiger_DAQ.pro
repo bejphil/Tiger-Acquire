@@ -56,17 +56,17 @@ SOURCES += main.cpp\
     SocketCommunicators/SocketComm/test_socket_comm.cpp \
     SocketCommunicators/SocketComm/q_socket_comm.cpp \
     SocketCommunicators/SocketComm/socketcomm.cpp \
-    SpectrumAnalyzer/GraphicObjects/chartscalecontrols.cpp \
-    SpectrumAnalyzer/GraphicObjects/frequencycontrols.cpp \
-    SpectrumAnalyzer/GraphicObjects/rightclickmenu.cpp \
-    SpectrumAnalyzer/spectrumanalyzer.cpp \
-    SpectrumAnalyzer/spectrumanalyzer.tpp \
+    Panels/GraphicObjects/chartscalecontrols.cpp \
+    Panels/GraphicObjects/frequencycontrols.cpp \
+    Panels/GraphicObjects/rightclickmenu.cpp \
+    Panels/SpectrumAnalyzer/spectrumanalyzer.cpp \
+    Panels/SpectrumAnalyzer/spectrumanalyzer.tpp \
     SocketCommunicators/AbstractSocketCommunicator/abstractsocketcommunictor.cpp \
     ConfigProcessor/configprocessor.cpp \
     Program/ProgramCore/programcore.cpp \
     ConfigProcessor/testconfigprocessor.cpp \
     DataTransformatoions/datatransformations.cpp \
-    InstrumentView/instrumentview.cpp \
+    Panels/InstrumentView/instrumentview.cpp \
     Program/ProgramFrame/programframe.cpp \
     ModeTracker/modetrack.cpp \
     Generics/generics.cpp \
@@ -78,7 +78,9 @@ SOURCES += main.cpp\
     SocketCommunicators/SocketComm/qsocketintermitten.cpp \
     SocketCommunicators/AbstractSocketCommunicator/abstractintermittensocket.cpp \
     Algorithm/algorithm.cpp \
-    SpectrumAnalyzer/test_spectrum_analyzer.cpp
+    Panels/SpectrumAnalyzer/test_spectrum_analyzer.cpp \
+    Panels/InstrumentView/instrumentview.tpp \
+    Panels/InstrumentView/test_instrumentview.cpp
 
 HEADERS  += Windows/mainwindow.h \
    # ConfigProcessor/configprocessor.h \
@@ -89,10 +91,10 @@ HEADERS  += Windows/mainwindow.h \
     SocketCommunicators/Switch/switch.h \
     SocketCommunicators/SocketComm/q_socket_comm.h \
     SocketCommunicators/SocketComm/socketcomm.h \
-    SpectrumAnalyzer/GraphicObjects/chartscalecontrols.h \
-    SpectrumAnalyzer/GraphicObjects/frequencycontrols.h \
-    SpectrumAnalyzer/GraphicObjects/rightclickmenu.h \
-    SpectrumAnalyzer/spectrumanalyzer.h \
+    Panels/GraphicObjects/chartscalecontrols.h \
+    Panels/GraphicObjects/frequencycontrols.h \
+    Panels/GraphicObjects/rightclickmenu.h \
+    Panels/SpectrumAnalyzer/spectrumanalyzer.h \
     SocketCommunicators/AbstractSocketCommunicator/abstractsocketcommunictor.h \
     ConfigProcessor/configprocessor.h \
     Program/ProgramCore/programcore.h \
@@ -100,7 +102,7 @@ HEADERS  += Windows/mainwindow.h \
     ConfigProcessor/experiment_parameters.h \
     ConfigProcessor/testconfigprocessor.h \
     DataTransformatoions/datatransformations.h \
-    InstrumentView/instrumentview.h \
+    Panels/InstrumentView/instrumentview.h \
     Program/ProgramFrame/programframe.h \
     ModeTracker/modetrack.h \
     Generics/generics.h \
@@ -119,8 +121,9 @@ HEADERS  += Windows/mainwindow.h \
     SocketCommunicators/test_socketcommunicators.h \
     Algorithm/algorithm.h \
     ModeCharacterization/test_modecharacterization.h \
-    SpectrumAnalyzer/test_spectrum_analyzer.h
+    Panels/SpectrumAnalyzer/test_spectrum_analyzer.h \
+    Panels/InstrumentView/test_instrumentview.h
 
 FORMS    += Windows/mainwindow.ui \
-    SpectrumAnalyzer/GraphicObjects/chartscalecontrols.ui \
-    SpectrumAnalyzer/GraphicObjects/frequencycontrols.ui
+    Panels/GraphicObjects/chartscalecontrols.ui \
+    Panels/GraphicObjects/frequencycontrols.ui

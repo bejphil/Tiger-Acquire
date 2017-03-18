@@ -14,7 +14,8 @@
 #include <QPalette>
 #include <QHBoxLayout>
 //Project specific headers
-#include "../SpectrumAnalyzer/spectrumanalyzer.h"
+#include "Panels/SpectrumAnalyzer/spectrumanalyzer.h"
+#include "Panels/InstrumentView/instrumentview.h"
 
 namespace Ui {
 class MainWindow;
@@ -25,12 +26,12 @@ class MainWindow : public QMainWindow {
 
   public:
     explicit MainWindow( QWidget *parent = 0 );
+
     void SetSpectrumAnalyzerView( SpectrumAnalyzer* spec_analyzer );
-//    void SetNetworkAnalyzerView();
+    void SetNetworkAnalyzerView( InstrumentView* network_analyzer );
     ~MainWindow();
 
   private:
-    void SetupNetworkAnalzyerView();
 
     Ui::MainWindow *ui;
     QHBoxLayout* front_panel_layout;
