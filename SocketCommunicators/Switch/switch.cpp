@@ -17,11 +17,11 @@ Switch::Switch( std::string ip_addr, uint port_number ) : AbstractSocketCommunic
 }
 
 void Switch::SwitchToNetworkAnalyzer() {
-    socket->Send( "OP1 1" );
+    socket->Send( "OP1 0" );
 }
 
 void Switch::SwitchToDigitizer() {
-    socket->Send( "OP1 0" );
+    socket->Send( "OP1 1" );
 }
 
 void Switch::SwitchToTransmission() {

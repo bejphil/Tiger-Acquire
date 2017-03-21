@@ -13,11 +13,23 @@
 //Header for this file
 #include "programcore.h"
 
+namespace etig {
+
 ProgramCore::ProgramCore(){
 
     number_of_iterations = DeriveNumberofIterations();
     InitializeSocketObjects();
     InitializeDigitizer();
+
+    window = new MainWindow();
+    window->show();
+
+    spec_analyzer = new SpectrumAnalyzer( window );
+    window -> SetSpectrumAnalyzerView( spec_analyzer );
+
+    na_view = new InstrumentView( "Network Analyzer", window );
+    window -> SetNetworkAnalyzerView( na_view );
+
 }
 
 void ProgramCore::InitializeSocketObjects() {
@@ -42,12 +54,12 @@ void ProgramCore::InitializeSocketObjects() {
 }
 
 void ProgramCore::InitializeDigitizer() {
-    //    ats9462 = std::shared_ptr<ATS9462Engine>( new ATS9462Engine( digitizer_rate_MHz, 5, 500e6 ) );
+        ats9462 = std::shared_ptr<ATS9462Engine>( new ATS9462Engine( digitizer_rate_MHz*1e6, 5, 500e6 ) );
 
-    //    ats9462->ThreadPoolSize( 10 );
-    //    ats9462->SetSampleRate( digitizer_rate_MHz );
+        ats9462->ThreadPoolSize( 10 );
+        ats9462->SetSampleRate( digitizer_rate_MHz*1e6 );
 
-    //    ats9462->StartCapture();
+        ats9462->StartCapture();
 }
 
 void ProgramCore::RetractCavity() {
@@ -87,5 +99,7 @@ int ProgramCore::DeriveNumberofIterations() {
 void ProgramCore::MoveToStartLength() {
     double current_length = arduino->GetCavityLength();
     stm23_ee->SetToInitialLength( start_length, current_length );
+
+}
 
 }

@@ -7,6 +7,8 @@
 //Boost Headers
 #include <boost/lexical_cast.hpp>//lexical cast
 
+namespace etig {
+
 ProgramFrame::ProgramFrame() {
 
 }
@@ -77,9 +79,7 @@ void ProgramFrame::ShiftFrequencyWindow( double center_frequency ) {
 double ProgramFrame::CheckPeak( double possible_mode_position ) {
 
     if( possible_mode_position <= 0.0 ) {
-
         throw daq_failure( "Mode position to less than or equal to 0 MHz" );
-//        return -1.0;
     }
 
     // Since we identified the position of our mode using reflection measurements
@@ -88,16 +88,21 @@ double ProgramFrame::CheckPeak( double possible_mode_position ) {
     hp8757_c->SetFrequencyWindow( possible_mode_position, nwa_span_MHz );
 
     std::vector< double > initial_window = hp8757_c->TakeDataSingle();
+
+    na_view->UpdateSignal( initial_window, nwa_span_MHz );
+
     double new_mode_position = RecenterPeak( power_to_data_list( initial_window ) );
 
     if ( new_mode_position == 0.0 ) {
-        return -1.0;
+       throw daq_failure( "Could not successfully recenter peak." );
     }
 
     hp8757_c->SetFrequencyWindow( new_mode_position, single_scan_window );
 
     std::vector< double > final_window = hp8757_c->TakeDataSingle();
     data_list mode_window = power_to_data_list( final_window );
+
+    na_view->UpdateSignal( final_window, single_scan_window );
 
     //Characterization of mode
 
@@ -161,5 +166,7 @@ std::vector< data_triple<double> > ProgramFrame::power_to_data_list ( std::vecto
     }
 
     return processed;
+
+}
 
 }

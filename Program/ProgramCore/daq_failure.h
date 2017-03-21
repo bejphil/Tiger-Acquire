@@ -17,6 +17,8 @@
 //Project specific headers
 //
 
+namespace etig {
+
 class daq_failure : public std::exception {
 
   public:
@@ -30,5 +32,6 @@ class daq_failure : public std::exception {
     const char* err_message;
 };
 
+}
 
 #endif // DAQ_FAILURE_H

@@ -17,6 +17,8 @@
 #include "../../DataSaver/FlatFileSaver/flatfilesaver.h"
 #include "../../DataTransformatoions/datatransformations.h"
 
+namespace etig {
+
 class ProgramFrame : public ProgramCore {
 
     typedef std::vector<data_triple<double>> data_list;
@@ -52,5 +54,6 @@ class ProgramFrame : public ProgramCore {
 
 };
 
+}
 
 #endif // PROGRAMFRAME_H

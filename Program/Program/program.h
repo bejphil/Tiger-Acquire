@@ -15,6 +15,8 @@
 #include "../ProgramFrame/programframe.h"
 #include "../../DataTransformatoions/datatransformations.h"
 
+namespace etig {
+
 class Program : public ProgramFrame {
 
     typedef std::vector<data_triple<double>> data_list;
@@ -25,7 +27,7 @@ class Program : public ProgramFrame {
     double FindModeReflection();
     double FindModeTransmission( double mode_frequency );
     data_list TakeData( double mode_frequency );
-    void SavePowerSpectrum(data_list scan);
+    void SavePowerSpectrum( data_list scan );
     void PanicCleanUp();
 
     void Run();
@@ -35,5 +37,6 @@ class Program : public ProgramFrame {
 
 };
 
+}
 
 #endif // PROGRAM_H
