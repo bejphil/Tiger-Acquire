@@ -34,8 +34,13 @@ class ProgramFrame : public ProgramCore {
     ModeTrack mode_tracker;
     FlatFileSaver data_saver { save_file_path };
 
-    data_list power_to_data_list ( std::vector< float > power_list );
-    data_list power_to_data_list ( std::vector< double > power_list );
+    data_list power_to_data_list ( std::vector< float > power_list,
+                                   float min_freq,
+                                   float max_freq );
+
+    data_list power_to_data_list ( std::vector< double > power_list,
+                                   double min_freq,
+                                   double max_freq );
 
     double CheckPeak( double possible_mode_position );
     std::string BuildHeader();

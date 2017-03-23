@@ -41,8 +41,8 @@ class InstrumentView : public QChartView {
     template <class T>
     void Plot( const T& y_signal_elements , double x_frequency_range);
 
-    template < typename T >
-    void UpdateSignal(const std::vector<T>& data , double freq_span );
+//    template < typename T >
+//    void UpdateSignal(const std::vector<T>& data , double freq_span );
 
   private:
 
@@ -65,6 +65,8 @@ class InstrumentView : public QChartView {
     void SetPowerMin( double min_power );
     void SetFrequencyMax( double max_frequency );
     void SetPowerMax( double max_power );
+
+    void UpdateSignal( std::vector<double> data , double freq_span );
 
   signals:
     void SignalChanged();

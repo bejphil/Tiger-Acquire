@@ -24,6 +24,7 @@
 #include <omp.h>//OpenMP pragmas
 //Project specific Headers
 //
+#include "../../JASPL/jPlot/jplot.h"
 
 
 ModeTrack::ModeTrack() {
@@ -35,27 +36,39 @@ ModeTrack::ModeTrack() {
 
 ModeTrack::~ModeTrack() {}
 
-inline void SubtractBackground(std::vector<std::vector<double>>& data,std::vector<double>& background) {
-
-    for(auto& val:data) {
-        val.resize(background.size());
-        std::transform(background.begin(), background.end(), val.begin(), val.begin(),std::minus<double>());
-    }
-}
-
 inline void SubtractBackground(std::vector<double>& data,std::vector<double>& background) {
 
     data.resize(background.size());
     std::transform(data.begin(), data.end(), background.begin(), data.begin(),std::minus<double>());
 }
 
+std::vector< data_triple<double> > SubtractBackground(const std::vector< data_triple<double> >& data,
+        const std::vector<double>& background) {
+
+    std::vector< data_triple<double> > new_signal;
+    new_signal.reserve( background.size() );
+
+    for( uint i = 0; i < background.size() ; i++ ) {
+
+        double length = data[i].cavity_length;
+        double frequency = data[i].frequency_MHz;
+        double power = data[i].power_dBm - background[i];
+
+        new_signal.push_back( data_triple< double >( length, frequency, power ) );
+    }
+
+    return new_signal;
+}
+
 double ModeTrack::GetPeaks( const std::vector<data_triple<double> >& data_str, int mode_number, Method filter_method ) {
 
-    std::vector<double> power_list = data_triples_to_power( data_str );
+    std::vector< data_triple< double > > clean_signal = SubtractBackground( data_str, background );
 
-    SubtractBackground( power_list, background) ;
+    std::vector<double> power_list = data_triples_to_power( clean_signal );
 
-    auto peak_list = FindPeaks(power_list,filter_method);
+    jaspl::plot( power_list );
+
+    auto peak_list = FindPeaks( power_list, filter_method) ;
     std::cout << "Number of peaks identified: " << peak_list.size() << std::endl;
 
     //check to see if any mode were identified
@@ -63,7 +76,7 @@ double ModeTrack::GetPeaks( const std::vector<data_triple<double> >& data_str, i
 
     if( peak_list.size() >= 1 ) {
 
-        auto identified_peaks = CompareAndFill(peak_list, data_str);
+        auto identified_peaks = CompareAndFill(peak_list, clean_signal);
 
         //check to see if requested mode number has been identified
         //if it has return the frequency at which it was found
@@ -72,11 +85,9 @@ double ModeTrack::GetPeaks( const std::vector<data_triple<double> >& data_str, i
             return identified_peaks[mode_number];
         } else {
             throw mode_track_failure( "Requested mode was not identified." );
-//            return 0.0;
         }
     } else {
         throw mode_track_failure( "No modes were identified." );
-//        return 0.0;
     }
 }
 
@@ -93,7 +104,7 @@ double ModeTrack::GetPeaksGauss( const std::vector<data_triple<double> >& data_s
 double ModeTrack::GetPeaksBiLat( const std::vector<data_triple<double> >& data_str, int mode_number) {
 
     try {
-        return GetPeaks( data_str, mode_number, Gauss );
+        return GetPeaks( data_str, mode_number, BiLat );
     } catch (const mode_track_failure& e) {
         throw mode_track_failure( "Could not identify requested mode in data set" );
     }
@@ -114,7 +125,8 @@ double ModeTrack::GetMaxPeak( const std::vector< data_triple<double> >& data_lis
 
     std::vector<double> power_list = data_triples_to_power( data_list );
 
-    uint peak_index = 0; FindMaxima( power_list );
+    uint peak_index = 0;
+    FindMaxima( power_list );
 
     try {
         peak_index = FindMaxima( power_list );
@@ -170,7 +182,7 @@ inline double sum ( const std::vector< double >& data_list, double exponent ) {
 //define a gaussian function with standard deviation sigma and a mean value of zero
 //used in the construction of gaussian kernels
 inline double gaussian ( double x, double sigma ) {
-    return 1.0 / ( std::sqrt(M_PI_2)*sigma )*std::exp( -0.5 *pow( x/sigma, 2.0) );
+    return 1.0 / ( std::sqrt(M_PI_2)*sigma )*std::exp( -0.5 * std::pow( x/sigma, 2.0 ) );
 }
 
 //generate a gaussian kernel of radius 'r', suitable for convolutions
@@ -443,7 +455,7 @@ inline void c_print(T text,int color) {
 
 //peak_list: list of indices (in frequency space) where peaks were found for a particular cavity length
 //comparison_list: of data triples at the same cavity length
-std::map<uint,double> ModeTrack::CompareAndFill( std::vector<double>& peak_list,\
+std::map<uint,double> ModeTrack::CompareAndFill( const std::vector<double>& peak_list,\
         const std::vector< data_triple< double > >& comparison_list ) {
 
     //format is <peak index,<delta_mu,frequency>>
@@ -465,6 +477,15 @@ std::map<uint,double> ModeTrack::CompareAndFill( std::vector<double>& peak_list,
 
         for (int i = 0; i < 4 ; i++) {
             double estimated_frequency = GenerateSpline(i,length);
+
+            std::cout << "Actual frequency "
+                      << frequency
+                      << " estimated frequency of peak "
+                      << i
+                      << " "
+                      << estimated_frequency
+                      << std::endl;
+
             double delta_mu = std::abs(frequency - estimated_frequency);
             results.push_back(delta_mu);
         }
@@ -586,7 +607,7 @@ std::vector<double> ModeTrack::BilateralFilter( const std::vector<double>& data_
     return convolved_list;
 }
 
-std::vector< double > ModeTrack::data_triples_to_power(std::vector<data_triple<double> > data_list ) {
+std::vector< double > ModeTrack::data_triples_to_power( const std::vector<data_triple<double> >& data_list ) {
 
     std::vector< double > power_list;
     power_list.reserve( data_list.size() );

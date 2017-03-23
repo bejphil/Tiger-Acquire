@@ -21,7 +21,7 @@ void ProgramFrame::Prequel() {
 void ProgramFrame::SetBackground() {
 
     std::vector< double > background = hp8757_c->TakeDataMultiple();
-    data_list blank_data = power_to_data_list( background );
+    data_list blank_data = power_to_data_list( background, na_min_freq, na_max_freq );
 
     mode_tracker.SetBackground( blank_data );
 
@@ -89,9 +89,12 @@ double ProgramFrame::CheckPeak( double possible_mode_position ) {
 
     std::vector< double > initial_window = hp8757_c->TakeDataSingle();
 
-    na_view->UpdateSignal( initial_window, nwa_span_MHz );
+//    na_view->UpdateSignal( initial_window, nwa_span_MHz );
 
-    double new_mode_position = RecenterPeak( power_to_data_list( initial_window ) );
+    double min_freq_initial = possible_mode_position - nwa_span_MHz/2;
+    double max_freq_initial = possible_mode_position + nwa_span_MHz/2;
+
+    double new_mode_position = RecenterPeak( power_to_data_list( initial_window, min_freq_initial, max_freq_initial ) );
 
     if ( new_mode_position == 0.0 ) {
        throw daq_failure( "Could not successfully recenter peak." );
@@ -100,9 +103,13 @@ double ProgramFrame::CheckPeak( double possible_mode_position ) {
     hp8757_c->SetFrequencyWindow( new_mode_position, single_scan_window );
 
     std::vector< double > final_window = hp8757_c->TakeDataSingle();
-    data_list mode_window = power_to_data_list( final_window );
 
-    na_view->UpdateSignal( final_window, single_scan_window );
+    double min_freq_final = possible_mode_position - nwa_span_MHz/2;
+    double max_freq_final = possible_mode_position + nwa_span_MHz/2;
+
+    data_list mode_window = power_to_data_list( final_window, min_freq_final, max_freq_final );
+
+//    na_view->UpdateSignal( final_window, single_scan_window );
 
     //Characterization of mode
 
@@ -115,11 +122,13 @@ double ProgramFrame::CheckPeak( double possible_mode_position ) {
 
 }
 
-std::vector< data_triple<double> > ProgramFrame::power_to_data_list ( std::vector< float > power_list ) {
+std::vector< data_triple<double> > ProgramFrame::power_to_data_list ( std::vector< float > power_list,
+                                                                      float min_freq,
+                                                                      float max_freq ) {
 
     uint number_of_points = power_list.size();
-    float max_freq = center_frequency + nwa_span_MHz / 2.0f;
-    float min_freq = center_frequency - nwa_span_MHz / 2.0f;
+//    float max_freq = center_frequency + nwa_span_MHz / 2.0f;
+//    float min_freq = center_frequency - nwa_span_MHz / 2.0f;
 
     float cavity_length = static_cast<float>( arduino->GetCavityLength() );
 
@@ -134,7 +143,7 @@ std::vector< data_triple<double> > ProgramFrame::power_to_data_list ( std::vecto
         double frequency = ( i_f + 1.0 )*( max_freq - min_freq )/( num_points_f ) + min_freq;
         double power = static_cast<double>( power_list.at(i) );
 
-        processed.push_back( data_triple< double >( std::round( frequency ), cavity_length, power ) );
+        processed.push_back( data_triple< double >( cavity_length, std::round( frequency ), power ) );
 
     }
 
@@ -142,11 +151,13 @@ std::vector< data_triple<double> > ProgramFrame::power_to_data_list ( std::vecto
 
 }
 
-std::vector< data_triple<double> > ProgramFrame::power_to_data_list ( std::vector< double > power_list ) {
+std::vector< data_triple<double> > ProgramFrame::power_to_data_list ( std::vector< double > power_list,
+                                                                      double min_freq,
+                                                                      double max_freq ) {
 
     uint number_of_points = power_list.size();
-    double max_freq = center_frequency + nwa_span_MHz / 2.0;
-    double min_freq = center_frequency - nwa_span_MHz / 2.0;
+//    double max_freq = center_frequency + nwa_span_MHz / 2.0;
+//    double min_freq = center_frequency - nwa_span_MHz / 2.0;
 
     double cavity_length = arduino->GetCavityLength();
 
@@ -161,7 +172,7 @@ std::vector< data_triple<double> > ProgramFrame::power_to_data_list ( std::vecto
         double frequency = (i_f + 1.0)*(max_freq - min_freq)/(num_points_f) + min_freq;
         double power = power_list.at(i);
 
-        processed.push_back( data_triple<double>( round(frequency), cavity_length, power ) );
+        processed.push_back( data_triple< double >( cavity_length, std::round( frequency ), power ) );
 
     }
 

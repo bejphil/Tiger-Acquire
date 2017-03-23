@@ -3,7 +3,8 @@
 //C System-Headers
 #include <cstdlib> // std::atexit
 //C++ System headers
-//
+#include <algorithm>
+#include <future>
 //Qt Headers
 //
 //OpenCV Headers
@@ -16,9 +17,10 @@
 namespace etig {
 //Public functions
 
-Program::Program() {
+Program::Program(QObject *parent) : QObject( parent ) {
 
-    Run();
+//    connect( this, &Program::UpdateNA, na_view, &InstrumentView::UpdateSignal );
+//    connect( this, &Program::UpdateSpec, spec_analyzer, &SpectrumAnalyzer::UpdateSignal );
 
 //    if ( std::atexit(Program::PanicCleanUp&) != 0 ) {
 //        std::cout << "Failed to register CleanUp" << std::endl;
@@ -30,9 +32,14 @@ double Program::FindModeReflection() {
 
     auto network_analyzer_scan = hp8757_c->TakeDataMultiple();
 
-    na_view->UpdateSignal( network_analyzer_scan, nwa_span_MHz*4.0 );
+//    na_view->UpdateSignal( network_analyzer_scan, nwa_span_MHz*4.0 );
+    emit UpdateNA( network_analyzer_scan, nwa_span_MHz*4.0 );
 
-    auto formatted_na_scan = power_to_data_list( network_analyzer_scan );
+    QCoreApplication::processEvents();
+
+    jaspl::plot( network_analyzer_scan , "Composite NA Scan" );
+
+    auto formatted_na_scan = power_to_data_list( network_analyzer_scan, na_min_freq, na_max_freq );
 
     try {
         return FindMinimaPeak( formatted_na_scan );
@@ -60,7 +67,11 @@ std::vector< data_triple<double> > Program::TakeData( double mode_frequency ) {
     while( !ats9462->Finished() ) {
 
         std::vector< float > volts_data = ats9462->PullVoltageDataTail( 1024 );
-        spec_analyzer->UpdateSignal( volts_data, 2e6 );
+
+        emit UpdateSpec( volts_data, static_cast<uint>( 2e6 ) );
+
+        QCoreApplication::processEvents();
+//        spec_analyzer->UpdateSignal( volts_data, 2e6 );
 
         sleep(5);
     }
@@ -73,7 +84,11 @@ std::vector< data_triple<double> > Program::TakeData( double mode_frequency ) {
         throw( daq_failure( "Signal could not be read from digitizer." ) );
     }
 
-    return power_to_data_list( signal );
+    float nyquist_over_2 = static_cast< float >( digitizer_rate_MHz )/4.0f;
+    float min_freq = mode_frequency - nyquist_over_2;
+    float max_freq = mode_frequency + nyquist_over_2;
+
+    return power_to_data_list( signal, min_freq, max_freq );
 
 }
 

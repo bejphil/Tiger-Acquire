@@ -19,7 +19,9 @@ QSocketComm::QSocketComm( std::string host_name, uint port_number, QObject *pare
     socket->connectToHost( QString::fromStdString( host_name ), port_number );
 
     if( socket->waitForConnected(3000) ) {
-        qDebug() << "Connected!";
+        qDebug() << "Connected to "
+                 << QString::fromStdString( host_name )
+                 << port_number;
     } else {
 
         QString q_sock_error = socket->errorString();

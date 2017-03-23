@@ -44,7 +44,7 @@ class SpectrumAnalyzer : public QChartView {
     template <class T>
     void Plot( const T& y_signal_elements , double x_frequency_range);
 
-    void UpdateSignal( const std::vector<float>& time_series , uint sample_rate );
+//    void UpdateSignal( const std::vector<float>& time_series , uint sample_rate );
 
   private:
 
@@ -66,7 +66,7 @@ class SpectrumAnalyzer : public QChartView {
     const uint fft_points = 1024;
 
   public slots:
-//    void UpdateSignal( std::vector<float> time_series , uint sample_rate );
+    void UpdateSignal( std::vector<float> time_series , uint sample_rate );
 //    void UpdateAndAverage( std::vector<float> time_series , uint sample_rate );
 
     void SetFrequencyMin( double min_frequency );

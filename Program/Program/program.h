@@ -6,7 +6,7 @@
 //C++ System headers
 //
 //Qt Headers
-//
+#include <QObject>
 //OpenCV Headers
 //
 //Boost Headers
@@ -17,12 +17,14 @@
 
 namespace etig {
 
-class Program : public ProgramFrame {
+class Program : public QObject, public ProgramFrame {
+
+    Q_OBJECT
 
     typedef std::vector<data_triple<double>> data_list;
 
   public:
-    Program();
+    Program( QObject* parent = 0 );
 
     double FindModeReflection();
     double FindModeTransmission( double mode_frequency );
@@ -30,10 +32,15 @@ class Program : public ProgramFrame {
     void SavePowerSpectrum( data_list scan );
     void PanicCleanUp();
 
-    void Run();
-
   private:
     double DeriveLengthFromStart();
+
+  signals:
+    void UpdateNA( std::vector< double > na_data, double na_span );
+    void UpdateSpec( std::vector< float > spec_data, uint digi_rate );
+
+  public slots:
+    void Run();
 
 };
 

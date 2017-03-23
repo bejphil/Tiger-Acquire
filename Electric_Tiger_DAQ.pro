@@ -13,8 +13,6 @@ TEMPLATE = app
 
 CONFIG += c++11
 
-DEFINES += "DEBUG"
-
 CONFIG(debug, debug|release) {
     DEFINES += "DEBUG"
 } else {

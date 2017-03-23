@@ -8,6 +8,7 @@
 //Qt Headers
 #include <QTimer>
 #include <QObject>
+#include <QApplication>
 //OpenCV Headers
 //
 //Boost Headers

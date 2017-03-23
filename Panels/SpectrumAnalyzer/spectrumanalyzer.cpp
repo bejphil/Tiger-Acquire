@@ -82,7 +82,7 @@ void SpectrumAnalyzer::ChangeTodBm() {
     unit_conversion = &SpectrumAnalyzer::volt_sqr_to_dbm;
 }
 
-void SpectrumAnalyzer::UpdateSignal(const std::vector<float> &time_series, uint sample_rate ) {
+void SpectrumAnalyzer::UpdateSignal( std::vector<float> time_series, uint sample_rate ) {
     ;
 
     std::cout << "Time series size "

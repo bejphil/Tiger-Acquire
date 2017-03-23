@@ -21,14 +21,14 @@ ProgramCore::ProgramCore(){
     InitializeSocketObjects();
     InitializeDigitizer();
 
-    window = new MainWindow();
-    window->show();
+//    window = new MainWindow();
+//    window->show();
 
-    spec_analyzer = new SpectrumAnalyzer( window );
-    window -> SetSpectrumAnalyzerView( spec_analyzer );
+//    spec_analyzer = new SpectrumAnalyzer( window );
+//    window -> SetSpectrumAnalyzerView( spec_analyzer );
 
-    na_view = new InstrumentView( "Network Analyzer", window );
-    window -> SetNetworkAnalyzerView( na_view );
+//    na_view = new InstrumentView( "Network Analyzer", window );
+//    window -> SetNetworkAnalyzerView( na_view );
 
 }
 

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['retrieveval',['RetrieveVal',['../struct_retrieve_val.html',1,'']]],
-  ['rightclickmenu',['RightClickMenu',['../class_right_click_menu.html',1,'']]]
+  ['qsocketcomm',['QSocketComm',['../class_q_socket_comm.html',1,'']]],
+  ['qsocketintermitten',['QSocketIntermitten',['../class_q_socket_intermitten.html',1,'']]]
 ];

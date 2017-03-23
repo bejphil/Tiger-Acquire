@@ -223,7 +223,7 @@ class ModeTrack {
      * \return Dictionary of identified peaks, with the format of
      * [peak index]:frequency(MHz)
      */
-    std::map<uint,double> CompareAndFill(std::vector<double>& peak_list, const std::vector<data_triple<double> > &comparison_list);
+    std::map<uint,double> CompareAndFill(const std::vector<double> &peak_list, const std::vector<data_triple<double> > &comparison_list);
 
     //Generate estimated peak position from best fit parameters
 
@@ -269,7 +269,7 @@ class ModeTrack {
     //
     bool CheckBounds(double frequency);
 
-    std::vector< double > data_triples_to_power( std::vector< data_triple<double> > data_list );
+    std::vector< double > data_triples_to_power(const std::vector<data_triple<double> > &data_list );
 };
 
 #endif /* MODETRACK_H */

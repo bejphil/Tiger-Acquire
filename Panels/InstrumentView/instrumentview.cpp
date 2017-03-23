@@ -62,10 +62,10 @@ void InstrumentView::SetPowerMax( double max_power ) {
     chart->axisY()->setMax( max_power );
 }
 
-//void InstrumentView::UpdateSignal(const std::vector<float> &data, double freq_span ) {
+void InstrumentView::UpdateSignal( std::vector< double > data, double freq_span ) {
 
-//    Plot( data , freq_span );
+    PlotAutoScale( data , freq_span );
 
-//}
+}
 
 InstrumentView::~InstrumentView() {}

@@ -45,10 +45,10 @@ void InstrumentView::Plot( const T& y_signal_elements , double x_frequency_range
 
 }
 
-template < typename T >
-void InstrumentView::UpdateSignal(const std::vector< T > &data, double freq_span ) {
+//template < typename T >
+//void InstrumentView::UpdateSignal(const std::vector< T > &data, double freq_span ) {
 
-    PlotAutoScale( data , freq_span );
+//    PlotAutoScale( data , freq_span );
 
-}
+//}
 

@@ -73,9 +73,17 @@ void TestPanels::Test() {
 //    sleep( 1 );
 
 //    while( true ) {
-//        std::vector< float > volts_data = digitizer.PullVoltageDataTail( 1024 );
+
+//        std::cout << "Collecting single scan between 1950 - 2050 MHz" << std::endl;
+//        auto single_scan = hp8757_c->TakeDataSingle();
+
+//        na_view->UpdateSignal( single_scan, 100.0 );
+
+//        std::vector< float > volts_data = digitizer->PullVoltageDataTail( 1024 );
+
 //        spec->UpdateSignal( volts_data, 2e6 );
-//        sleep( 0.25 );
+
+//        sleep( 1 );
 //    }
 
 }
