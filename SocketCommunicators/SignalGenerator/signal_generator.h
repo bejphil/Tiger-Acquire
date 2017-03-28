@@ -16,7 +16,7 @@
 class SignalGenerator : public AbstractSocketCommunicator {
 
   public:
-    SignalGenerator( std::string ip_addr, uint port_number );
+    SignalGenerator( std::string ip_addr, uint port_number, QObject* parent = 0 );
     SignalGenerator& operator=( const SignalGenerator& ) = delete; // non copyable
 
     void RFOn();

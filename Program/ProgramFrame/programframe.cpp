@@ -9,7 +9,7 @@
 
 namespace etig {
 
-ProgramFrame::ProgramFrame() {
+ProgramFrame::ProgramFrame(QObject *parent) : ProgramCore( parent ) {
 
 }
 

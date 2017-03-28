@@ -12,7 +12,9 @@
 //Project specific headers
 #include "signal_generator.h"
 
-SignalGenerator::SignalGenerator( std::string ip_addr, uint port_number ) : AbstractSocketCommunicator( ip_addr, port_number ) {}
+SignalGenerator::SignalGenerator(std::string ip_addr,
+                                 uint port_number,
+                                 QObject *parent) : AbstractSocketCommunicator( ip_addr, port_number, parent ) {}
 
 void SignalGenerator::RFOn() {
     socket->Send( "OUTP ON" );

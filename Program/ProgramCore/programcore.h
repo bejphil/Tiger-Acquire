@@ -7,7 +7,7 @@
 // C++ System headers
 #include <memory>
 // Qt Headers
-//
+#include <QObject>
 // ATS9462 Headers
 #include "../ATS9462/Digitizer/ATS9462Engine/ats9462engine.h"
 // JASPL Headers
@@ -25,10 +25,12 @@
 
 namespace etig {
 
-class ProgramCore {
+class ProgramCore: public QObject {
+
+    Q_OBJECT
 
   public:
-    ProgramCore();
+    ProgramCore( QObject* parent = 0 );
 
     void RetractCavity();
     void RapidTraverse();
@@ -60,11 +62,17 @@ class ProgramCore {
 
 
     std::shared_ptr<ATS9462Engine> ats9462;
-    std::shared_ptr<Arduino> arduino;
-    std::shared_ptr<NetworkAnalyzer> hp8757_c;
-    std::shared_ptr<SignalGenerator> mxg_n5183b;
-    std::shared_ptr<StepperMotor> stm23_ee;
-    std::shared_ptr<Switch> xdl_35_5tp;
+
+//    std::shared_ptr<Arduino> arduino;
+//    std::shared_ptr<NetworkAnalyzer> hp8757_c;
+//    std::shared_ptr<SignalGenerator> mxg_n5183b;
+//    std::shared_ptr<StepperMotor> stm23_ee;
+//    std::shared_ptr<Switch> xdl_35_5tp;
+    Arduino* arduino;
+    NetworkAnalyzer* hp8757_c;
+    SignalGenerator* mxg_n5183b;
+    StepperMotor* stm23_ee;
+    Switch* xdl_35_5tp;
 
 //    MainWindow* window;
 //    SpectrumAnalyzer* spec_analyzer;

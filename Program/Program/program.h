@@ -17,7 +17,7 @@
 
 namespace etig {
 
-class Program : public QObject, public ProgramFrame {
+class Program : public ProgramFrame {
 
     Q_OBJECT
 

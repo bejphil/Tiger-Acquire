@@ -8,16 +8,18 @@
 //Boost Headers
 //
 //Qt Headers
-//
+#include <QObject>
 //Project specific headers
 #include "../SocketComm/q_socket_comm.h"
 #include "../../ConfigProcessor/experiment_parameters.h"
 
-class AbstractSocketCommunicator {
+class AbstractSocketCommunicator : public QObject {
+
+    Q_OBJECT
 
   public:
-    AbstractSocketCommunicator( std::string ip_addr, uint port_number );
-    AbstractSocketCommunicator( const TCPSocketParam socket_param );
+    AbstractSocketCommunicator( std::string ip_addr, uint port_number, QObject* parent = 0 );
+    AbstractSocketCommunicator( const TCPSocketParam socket_param, QObject* parent = 0 );
 
     AbstractSocketCommunicator& operator=( const AbstractSocketCommunicator& ) = delete; // non copyable
     virtual ~AbstractSocketCommunicator() = 0;

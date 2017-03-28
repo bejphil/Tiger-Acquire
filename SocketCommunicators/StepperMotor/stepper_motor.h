@@ -19,7 +19,7 @@
 class StepperMotor : public AbstractIntermittenSocket {
 
   public:
-    StepperMotor( std::string ip_addr, uint port_number );
+    StepperMotor( std::string ip_addr, uint port_number, QObject* parent = 0 );
     StepperMotor& operator=( const StepperMotor& ) = delete; // non copyable
 
     void SetToInitialLength( double initial_length, double current_length );

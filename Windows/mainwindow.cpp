@@ -40,33 +40,35 @@ MainWindow::MainWindow(QWidget *parent) :
 
 //    QObject::connect( prog, &etig::Program::UpdateNA, na_view, &InstrumentView::UpdateSignal );
 //    QObject::connect( prog, &etig::Program::UpdateSpec, spec_analyzer, &SpectrumAnalyzer::UpdateSignal );
+    qRegisterMetaType< std::vector<double> >("std::vector<double>");
+    qRegisterMetaType< std::vector<float> >("std::vector<float>");
 
-//    QThread* thread = new QThread;
+    thread = new QThread;
 
-//    prog->moveToThread( thread );
+    prog->etig::Program::moveToThread( thread );
 
     QObject::connect( prog, &etig::Program::UpdateNA, na_view, &InstrumentView::UpdateSignal );
     QObject::connect( prog, &etig::Program::UpdateSpec, spec_analyzer, &SpectrumAnalyzer::UpdateSignal );
 
-    show();
-    raise();
-    activateWindow();
+    QObject::connect( thread, &QThread::started, prog, &etig::Program::Run );
 
-    prog->Run();
-
-//    QObject::connect( thread, &QThread::started, prog, &etig::Program::Run );
-
-//    QObject::connect( thread, &QThread::finished, prog, &etig::Program::deleteLater );
-//    QObject::connect( thread, &QThread::finished, prog, &etig::Program::deleteLater );
+    QObject::connect( thread, &QThread::finished, prog, &etig::Program::deleteLater );
+    QObject::connect( thread, &QThread::finished, thread, &etig::Program::deleteLater );
 
 //    QObject::connect(thread, SIGNAL(started()), prog, SLOT(Run()));
 //    QObject::connect(thread, SIGNAL(finished()), prog, SLOT(deleteLater()));
 //    QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 
-//    thread->start();
+    thread->start();
+
+    show();
+    raise();
+    activateWindow();
 }
 
 MainWindow::~MainWindow() {
+
+    thread->quit();
     delete ui;
 }
 

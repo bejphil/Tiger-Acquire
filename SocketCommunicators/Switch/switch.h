@@ -16,7 +16,7 @@
 class Switch : public AbstractSocketCommunicator {
 
   public:
-    Switch( std::string ip_addr, uint port_number );
+    Switch( std::string ip_addr, uint port_number, QObject* parent = 0 );
     Switch& operator=( const Switch& ) = delete; // non copyable
 
     void SwitchToNetworkAnalyzer();

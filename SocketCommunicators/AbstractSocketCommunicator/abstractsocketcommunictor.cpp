@@ -9,15 +9,18 @@
 //Project specific headers
 #include "abstractsocketcommunictor.h"
 
-AbstractSocketCommunicator::AbstractSocketCommunicator( std::string ip_addr, uint port_number ) {
-    socket = new QSocketComm( ip_addr, port_number );
+AbstractSocketCommunicator::AbstractSocketCommunicator( std::string ip_addr,
+                                                        uint port_number,
+                                                        QObject* parent ) : QObject( parent ) {
+    socket = new QSocketComm( ip_addr, port_number, this );
 }
 
-AbstractSocketCommunicator::AbstractSocketCommunicator( const TCPSocketParam socket_param ) {
-    socket = new QSocketComm( socket_param.ip_addr, socket_param.port_addr );
+AbstractSocketCommunicator::AbstractSocketCommunicator( const TCPSocketParam socket_param,
+                                                        QObject* parent ) : QObject( parent ) {
+    socket = new QSocketComm( socket_param.ip_addr, socket_param.port_addr, this );
 }
 
 
 AbstractSocketCommunicator::~AbstractSocketCommunicator() {
-    socket->deleteLater();
+//    socket->deleteLater();
 }

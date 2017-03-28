@@ -14,7 +14,11 @@
 #include "../../Algorithm/algorithm.h"
 #include "arduino.h"
 
-Arduino::Arduino( std::string ip_addr, uint port_number ) : AbstractSocketCommunicator( ip_addr, port_number ) {}
+Arduino::Arduino(std::string ip_addr,
+                 uint port_number,
+                 QObject *parent) : AbstractSocketCommunicator( ip_addr,
+                             port_number,
+                             parent ) {}
 
 double Arduino::GetCavityLength() {
     socket->Send( "LengthOfCavity" );

@@ -19,7 +19,12 @@
 class NetworkAnalyzer : public AbstractSocketCommunicator {
 
   public:
-    NetworkAnalyzer( std::string ip_addr, uint port_number , uint points, double span, double power );
+    NetworkAnalyzer( std::string ip_addr,
+                     uint port_number,
+                     uint points,
+                     double span,
+                     double power,
+                     QObject* parent = 0 );
     NetworkAnalyzer& operator=( const NetworkAnalyzer& ) = delete; // non copyable
 
     std::vector< double > TakeDataMultiple();

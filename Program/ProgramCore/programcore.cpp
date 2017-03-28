@@ -15,7 +15,7 @@
 
 namespace etig {
 
-ProgramCore::ProgramCore(){
+ProgramCore::ProgramCore(QObject *parent) : QObject( parent ) {
 
     number_of_iterations = DeriveNumberofIterations();
     InitializeSocketObjects();
@@ -34,32 +34,55 @@ ProgramCore::ProgramCore(){
 
 void ProgramCore::InitializeSocketObjects() {
 
-    arduino = std::shared_ptr<Arduino>( new Arduino( arduino_info.ip_addr,\
-                                                     arduino_info.port_addr ) );
+    arduino = new Arduino( arduino_info.ip_addr,
+                           arduino_info.port_addr,
+                           this );
 
-    hp8757_c = std::shared_ptr<NetworkAnalyzer>( new NetworkAnalyzer( network_analyzer.ip_addr,\
-                                                                      network_analyzer.port_addr,\
-                                                                      nwa_points,\
-                                                                      nwa_span_MHz,\
-                                                                      nwa_power_dBm ) );
+    hp8757_c = new NetworkAnalyzer( network_analyzer.ip_addr,
+                                    network_analyzer.port_addr,
+                                    nwa_points,
+                                    nwa_span_MHz,
+                                    nwa_power_dBm,
+                                    this );
 
-    mxg_n5183b = std::shared_ptr<SignalGenerator>( new SignalGenerator( signal_generator.ip_addr,\
-                                                                        signal_generator.port_addr ) );
+    mxg_n5183b = new SignalGenerator( signal_generator.ip_addr,
+                                      signal_generator.port_addr,
+                                      this ) ;
 
-    stm23_ee = std::shared_ptr<StepperMotor>( new StepperMotor( stepper.ip_addr,\
-                                                                stepper.port_addr ) );
+    stm23_ee = new StepperMotor( stepper.ip_addr,
+                                 stepper.port_addr,
+                                 this );
 
-    xdl_35_5tp = std::shared_ptr<Switch>( new Switch( psu_switch.ip_addr,\
-                                                      psu_switch.port_addr ) );
+    xdl_35_5tp = new Switch( psu_switch.ip_addr,
+                             psu_switch.port_addr,
+                             this);
+
+//    arduino = std::shared_ptr<Arduino>( new Arduino( arduino_info.ip_addr,\
+//                                                     arduino_info.port_addr ) );
+
+//    hp8757_c = std::shared_ptr<NetworkAnalyzer>( new NetworkAnalyzer( network_analyzer.ip_addr,\
+//                                                                      network_analyzer.port_addr,\
+//                                                                      nwa_points,\
+//                                                                      nwa_span_MHz,\
+//                                                                      nwa_power_dBm ) );
+
+//    mxg_n5183b = std::shared_ptr<SignalGenerator>( new SignalGenerator( signal_generator.ip_addr,\
+//                                                                        signal_generator.port_addr ) );
+
+//    stm23_ee = std::shared_ptr<StepperMotor>( new StepperMotor( stepper.ip_addr,\
+//                                                                stepper.port_addr ) );
+
+//    xdl_35_5tp = std::shared_ptr<Switch>( new Switch( psu_switch.ip_addr,\
+//                                                      psu_switch.port_addr ) );
 }
 
 void ProgramCore::InitializeDigitizer() {
-        ats9462 = std::shared_ptr<ATS9462Engine>( new ATS9462Engine( digitizer_rate_MHz*1e6, 5, 500e6 ) );
+    ats9462 = std::shared_ptr<ATS9462Engine>( new ATS9462Engine( digitizer_rate_MHz*1e6, 5, 500e6 ) );
 
-        ats9462->ThreadPoolSize( 10 );
-        ats9462->SetSampleRate( digitizer_rate_MHz*1e6 );
+    ats9462->ThreadPoolSize( 10 );
+    ats9462->SetSampleRate( digitizer_rate_MHz*1e6 );
 
-        ats9462->StartCapture();
+    ats9462->StartCapture();
 }
 
 void ProgramCore::RetractCavity() {

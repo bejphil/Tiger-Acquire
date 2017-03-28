@@ -12,7 +12,9 @@
 //Project specific headers
 #include "stepper_motor.h"
 
-StepperMotor::StepperMotor( std::string ip_addr, uint port_number ) : AbstractIntermittenSocket( ip_addr, port_number ) {}
+StepperMotor::StepperMotor(std::string ip_addr,
+                           uint port_number,
+                           QObject *parent) : AbstractIntermittenSocket( ip_addr, port_number, parent ) {}
 
 
 void StepperMotor::SetToInitialLength( double initial_length, double current_length ) {

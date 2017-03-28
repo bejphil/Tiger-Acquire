@@ -21,7 +21,7 @@
 class Arduino : public AbstractSocketCommunicator {
 
   public:
-    Arduino( std::string ip_addr, uint port_number );
+    Arduino( std::string ip_addr, uint port_number, QObject* parent = 0 );
     Arduino& operator=( const Arduino& ) = delete; // non copyable
 
     /*!

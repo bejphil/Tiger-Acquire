@@ -12,7 +12,9 @@
 //Project specific headers
 #include "switch.h"
 
-Switch::Switch( std::string ip_addr, uint port_number ) : AbstractSocketCommunicator( ip_addr, port_number ) {
+Switch::Switch(std::string ip_addr,
+               uint port_number,
+               QObject *parent) : AbstractSocketCommunicator( ip_addr, port_number, parent ) {
     SetVoltages();
 }
 

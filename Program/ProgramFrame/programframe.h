@@ -24,7 +24,7 @@ class ProgramFrame : public ProgramCore {
     typedef std::vector<data_triple<double>> data_list;
 
   public:
-    ProgramFrame();
+    ProgramFrame( QObject* parent );
     void Prequel();
     void ShiftFrequencyWindow( double center_frequency );
     void SetBackground();

@@ -11,7 +11,12 @@
 #include "../../Algorithm/algorithm.h" // remove_newlines
 #include "network_analyzer.h"
 
-NetworkAnalyzer::NetworkAnalyzer( std::string ip_addr, uint port_number, uint points, double span, double power ) : AbstractSocketCommunicator( ip_addr, port_number ) {
+NetworkAnalyzer::NetworkAnalyzer(std::string ip_addr,
+                                 uint port_number,
+                                 uint points,
+                                 double span,
+                                 double power,
+                                 QObject *parent) : AbstractSocketCommunicator( ip_addr, port_number, parent ) {
     SetGPIB();
     SetNetworkAnalyzer( points );
     SetRFParameters( span, power );

@@ -17,7 +17,7 @@
 namespace etig {
 //Public functions
 
-Program::Program(QObject *parent) : QObject( parent ) {
+Program::Program(QObject *parent) : ProgramFrame( parent ) {
 
 //    connect( this, &Program::UpdateNA, na_view, &InstrumentView::UpdateSignal );
 //    connect( this, &Program::UpdateSpec, spec_analyzer, &SpectrumAnalyzer::UpdateSignal );
@@ -35,9 +35,7 @@ double Program::FindModeReflection() {
 //    na_view->UpdateSignal( network_analyzer_scan, nwa_span_MHz*4.0 );
     emit UpdateNA( network_analyzer_scan, nwa_span_MHz*4.0 );
 
-    QCoreApplication::processEvents();
-
-    jaspl::plot( network_analyzer_scan , "Composite NA Scan" );
+//    QCoreApplication::processEvents();
 
     auto formatted_na_scan = power_to_data_list( network_analyzer_scan, na_min_freq, na_max_freq );
 
@@ -70,7 +68,7 @@ std::vector< data_triple<double> > Program::TakeData( double mode_frequency ) {
 
         emit UpdateSpec( volts_data, static_cast<uint>( 2e6 ) );
 
-        QCoreApplication::processEvents();
+//        QCoreApplication::processEvents();
 //        spec_analyzer->UpdateSignal( volts_data, 2e6 );
 
         sleep(5);

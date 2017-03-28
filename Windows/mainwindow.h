@@ -13,6 +13,7 @@
 #include <QMainWindow>
 #include <QPalette>
 #include <QHBoxLayout>
+#include <QThread>
 //Project specific headers
 #include "Panels/SpectrumAnalyzer/spectrumanalyzer.h"
 #include "Panels/InstrumentView/instrumentview.h"
@@ -36,6 +37,8 @@ class MainWindow : public QMainWindow {
     Ui::MainWindow *ui;
     QHBoxLayout* front_panel_layout;
     QPalette dark_palette;
+
+    QThread* thread;
 };
 
 #endif // MAINWINDOW_H

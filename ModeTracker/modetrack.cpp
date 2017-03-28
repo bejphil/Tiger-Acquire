@@ -24,7 +24,6 @@
 #include <omp.h>//OpenMP pragmas
 //Project specific Headers
 //
-#include "../../JASPL/jPlot/jplot.h"
 
 
 ModeTrack::ModeTrack() {
@@ -65,8 +64,6 @@ double ModeTrack::GetPeaks( const std::vector<data_triple<double> >& data_str, i
     std::vector< data_triple< double > > clean_signal = SubtractBackground( data_str, background );
 
     std::vector<double> power_list = data_triples_to_power( clean_signal );
-
-    jaspl::plot( power_list );
 
     auto peak_list = FindPeaks( power_list, filter_method) ;
     std::cout << "Number of peaks identified: " << peak_list.size() << std::endl;
