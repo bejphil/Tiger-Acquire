@@ -63,11 +63,6 @@ class ProgramCore: public QObject {
 
     std::shared_ptr<ATS9462Engine> ats9462;
 
-//    std::shared_ptr<Arduino> arduino;
-//    std::shared_ptr<NetworkAnalyzer> hp8757_c;
-//    std::shared_ptr<SignalGenerator> mxg_n5183b;
-//    std::shared_ptr<StepperMotor> stm23_ee;
-//    std::shared_ptr<Switch> xdl_35_5tp;
     Arduino* arduino;
     NetworkAnalyzer* hp8757_c;
     SignalGenerator* mxg_n5183b;

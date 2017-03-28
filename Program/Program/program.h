@@ -35,12 +35,9 @@ class Program : public ProgramFrame {
   private:
     double DeriveLengthFromStart();
 
-  signals:
-    void UpdateNA( std::vector< double > na_data, double na_span );
-    void UpdateSpec( std::vector< float > spec_data, uint digi_rate );
-
   public slots:
     void Run();
+    void Stop();
 
 };
 

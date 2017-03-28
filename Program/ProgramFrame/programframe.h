@@ -21,6 +21,8 @@ namespace etig {
 
 class ProgramFrame : public ProgramCore {
 
+    Q_OBJECT
+
     typedef std::vector<data_triple<double>> data_list;
 
   public:
@@ -42,6 +44,9 @@ class ProgramFrame : public ProgramCore {
                                    double min_freq,
                                    double max_freq );
 
+    template < typename T >
+    std::vector< T > data_list_to_power( std::vector< data_triple <T> > data );
+
     double CheckPeak( double possible_mode_position );
     std::string BuildHeader();
 
@@ -56,6 +61,10 @@ class ProgramFrame : public ProgramCore {
     double quality_factor = 0.0;
 
     const double single_scan_window = 100.0;
+
+signals:
+  void UpdateNA( std::vector< double > na_data, double na_span );
+  void UpdateSpec( std::vector< float > spec_data, uint digi_rate );
 
 };
 

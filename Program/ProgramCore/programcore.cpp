@@ -57,23 +57,6 @@ void ProgramCore::InitializeSocketObjects() {
                              psu_switch.port_addr,
                              this);
 
-//    arduino = std::shared_ptr<Arduino>( new Arduino( arduino_info.ip_addr,\
-//                                                     arduino_info.port_addr ) );
-
-//    hp8757_c = std::shared_ptr<NetworkAnalyzer>( new NetworkAnalyzer( network_analyzer.ip_addr,\
-//                                                                      network_analyzer.port_addr,\
-//                                                                      nwa_points,\
-//                                                                      nwa_span_MHz,\
-//                                                                      nwa_power_dBm ) );
-
-//    mxg_n5183b = std::shared_ptr<SignalGenerator>( new SignalGenerator( signal_generator.ip_addr,\
-//                                                                        signal_generator.port_addr ) );
-
-//    stm23_ee = std::shared_ptr<StepperMotor>( new StepperMotor( stepper.ip_addr,\
-//                                                                stepper.port_addr ) );
-
-//    xdl_35_5tp = std::shared_ptr<Switch>( new Switch( psu_switch.ip_addr,\
-//                                                      psu_switch.port_addr ) );
 }
 
 void ProgramCore::InitializeDigitizer() {
