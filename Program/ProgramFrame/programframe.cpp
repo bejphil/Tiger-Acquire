@@ -6,6 +6,8 @@
 //
 //Boost Headers
 #include <boost/lexical_cast.hpp>//lexical cast
+//Project Specific Headers
+#include "../../ModeCharacterization/modecharacterization.h"
 
 namespace etig {
 
@@ -47,7 +49,13 @@ std::string ProgramFrame::BuildHeader() {
     header += "nwa_power_dBm;" + boost::lexical_cast<std::string>( nwa_power_dBm ) + "\n";
     header += "freq_window_MHz;" + boost::lexical_cast<std::string>( freq_window_MHz ) + "\n";
     header += "digitizer_rate_MHz;" + boost::lexical_cast<std::string>( digitizer_rate_MHz ) + "\n";
+
     header += "num_averages;" + boost::lexical_cast<std::string>( num_averages ) + "\n";
+    header += "Q;" + boost::lexical_cast<std::string>( quality_factor ) + "\n";
+    header += "hwhm;" + boost::lexical_cast<std::string>( hwhm ) + "\n";
+
+    double current_length = arduino->GetCavityLength();
+    header += "cavity_length;" + boost::lexical_cast<std::string>( current_length ) + "\n";
 
     return header;
 }
@@ -111,10 +119,15 @@ double ProgramFrame::CheckPeak( double possible_mode_position ) {
 
     std::vector< double > final_window = hp8757_c->TakeDataSingle();
 
-//    double min_freq_final = new_mode_position - nwa_span_MHz/2;
-//    double max_freq_final = new_mode_position + nwa_span_MHz/2;
+    double min_freq_final = new_mode_position - nwa_span_MHz/2;
+    double max_freq_final = new_mode_position + nwa_span_MHz/2;
 
-//    data_list mode_window = power_to_data_list( final_window, min_freq_final, max_freq_final );
+    data_list mode_window = power_to_data_list( final_window, min_freq_final, max_freq_final );
+    ModeTraits mode_parameters( mode_window );
+
+    center_frequency = mode_parameters.f0();
+    quality_factor = mode_parameters.Q();
+    hwhm = center_frequency/quality_factor;
 
 //    na_view->UpdateSignal( final_window, single_scan_window );
 

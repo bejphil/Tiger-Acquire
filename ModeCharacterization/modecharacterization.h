@@ -16,7 +16,7 @@
 
 class ModeTraits {
   public:
-    ModeTraits( const std::vector<data_triple<double> >&data_values );
+    ModeTraits( const std::vector<data_triple<double> >& data_values );
     double Q();
     double f0();
 

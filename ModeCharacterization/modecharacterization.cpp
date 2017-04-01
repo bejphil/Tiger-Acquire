@@ -14,13 +14,6 @@ void find_n_nearest(const Q& q, I first, I nth, I last, Distance dist)
 
 ModeTraits::ModeTraits( const std::vector< data_triple<double> >& data_values ) {
 
-//    std::vector< double > power_values = data_list_to_powers( data_values );
-
-//    auto max_power = std::max_element( power_values.begin(), power_values.end() );
-
-//    auto max_pow_index = std::distance( power_values.begin(), max_power );
-//    f_0 = data_values[ max_pow_index ].frequency_MHz;
-
     auto compare = [] (data_triple<double> i, data_triple<double> j) { return ( i.power_dBm < j.power_dBm ); };
     auto max_power = std::max_element( data_values.begin(), data_values.end(), compare );
     data_triple<double> max_val = *max_power;

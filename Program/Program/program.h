@@ -35,8 +35,8 @@ class Program : public ProgramFrame {
 
   private:
     double DeriveLengthFromStart();
-    std::string BuildModeParamHeader( const data_list& scan  );
-    std::string BuildCavityLengthHeader();
+//    std::string BuildModeParamHeader( const data_list& scan  );
+//    std::string BuildCavityLengthHeader();
 
   public slots:
     void Run();

@@ -12,7 +12,6 @@
 //Boost Headers
 //
 //Project specific headers
-#include "../../ModeCharacterization/modecharacterization.h"
 
 namespace etig {
 //Public functions
@@ -85,27 +84,23 @@ std::vector< data_triple<double> > Program::TakeData( double mode_frequency ) {
 
 }
 
-std::string Program::BuildModeParamHeader( const data_list& scan ) {
-    ModeTraits mode_parameters( scan );
+//std::string Program::BuildModeParamHeader() {
 
-    std::string mode_param_header = "";
-    mode_param_header += "Q;" + boost::lexical_cast<std::string>( mode_parameters.Q() ) + "\n";
-    mode_param_header += "hwhm;" + boost::lexical_cast<std::string>( mode_parameters.f0() ) + "\n";
+//    std::string mode_param_header = "";
+//    mode_param_header += "Q;" + boost::lexical_cast<std::string>( quality_factor ) + "\n";
+//    mode_param_header += "hwhm;" + boost::lexical_cast<std::string>( hwhm ) + "\n";
 
-    return mode_param_header;
-}
+//    return mode_param_header;
+//}
 
-std::string Program::BuildCavityLengthHeader() {
-    double current_length = arduino->GetCavityLength();
-    return "cavity_length;" + boost::lexical_cast<std::string>( current_length ) + "\n";
-}
+//std::string Program::BuildCavityLengthHeader() {
+//    double current_length = arduino->GetCavityLength();
+//    return "cavity_length;" + boost::lexical_cast<std::string>( current_length ) + "\n";
+//}
 
 void Program::SavePowerSpectrum( const data_list& scan ) {
 
     std::string header = BuildHeader();
-    header += BuildModeParamHeader( scan );
-    header += BuildCavityLengthHeader();
-
     data_saver.Save( scan, header );
 }
 

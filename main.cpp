@@ -18,11 +18,11 @@
 #include "Panels/InstrumentView/instrumentview.h"
 
 int main(int argc, char *argv[]) {
+    (void)argc;
+    (void)argv;
 
-//    QApplication q_app(argc, argv);
-//    MainWindow window;
+    QApplication q_app(argc, argv);
+    MainWindow window;
 
-//    return q_app.exec();
-
-    etig::test::TestModeCharacterization( 4000, 150, static_cast<uint>( 100e6 ) );
+    return q_app.exec();
 }
