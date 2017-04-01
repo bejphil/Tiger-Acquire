@@ -22,7 +22,7 @@ class StepperMotor : public AbstractIntermittenSocket {
     StepperMotor( std::string ip_addr, uint port_number, QObject* parent = 0 );
     StepperMotor& operator=( const StepperMotor& ) = delete; // non copyable
 
-    void SetToInitialLength( double initial_length, double current_length );
+    void TuneToLength( double desired_length, double current_length );
     void TuneCavity( double length_of_tune );
     void PanicResetCavity( uint iteration, double revs_per_iter );
     void TuningLoop(double len_of_tune, double revs, uint iters);

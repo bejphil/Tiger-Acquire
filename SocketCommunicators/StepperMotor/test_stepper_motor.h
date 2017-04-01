@@ -48,7 +48,7 @@ void TestStepperMotorWithArduino() {
     double cavity_length = arduino->GetCavityLength();
 
     std::cout << "Setting cavity to length of " << starting_length << " Inches." << std::endl;
-    stm23_ee->SetToInitialLength( starting_length, cavity_length );
+    stm23_ee->TuneToLength( starting_length, cavity_length );
 
 }
 

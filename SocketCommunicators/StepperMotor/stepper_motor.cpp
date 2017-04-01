@@ -17,9 +17,9 @@ StepperMotor::StepperMotor(std::string ip_addr,
                            QObject *parent) : AbstractIntermittenSocket( ip_addr, port_number, parent ) {}
 
 
-void StepperMotor::SetToInitialLength( double initial_length, double current_length ) {
+void StepperMotor::TuneToLength(double desired_length, double current_length ) {
 
-    double delta_l = initial_length - current_length;
+    double delta_l = desired_length - current_length;
     int delta_steps = static_cast<int>( std::round( 16.0*200*delta_l ) );
 
     std::string command = "FL";
@@ -76,7 +76,11 @@ void StepperMotor::TuningLoop( double len_of_tune, double revs, uint iters ) {
     std::string command = "FL";
     command += boost::lexical_cast<std::string>( iteration_steps );
 
+    socket->OpenConnection();
+
     socket->SendScl( command );
+
+    socket->CloseConnection();
     sleep( revs );
 }
 

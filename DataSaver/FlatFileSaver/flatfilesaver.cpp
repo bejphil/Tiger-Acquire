@@ -21,7 +21,7 @@ FlatFileSaver::FlatFileSaver( std::string save_file_path ) {
     MakeEmptyDataFolder( root_dir );
 }
 
-void FlatFileSaver::Save( std::vector< data_triple<double> > data_values, std::string header ) {
+void FlatFileSaver::Save( const std::vector< data_triple<double> >& data_values, std::string header ) {
 
     std::string save_file = GenerateSaveFileName( counter );
 
@@ -72,7 +72,7 @@ void FlatFileSaver::MakeEmptyDataFolder( std::string data_folder ) {
 std::string FlatFileSaver::GetFolderName() {
 
     QDateTime time_stamp = QDateTime::currentDateTime();
-    QString format_str = "YYYY:MM:DD_HH:mm:ss";
+    QString format_str = "yyyy:MM:dd_HH:mm:ss";
 
     QString time_str = time_stamp.toString( format_str );
 

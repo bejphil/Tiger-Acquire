@@ -19,7 +19,7 @@ class FlatFileSaver {
 
   public:
     FlatFileSaver( std::string save_file_path );
-    void Save( std::vector< data_triple<double> > data_values, std::string header );
+    void Save(const std::vector<data_triple<double> > &data_values, std::string header );
 
   protected:
     std::string GenerateSaveFileName( uint index );

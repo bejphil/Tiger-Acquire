@@ -55,10 +55,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect( thread, &QThread::finished, prog, &etig::Program::deleteLater );
     QObject::connect( thread, &QThread::finished, thread, &etig::Program::deleteLater );
 
-//    QObject::connect(thread, SIGNAL(started()), prog, SLOT(Run()));
-//    QObject::connect(thread, SIGNAL(finished()), prog, SLOT(deleteLater()));
-//    QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
-
     thread->start();
 
     show();

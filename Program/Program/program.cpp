@@ -12,7 +12,7 @@
 //Boost Headers
 //
 //Project specific headers
-//
+#include "../../ModeCharacterization/modecharacterization.h"
 
 namespace etig {
 //Public functions
@@ -85,24 +85,39 @@ std::vector< data_triple<double> > Program::TakeData( double mode_frequency ) {
 
 }
 
-void Program::SavePowerSpectrum( data_list scan ) {
+std::string Program::BuildModeParamHeader( const data_list& scan ) {
+    ModeTraits mode_parameters( scan );
+
+    std::string mode_param_header = "";
+    mode_param_header += "Q;" + boost::lexical_cast<std::string>( mode_parameters.Q() ) + "\n";
+    mode_param_header += "hwhm;" + boost::lexical_cast<std::string>( mode_parameters.f0() ) + "\n";
+
+    return mode_param_header;
+}
+
+std::string Program::BuildCavityLengthHeader() {
+    double current_length = arduino->GetCavityLength();
+    return "cavity_length;" + boost::lexical_cast<std::string>( current_length ) + "\n";
+}
+
+void Program::SavePowerSpectrum( const data_list& scan ) {
 
     std::string header = BuildHeader();
+    header += BuildModeParamHeader( scan );
+    header += BuildCavityLengthHeader();
+
     data_saver.Save( scan, header );
 }
 
 void Program::PanicCleanUp() {
-
-    double cavity_length = arduino->GetCavityLength();
-    stm23_ee->TuneCavity( cavity_length );
-
+    MoveToStartLength();
 }
 
 void Program::Run() {
 
     Prequel();
     SetBackground();
-    RapidTraverse();
+//    RapidTraverse();
 
     for( uint i = 0; i <= number_of_iterations ; i ++ ) {
 

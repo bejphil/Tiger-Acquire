@@ -12,7 +12,7 @@ void find_n_nearest(const Q& q, I first, I nth, I last, Distance dist)
     std::sort(first, last, compare);
 }
 
-ModeTraits::ModeTraits( std::vector< data_triple<double> > data_values ) {
+ModeTraits::ModeTraits( const std::vector< data_triple<double> >& data_values ) {
 
 //    std::vector< double > power_values = data_list_to_powers( data_values );
 

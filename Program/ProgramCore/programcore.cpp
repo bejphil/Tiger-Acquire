@@ -69,23 +69,24 @@ void ProgramCore::InitializeDigitizer() {
 }
 
 void ProgramCore::RetractCavity() {
-    stm23_ee->TuneCavity( length_of_tune );
+//    stm23_ee->TuneCavity( length_of_tune );
+    MoveToStartLength();
 }
 
 void ProgramCore::RapidTraverse() {
-    MoveToStartLength();
+//    MoveToStartLength();
 }
 
 void ProgramCore::PrequelTransmission() {
     xdl_35_5tp->SwitchToNetworkAnalyzer();
     xdl_35_5tp->SwitchToTransmission();
-    MoveToStartLength();
+//    MoveToStartLength();
 }
 
 void ProgramCore::PrequelReflection() {
     xdl_35_5tp->SwitchToNetworkAnalyzer();
     xdl_35_5tp->SwitchToReflection();
-    MoveToStartLength();
+//    MoveToStartLength();
 }
 
 void ProgramCore::NextIteration() {
@@ -104,8 +105,12 @@ int ProgramCore::DeriveNumberofIterations() {
 
 void ProgramCore::MoveToStartLength() {
     double current_length = arduino->GetCavityLength();
-    stm23_ee->SetToInitialLength( start_length, current_length );
+    stm23_ee->TuneToLength( start_length, current_length );
+}
 
+void ProgramCore::MoveToBGSubtractionLength() {
+    double current_length = arduino->GetCavityLength();
+    stm23_ee->TuneToLength( background_scan_length, current_length );
 }
 
 }

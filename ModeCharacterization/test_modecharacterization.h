@@ -57,7 +57,7 @@ void TestModeCharacterization( double f_0, double Q, uint data_size ) {
 
         double cavity_length = 0.0;
         double frequency = static_cast<double>( i );
-        double power_dBm = 0.0025*lorentzian( frequency, Q, f_0 );
+        double power_dBm = lorentzian( frequency, Q, f_0 );
 
         test_data.push_back( data_triple<double>( cavity_length, frequency, power_dBm ) );
 

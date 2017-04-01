@@ -20,10 +20,14 @@ void ProgramFrame::Prequel() {
 
 void ProgramFrame::SetBackground() {
 
+    MoveToBGSubtractionLength();
+
     std::vector< double > background = hp8757_c->TakeDataMultiple();
     data_list blank_data = power_to_data_list( background, na_min_freq, na_max_freq );
 
     mode_tracker.SetBackground( blank_data );
+
+    MoveToStartLength();
 
 }
 
@@ -60,8 +64,6 @@ double ProgramFrame::DeriveCavityLength() {
 
 double ProgramFrame::RecenterPeak( std::vector< data_triple<double> > to_check ) {
 
-    emit UpdateNA( data_list_to_power( to_check ), nwa_span_MHz*4.0 );
-
     try {
         return mode_tracker.GetMaxPeak( to_check );
     } catch (const daq_failure& e) {
@@ -94,31 +96,29 @@ double ProgramFrame::CheckPeak( double possible_mode_position ) {
     emit UpdateNA( initial_window, nwa_span_MHz );
 //    na_view->UpdateSignal( initial_window, nwa_span_MHz );
 
-    double min_freq_initial = possible_mode_position - nwa_span_MHz/2;
-    double max_freq_initial = possible_mode_position + nwa_span_MHz/2;
+    double min_freq_initial = possible_mode_position - nwa_span_MHz/2.0;
+    double max_freq_initial = possible_mode_position + nwa_span_MHz/2.0;
 
-    double new_mode_position = RecenterPeak( power_to_data_list( initial_window, min_freq_initial, max_freq_initial ) );
+    double new_mode_position = 0;
 
-    if ( new_mode_position == 0.0 ) {
-       throw daq_failure( "Could not successfully recenter peak." );
+    try {
+        new_mode_position = RecenterPeak( power_to_data_list( initial_window, min_freq_initial, max_freq_initial ) );
+    } catch (const daq_failure& e) {
+        throw daq_failure( "Could not find a local maxima in provided data set." );
     }
 
-    hp8757_c->SetFrequencyWindow( new_mode_position, single_scan_window );
+    hp8757_c->SetFrequencyWindow( new_mode_position, nwa_span_MHz );
 
     std::vector< double > final_window = hp8757_c->TakeDataSingle();
 
-    double min_freq_final = possible_mode_position - nwa_span_MHz/2;
-    double max_freq_final = possible_mode_position + nwa_span_MHz/2;
+//    double min_freq_final = new_mode_position - nwa_span_MHz/2;
+//    double max_freq_final = new_mode_position + nwa_span_MHz/2;
 
-    data_list mode_window = power_to_data_list( final_window, min_freq_final, max_freq_final );
-
-    emit UpdateNA( final_window, nwa_span_MHz );
+//    data_list mode_window = power_to_data_list( final_window, min_freq_final, max_freq_final );
 
 //    na_view->UpdateSignal( final_window, single_scan_window );
 
-    //Characterization of mode
-
-    hp8757_c->SetFrequencyWindow( new_mode_position, nwa_span_MHz );
+    emit UpdateNA( final_window, nwa_span_MHz );
 
     //Return to reflection measurements
     xdl_35_5tp->SwitchToReflection();
