@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     qRegisterMetaType< std::vector<double> >("std::vector<double>");
     qRegisterMetaType< std::vector<float> >("std::vector<float>");
 
-    thread = new QThread;
+    QThread* thread = new QThread;
 
     prog->etig::Program::moveToThread( thread );
 
@@ -53,7 +53,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect( thread, &QThread::started, prog, &etig::Program::Run );
 
     QObject::connect( thread, &QThread::finished, prog, &etig::Program::deleteLater );
-    QObject::connect( thread, &QThread::finished, thread, &etig::Program::deleteLater );
+    QObject::connect( thread, &QThread::finished, thread, &QThread::deleteLater );
+
+    connect( this, &MainWindow::destroyed, prog, &etig::Program::Stop );
 
     thread->start();
 
@@ -64,7 +66,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow() {
 
-    thread->quit();
+//    thread->quit();
     delete ui;
 }
 

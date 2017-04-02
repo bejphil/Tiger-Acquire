@@ -26,6 +26,7 @@ class Program : public ProgramFrame {
 
   public:
     Program( QObject* parent = 0 );
+    ~Program();
 
     double FindModeReflection();
     double FindModeTransmission( double mode_frequency );
@@ -35,8 +36,6 @@ class Program : public ProgramFrame {
 
   private:
     double DeriveLengthFromStart();
-//    std::string BuildModeParamHeader( const data_list& scan  );
-//    std::string BuildCavityLengthHeader();
 
   public slots:
     void Run();

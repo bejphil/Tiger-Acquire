@@ -38,7 +38,7 @@ class MainWindow : public QMainWindow {
     QHBoxLayout* front_panel_layout;
     QPalette dark_palette;
 
-    QThread* thread;
+//    QThread* thread;
 };
 
 #endif // MAINWINDOW_H

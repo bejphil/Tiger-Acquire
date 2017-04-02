@@ -53,6 +53,7 @@ std::string ProgramFrame::BuildHeader() {
     header += "num_averages;" + boost::lexical_cast<std::string>( num_averages ) + "\n";
     header += "Q;" + boost::lexical_cast<std::string>( quality_factor ) + "\n";
     header += "hwhm;" + boost::lexical_cast<std::string>( hwhm ) + "\n";
+    header += "center_frequency;" + boost::lexical_cast<std::string>( center_frequency ) + "\n";
 
     double current_length = arduino->GetCavityLength();
     header += "cavity_length;" + boost::lexical_cast<std::string>( current_length ) + "\n";
@@ -158,25 +159,23 @@ std::vector< data_triple<double> > ProgramFrame::power_to_data_list ( std::vecto
                                                                       float max_freq ) {
 
     uint number_of_points = power_list.size();
-//    float max_freq = center_frequency + nwa_span_MHz / 2.0f;
-//    float min_freq = center_frequency - nwa_span_MHz / 2.0f;
 
-    float cavity_length = static_cast<float>( arduino->GetCavityLength() );
+    double cavity_length = arduino->GetCavityLength();
 
     std::vector< data_triple< double > > processed;
     processed.reserve( number_of_points );
 
     for( uint i = 0; i < number_of_points ; i++ ) {
 
-        double i_f = static_cast<double>(i);
-        double num_points_f = static_cast<double>(number_of_points);
+        double i_f = static_cast<double>( i );
+        double num_points_f = static_cast<double>( number_of_points );
 
         double min_freq_d = static_cast< double >( min_freq );
         double max_freq_d = static_cast< double >( max_freq );
         double frequency = ( i_f/num_points_f )*( max_freq_d - min_freq_d ) + min_freq_d;
         double power = static_cast<double>( power_list.at(i) );
 
-        processed.push_back( data_triple< double >( cavity_length, std::round( frequency ), power ) );
+        processed.push_back( data_triple< double >( cavity_length, frequency, power ) );
 
     }
 
@@ -205,7 +204,7 @@ std::vector< data_triple<double> > ProgramFrame::power_to_data_list ( std::vecto
         double frequency = ( i_f/num_points_f )*( max_freq - min_freq ) + min_freq;
         double power = power_list.at(i);
 
-        processed.push_back( data_triple< double >( cavity_length, std::round( frequency ), power ) );
+        processed.push_back( data_triple< double >( cavity_length, frequency, power ) );
 
     }
 

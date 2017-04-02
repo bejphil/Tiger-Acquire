@@ -27,6 +27,9 @@ Program::Program(QObject *parent) : ProgramFrame( parent ) {
 
 }
 
+Program::~Program() {
+}
+
 double Program::FindModeReflection() {
 
     auto network_analyzer_scan = hp8757_c->TakeDataMultiple();
@@ -83,20 +86,6 @@ std::vector< data_triple<double> > Program::TakeData( double mode_frequency ) {
     return power_to_data_list( signal, min_freq, max_freq );
 
 }
-
-//std::string Program::BuildModeParamHeader() {
-
-//    std::string mode_param_header = "";
-//    mode_param_header += "Q;" + boost::lexical_cast<std::string>( quality_factor ) + "\n";
-//    mode_param_header += "hwhm;" + boost::lexical_cast<std::string>( hwhm ) + "\n";
-
-//    return mode_param_header;
-//}
-
-//std::string Program::BuildCavityLengthHeader() {
-//    double current_length = arduino->GetCavityLength();
-//    return "cavity_length;" + boost::lexical_cast<std::string>( current_length ) + "\n";
-//}
 
 void Program::SavePowerSpectrum( const data_list& scan ) {
 
@@ -155,7 +144,10 @@ void Program::Run() {
 }
 
 void Program::Stop() {
-
+    //Usually digitizer class should handle
+    // things upon deletion, but it seems that Qt
+    // is interfering with this.
+    ats9462->AbortCapture();
 }
 
 //Private function
