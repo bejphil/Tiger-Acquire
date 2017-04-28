@@ -53,7 +53,7 @@ class ProgramCore: public QObject {
     const double nwa_power_dBm = -15.0;
     const double signal_generator_power_dBm = 15.0; //Recommended power for Polyphase P/N IRM3570B
     const double freq_window_MHz = 100.0;
-    const double digitizer_rate_MHz = 180;
+    const double digitizer_rate_MHz = 50;
     const double na_min_freq = 3000.0;
     const double na_max_freq = 4600.0;
     const uint num_averages = 10000;
@@ -71,10 +71,6 @@ class ProgramCore: public QObject {
     SignalGenerator* mxg_n5183b;
     StepperMotor* stm23_ee;
     Switch* xdl_35_5tp;
-
-//    MainWindow* window;
-//    SpectrumAnalyzer* spec_analyzer;
-//    InstrumentView* na_view;
 
     double number_of_iterations = 0.0;
     uint iteration = 0;

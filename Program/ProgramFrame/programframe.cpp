@@ -98,6 +98,8 @@ double ProgramFrame::CheckPeak( double possible_mode_position ) {
     // Since we identified the position of our mode using reflection measurements
     // we need to switch to transmission to find the 'real' position of the mode
     xdl_35_5tp->SwitchToTransmission();
+    emit ToTransmission();
+
     hp8757_c->SetFrequencyWindow( possible_mode_position, nwa_span_MHz );
 
     std::vector< double > initial_window = hp8757_c->TakeDataSingle();
@@ -136,6 +138,7 @@ double ProgramFrame::CheckPeak( double possible_mode_position ) {
 
     //Return to reflection measurements
     xdl_35_5tp->SwitchToReflection();
+    emit ToReflection();
 
     return new_mode_position;
 

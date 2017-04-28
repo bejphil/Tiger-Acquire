@@ -66,6 +66,14 @@ signals:
   void UpdateNA( std::vector< double > na_data, double na_span );
   void UpdateSpec( std::vector< float > spec_data, uint digi_rate );
 
+  void ToTransmission();
+  void ToReflection();
+  void OutputToDigitizer();
+  void OutputToNA();
+
+  void Iteration( uint iter );
+  void CavityLength( double length );
+
 };
 
 }

@@ -101,9 +101,10 @@ void Program::Run() {
 
     Prequel();
     SetBackground();
-//    RapidTraverse();
 
     for( uint i = 0; i <= number_of_iterations ; i ++ ) {
+
+        emit Iteration( i );
 
         double mode_of_desire = 0.0;
 

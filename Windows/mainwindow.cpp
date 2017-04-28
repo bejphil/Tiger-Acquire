@@ -36,10 +36,11 @@ MainWindow::MainWindow(QWidget *parent) :
     InstrumentView* na_view = new InstrumentView( "Network Analyzer", this );
     SetNetworkAnalyzerView( na_view );
 
+    ComboStatusPanel* status = new ComboStatusPanel( this );
+    SetComboStatus( status );
+
     etig::Program* prog = new etig::Program;
 
-//    QObject::connect( prog, &etig::Program::UpdateNA, na_view, &InstrumentView::UpdateSignal );
-//    QObject::connect( prog, &etig::Program::UpdateSpec, spec_analyzer, &SpectrumAnalyzer::UpdateSignal );
     qRegisterMetaType< std::vector<double> >("std::vector<double>");
     qRegisterMetaType< std::vector<float> >("std::vector<float>");
 
@@ -49,6 +50,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QObject::connect( prog, &etig::Program::UpdateNA, na_view, &InstrumentView::UpdateSignal );
     QObject::connect( prog, &etig::Program::UpdateSpec, spec_analyzer, &SpectrumAnalyzer::UpdateSignal );
+
+    QObject::connect( prog, &etig::Program::ToTransmission, status, &ComboStatusPanel::SetTransmission );
+    QObject::connect( prog, &etig::Program::ToReflection, status, &ComboStatusPanel::SetReflection );
+
+    QObject::connect( prog, &etig::Program::Iteration, status, &ComboStatusPanel::SetIterationNumber );
 
     QObject::connect( thread, &QThread::started, prog, &etig::Program::Run );
 
@@ -94,5 +100,12 @@ void MainWindow::SetSpectrumAnalyzerView( SpectrumAnalyzer* spec_analyzer ) {
     connect(power_ctrls, &PowerControls::SelecteddBm, spec_analyzer, &SpectrumAnalyzer::ChangeTodBm);
 
     addDockWidget(Qt::BottomDockWidgetArea, power_ctrls);
+
+}
+
+void MainWindow::SetComboStatus(ComboStatusPanel* status_panel ) {
+
+    status_panel->setAttribute(Qt::WA_DeleteOnClose);
+    addDockWidget(Qt::BottomDockWidgetArea, status_panel);
 
 }

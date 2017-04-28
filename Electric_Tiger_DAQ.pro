@@ -18,7 +18,7 @@ CONFIG(debug, debug|release) {
 } else {
     DEFINES += "NDEBUG"
     QMAKE_CXXFLAGS -= -O2
-    QMAKE_CXXFLAGS += -O3
+    QMAKE_CXXFLAGS *= -O3
 }
 
 INCLUDEPATH +=../ATS9462
@@ -81,7 +81,8 @@ SOURCES += main.cpp\
     Panels/SpectrumAnalyzer/test_spectrum_analyzer.cpp \
     Panels/InstrumentView/instrumentview.tpp \
     Panels/InstrumentView/test_instrumentview.cpp \
-    Panels/testpanels.cpp
+    Panels/testpanels.cpp \
+    Panels/StatusCombo/combostatuspanel.cpp
 
 HEADERS  += Windows/mainwindow.h \
    # ConfigProcessor/configprocessor.h \
@@ -124,8 +125,10 @@ HEADERS  += Windows/mainwindow.h \
     ModeCharacterization/test_modecharacterization.h \
     Panels/SpectrumAnalyzer/test_spectrum_analyzer.h \
     Panels/InstrumentView/test_instrumentview.h \
-    Panels/testpanels.h
+    Panels/testpanels.h \
+    Panels/StatusCombo/combostatuspanel.h
 
 FORMS    += Windows/mainwindow.ui \
     Panels/GraphicObjects/chartscalecontrols.ui \
-    Panels/GraphicObjects/frequencycontrols.ui
+    Panels/GraphicObjects/frequencycontrols.ui \
+    Panels/StatusCombo/combostatuspanel.ui

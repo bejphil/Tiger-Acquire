@@ -17,6 +17,7 @@
 //Project specific headers
 #include "Panels/SpectrumAnalyzer/spectrumanalyzer.h"
 #include "Panels/InstrumentView/instrumentview.h"
+#include "Panels/StatusCombo/combostatuspanel.h"
 
 namespace Ui {
 class MainWindow;
@@ -30,6 +31,7 @@ class MainWindow : public QMainWindow {
 
     void SetSpectrumAnalyzerView( SpectrumAnalyzer* spec_analyzer );
     void SetNetworkAnalyzerView( InstrumentView* network_analyzer );
+    void SetComboStatus( ComboStatusPanel* status_panel );
     ~MainWindow();
 
   private:
