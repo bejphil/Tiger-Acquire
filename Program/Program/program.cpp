@@ -59,13 +59,13 @@ double Program::FindModeTransmission( double mode_frequency ) {
 std::vector< data_triple<double> > Program::TakeData( double mode_frequency ) {
 
     ShiftFrequencyWindow( mode_frequency );
+    emit LOFrequency( mode_frequency );
 
     ats9462->Start();
 
     while( !ats9462->Finished() ) {
 
         std::vector< float > volts_data = ats9462->PullVoltageDataTail( 1024 );
-
         emit UpdateSpec( volts_data, static_cast<uint>( 2e6 ) );
 
         sleep(5);

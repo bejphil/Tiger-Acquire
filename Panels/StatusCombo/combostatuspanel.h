@@ -24,6 +24,7 @@ class ComboStatusPanel : public QDockWidget {
     void SetNetworkAnalyzer();
     void SetIterationNumber( uint iteration );
     void SetCavityLength( double current_length );
+    void SetLOFrequency( double lo_frequency );
 
 };
 

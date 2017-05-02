@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>242</width>
-    <height>181</height>
+    <width>298</width>
+    <height>250</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="dockWidgetContents">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0" colspan="3">
+    <item row="0" column="0">
      <widget class="QLabel" name="label_3">
       <property name="text">
        <string>Switch 1 Status:</string>
@@ -29,28 +29,28 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="2">
+    <item row="1" column="1">
      <widget class="QCheckBox" name="reflectionBox">
       <property name="text">
        <string>Reflection</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="0" colspan="3">
+    <item row="2" column="0">
      <widget class="QLabel" name="label_4">
       <property name="text">
        <string>Switch 2 Status:</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="0" colspan="2">
+    <item row="3" column="0">
      <widget class="QCheckBox" name="networkAnalyzerBox">
       <property name="text">
        <string>Network Analyzer</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="2">
+    <item row="3" column="1">
      <widget class="QCheckBox" name="digitizerBox">
       <property name="text">
        <string>Digitizer</string>
@@ -64,7 +64,7 @@
       </property>
      </widget>
     </item>
-    <item row="4" column="1" colspan="2">
+    <item row="4" column="1">
      <widget class="QLCDNumber" name="cavLengthLCD"/>
     </item>
     <item row="5" column="0">
@@ -74,8 +74,18 @@
       </property>
      </widget>
     </item>
-    <item row="5" column="1" colspan="2">
+    <item row="5" column="1">
      <widget class="QLCDNumber" name="iterNumberLCD"/>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>LO Frequency (MHz)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QLCDNumber" name="lcdNumber"/>
     </item>
    </layout>
   </widget>
