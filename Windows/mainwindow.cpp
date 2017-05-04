@@ -54,14 +54,19 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect( prog, &etig::Program::ToTransmission, status, &ComboStatusPanel::SetTransmission );
     QObject::connect( prog, &etig::Program::ToReflection, status, &ComboStatusPanel::SetReflection );
 
+    QObject::connect( prog, &etig::Program::OutputToNA, status, &ComboStatusPanel::SetNetworkAnalyzer );
+    QObject::connect( prog, &etig::Program::OutputToDigitizer, status, &ComboStatusPanel::SetDigitizer );
+
     QObject::connect( prog, &etig::Program::Iteration, status, &ComboStatusPanel::SetIterationNumber );
+    QObject::connect( prog, &etig::Program::LOFrequency, status, &ComboStatusPanel::SetLOFrequency );
+    QObject::connect( prog, &etig::Program::CavityLength, status, &ComboStatusPanel::SetCavityLength );
 
     QObject::connect( thread, &QThread::started, prog, &etig::Program::Run );
 
-    QObject::connect( thread, &QThread::finished, prog, &etig::Program::deleteLater );
+    QObject::connect( thread, &QThread::finished, prog, &etig::Program::Stop );
     QObject::connect( thread, &QThread::finished, thread, &QThread::deleteLater );
 
-    connect( this, &MainWindow::destroyed, prog, &etig::Program::Stop );
+    connect( this, &MainWindow::destroyed, prog, &etig::Program::deleteLater );
 
     thread->start();
 

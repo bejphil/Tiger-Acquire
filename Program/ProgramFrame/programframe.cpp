@@ -18,6 +18,8 @@ ProgramFrame::ProgramFrame(QObject *parent) : ProgramCore( parent ) {
 void ProgramFrame::Prequel() {
     PrequelReflection();
     mxg_n5183b->SetPower( signal_generator_power_dBm );
+
+    emit OutputToNA();
 }
 
 void ProgramFrame::SetBackground() {
@@ -57,6 +59,7 @@ std::string ProgramFrame::BuildHeader() {
 
     double current_length = arduino->GetCavityLength();
     header += "cavity_length;" + boost::lexical_cast<std::string>( current_length ) + "\n";
+    header += "rebin_size;" + boost::lexical_cast<std::string>( rebin_size ) + "\n";
 
     return header;
 }
@@ -87,6 +90,8 @@ void ProgramFrame::ShiftFrequencyWindow( double center_frequency ) {
     double shift_frequency = center_frequency - nyquist_frequency/2.0;
 
     mxg_n5183b->SetFrequency( shift_frequency );
+
+    emit LOFrequency( shift_frequency );
 }
 
 double ProgramFrame::CheckPeak( double possible_mode_position ) {
@@ -167,11 +172,11 @@ std::vector< data_triple<double> > ProgramFrame::power_to_data_list ( std::vecto
 
     std::vector< data_triple< double > > processed;
     processed.reserve( number_of_points );
+    double num_points_f = static_cast<double>( number_of_points );
 
     for( uint i = 0; i < number_of_points ; i++ ) {
 
         double i_f = static_cast<double>( i );
-        double num_points_f = static_cast<double>( number_of_points );
 
         double min_freq_d = static_cast< double >( min_freq );
         double max_freq_d = static_cast< double >( max_freq );

@@ -15,6 +15,7 @@
 #include "../ProgramFrame/programframe.h"
 #include "../../DataTransformatoions/datatransformations.h"
 #include "../../ModeCharacterization/modecharacterization.h"
+#include "../../Algorithm/algorithm.h"
 
 namespace etig {
 
@@ -36,6 +37,7 @@ class Program : public ProgramFrame {
 
   private:
     double DeriveLengthFromStart();
+    Rebin< float > finished_signal_binner;
 
   public slots:
     void Run();

@@ -5,6 +5,7 @@ ComboStatusPanel::ComboStatusPanel(QWidget *parent) :
     QDockWidget(parent),
     ui(new Ui::ComboStatusPanel) {
     ui->setupUi(this);
+
 }
 
 ComboStatusPanel::~ComboStatusPanel() {

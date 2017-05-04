@@ -59,7 +59,6 @@ double Program::FindModeTransmission( double mode_frequency ) {
 std::vector< data_triple<double> > Program::TakeData( double mode_frequency ) {
 
     ShiftFrequencyWindow( mode_frequency );
-    emit LOFrequency( mode_frequency );
 
     ats9462->Start();
 
@@ -68,7 +67,7 @@ std::vector< data_triple<double> > Program::TakeData( double mode_frequency ) {
         std::vector< float > volts_data = ats9462->PullVoltageDataTail( 1024 );
         emit UpdateSpec( volts_data, static_cast<uint>( 2e6 ) );
 
-        sleep(5);
+        sleep( 5 );
     }
 
     std::vector< float > signal;
@@ -78,6 +77,11 @@ std::vector< data_triple<double> > Program::TakeData( double mode_frequency ) {
     } catch ( const std::ios_base::failure& e ) {
         throw( daq_failure( "Signal could not be read from digitizer." ) );
     }
+
+    finished_signal_binner( signal, mode_frequency, 1.0 );
+
+    signal = finished_signal_binner.RebinnedSignal();
+    rebin_size = finished_signal_binner.RebinSize();
 
     float nyquist_over_2 = static_cast< float >( digitizer_rate_MHz )/4.0f;
     float min_freq = mode_frequency - nyquist_over_2;
@@ -119,6 +123,7 @@ void Program::Run() {
                       << std::endl;
 
             NextIteration();
+            emit CavityLength( arduino->GetCavityLength() );
             continue;
         }
 
@@ -133,6 +138,7 @@ void Program::Run() {
                       << std::endl;
 
             NextIteration();
+            emit CavityLength( arduino->GetCavityLength() );
             continue;
         }
 
@@ -140,6 +146,7 @@ void Program::Run() {
         SavePowerSpectrum( current_scan );
 
         NextIteration();
+        emit CavityLength( arduino->GetCavityLength() );
 
     }
 }

@@ -17,6 +17,8 @@
 #include "Windows/mainwindow.h"
 #include "Panels/InstrumentView/instrumentview.h"
 
+#include "Algorithm/algorithm_test.h"
+
 int main(int argc, char *argv[]) {
     (void)argc;
     (void)argv;
@@ -25,4 +27,5 @@ int main(int argc, char *argv[]) {
     MainWindow window;
 
     return q_app.exec();
+
 }

@@ -36,25 +36,49 @@ struct Rebin {
 
     Rebin() {}
 
+    /*!
+     * \brief operator ()
+     * \param time_series
+     * The raw power signal that needs to be re-binned
+     *
+     * \param f_res
+     * Center frequency of the current mode ( in MHz )
+     *
+     * \param time_int
+     * Total time that time_series was collected over ( in seconds )
+     */
     void operator()( const std::vector< T >& time_series, T f_res, T time_int ) {
 
         uint sig_size = time_series.size();
-        T delta_f = static_cast<T>( 1 )/ time_int;
+        T delta_f = static_cast<T>( 1 )/( time_int );
 
-        T f_axion = f_res*1e6/ static_cast<T>( 2 );
+        T f_axion = f_res*1e6 / ( static_cast<T>( 1e6 ) * static_cast<T>( 2 ) );
 
-        overbin_size = std::floor( f_axion / delta_f );
-        uint tail = sig_size % overbin_size;
+        overbin_size = static_cast< uint >( std::floor( f_axion / delta_f ) );
 
-        uint rebin_size = std::floor( sig_size / overbin_size );
-
-        rebinned_signal( rebin_size );
-
-        for( uint i = 0 ; i < sig_size - tail ; i += overbin_size ) {
-            rebinned_signal.at(i) = mean( std::vector<T>( time_series.begin() + i, time_series.begin() + ( i + 1 ) ) );
+        if( overbin_size == 0 ) {
+            std::string err_str =
+                    "Frequency seperation between signal elements is larger than 1/2 expected Axion signal width\n";
+            err_str += "Axion signal is ";
+            err_str += boost::lexical_cast< std::string >( f_axion / delta_f );
+            err_str += " times larger than frequency seperation.";
+            throw std::invalid_argument( err_str );
         }
 
-        rebinned_signal.at( rebin_size - 1 ) = mean( std::vector<T>( time_series.end() - tail, time_series.end() ));
+        uint tail = sig_size % overbin_size;
+
+        uint rebin_size = ( tail == 0 )?( sig_size / overbin_size ):( ( sig_size - tail ) / overbin_size );
+
+        rebinned_signal.reserve( rebin_size );
+
+        for( uint i = 0 ; i < sig_size - tail ; i += overbin_size ) {
+
+            std::vector<T> sub_vector( time_series.begin() + i, time_series.begin() + ( i + 1 ) );
+            rebinned_signal.push_back( mean( sub_vector ) );
+        }
+
+        std::vector<T> remainder( time_series.end() - tail, time_series.end() );
+        rebinned_signal.push_back( mean( remainder ) );
 
         processed = true;
 

@@ -126,7 +126,8 @@ HEADERS  += Windows/mainwindow.h \
     Panels/SpectrumAnalyzer/test_spectrum_analyzer.h \
     Panels/InstrumentView/test_instrumentview.h \
     Panels/testpanels.h \
-    Panels/StatusCombo/combostatuspanel.h
+    Panels/StatusCombo/combostatuspanel.h \
+    Algorithm/algorithm_test.h
 
 FORMS    += Windows/mainwindow.ui \
     Panels/GraphicObjects/chartscalecontrols.ui \
