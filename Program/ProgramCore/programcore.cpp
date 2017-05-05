@@ -69,24 +69,20 @@ void ProgramCore::InitializeDigitizer() {
 }
 
 void ProgramCore::RetractCavity() {
-//    stm23_ee->TuneCavity( length_of_tune );
     MoveToStartLength();
 }
 
 void ProgramCore::RapidTraverse() {
-//    MoveToStartLength();
 }
 
 void ProgramCore::PrequelTransmission() {
     xdl_35_5tp->SwitchToNetworkAnalyzer();
     xdl_35_5tp->SwitchToTransmission();
-//    MoveToStartLength();
 }
 
 void ProgramCore::PrequelReflection() {
     xdl_35_5tp->SwitchToNetworkAnalyzer();
     xdl_35_5tp->SwitchToReflection();
-//    MoveToStartLength();
 }
 
 void ProgramCore::NextIteration() {

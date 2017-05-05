@@ -38,9 +38,9 @@ void ComboStatusPanel::SetIterationNumber( uint iteration ) {
 }
 
 void ComboStatusPanel::SetCavityLength( double current_length ) {
-    ui->cavLengthLCD->display( QString::number(current_length) );
+    ui->cavLengthLCD->display( QString::number(current_length,'g', 4) );
 }
 
 void ComboStatusPanel::SetLOFrequency( double lo_frequency ) {
-    ui->LOLCD->display( QString::number(lo_frequency) );
+    ui->LOLCD->display( QString::number(lo_frequency,'g', 4) );
 }

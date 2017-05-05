@@ -17,8 +17,10 @@ CONFIG(debug, debug|release) {
     DEFINES += "DEBUG"
 } else {
     DEFINES += "NDEBUG"
-    QMAKE_CXXFLAGS -= -O2
-    QMAKE_CXXFLAGS *= -O3
+    CONFIG += optimize_full
+#    QMAKE_CXXFLAGS_RELEASE -= -O1
+#    QMAKE_CXXFLAGS_RELEASE -= -O2
+#    QMAKE_CXXFLAGS_RELEASE *= -O3
 }
 
 INCLUDEPATH +=../ATS9462
@@ -60,7 +62,7 @@ SOURCES += main.cpp\
     Panels/GraphicObjects/frequencycontrols.cpp \
     Panels/GraphicObjects/rightclickmenu.cpp \
     Panels/SpectrumAnalyzer/spectrumanalyzer.cpp \
-    Panels/SpectrumAnalyzer/spectrumanalyzer.tpp \
+    #Panels/SpectrumAnalyzer/spectrumanalyzer.tpp \
     SocketCommunicators/AbstractSocketCommunicator/abstractsocketcommunictor.cpp \
     ConfigProcessor/configprocessor.cpp \
     Program/ProgramCore/programcore.cpp \

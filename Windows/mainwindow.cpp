@@ -104,6 +104,9 @@ void MainWindow::SetSpectrumAnalyzerView( SpectrumAnalyzer* spec_analyzer ) {
     connect(power_ctrls, &PowerControls::SelectedVolts, spec_analyzer, &SpectrumAnalyzer::ChangeToVolts);
     connect(power_ctrls, &PowerControls::SelecteddBm, spec_analyzer, &SpectrumAnalyzer::ChangeTodBm);
 
+    connect(power_ctrls, &PowerControls::AutoScaleOn, spec_analyzer, &SpectrumAnalyzer::AutoScaleOn);
+    connect(power_ctrls, &PowerControls::AutoScaleOff, spec_analyzer, &SpectrumAnalyzer::AutoScaleOff);
+
     addDockWidget(Qt::BottomDockWidgetArea, power_ctrls);
 
 }

@@ -149,10 +149,13 @@ void Program::Run() {
         emit CavityLength( arduino->GetCavityLength() );
 
     }
+
+    MoveToStartLength();
+    Stop();
 }
 
 void Program::Stop() {
-    //Usually digitizer class should handle
+    // Usually digitizer class should handle
     // things upon deletion, but it seems that Qt
     // is interfering with this.
     ats9462->AbortCapture();
@@ -162,7 +165,7 @@ void Program::Stop() {
 double Program::DeriveLengthFromStart() {
 
     double cavity_length = arduino->GetCavityLength();
-    return start_length - cavity_length;
+    return ( start_length - cavity_length );
 
 }
 

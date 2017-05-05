@@ -38,17 +38,15 @@ class SpectrumAnalyzer : public QChartView {
     explicit SpectrumAnalyzer(QWidget *parent = 0);
     ~SpectrumAnalyzer();
 
-    template <class T, typename F>
-    void PlotAutoScale( const T& y_signal_elements , F x_frequency_range);
-
-    template <class T>
-    void Plot( const T& y_signal_elements , double x_frequency_range);
+    void PlotAutoScale( const std::vector<float>& y_signal_elements , float x_frequency_range);
+    void Plot( const std::vector<float>& y_signal_elements , float x_frequency_range);
 
 //    void UpdateSignal( const std::vector<float>& time_series , uint sample_rate );
 
   private:
 
     void (SpectrumAnalyzer::*unit_conversion)( float& ) = NULL;
+    void (SpectrumAnalyzer::*plot_function)( const std::vector<float>&signal, float freq_range ) = NULL;
 
     void volt_sqr_to_dbm( float& volt_sqr );
     void identity( float& val );
@@ -77,10 +75,13 @@ class SpectrumAnalyzer : public QChartView {
     void ChangeToVolts();
     void ChangeTodBm();
 
+    void AutoScaleOn();
+    void AutoScaleOff();
+
   signals:
     void SignalChanged();
 };
 
-#include "spectrumanalyzer.tpp"
+//#include "spectrumanalyzer.tpp"
 
 #endif // SPECTRUMANALYZER_H

@@ -44,6 +44,14 @@ PowerControls::PowerControls(QWidget *parent) :
         }
     });
 
+    connect(ui->autoScaleButton, &QCheckBox::toggled, [=](bool pressed){
+        if( pressed ) {
+            emit AutoScaleOn();
+        } else {
+            emit AutoScaleOff();
+        }
+    });
+
 }
 
 PowerControls::~PowerControls() {

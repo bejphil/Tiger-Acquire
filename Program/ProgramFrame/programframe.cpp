@@ -64,11 +64,6 @@ std::string ProgramFrame::BuildHeader() {
     return header;
 }
 
-//cavity_length = self.ardu_comm.get_cavity_length()
-//trans_window_str = self.convertor.power_list_to_str(power_list, mode_of_desire, self.freq_window, cavity_length)
-
-//return self.m_track.GetMaxPeak(trans_window_str[:-1])
-
 double ProgramFrame::DeriveCavityLength() {
 
     return start_length + ( iteration*length_of_tune /number_of_iterations );

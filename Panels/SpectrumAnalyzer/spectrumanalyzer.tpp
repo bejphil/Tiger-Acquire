@@ -1,6 +1,6 @@
-template <class T, typename F>
+template <class T>
 void SpectrumAnalyzer::PlotAutoScale( const T& y_signal_elements ,
-                                     F x_frequency_range) {
+                                     double x_frequency_range) {
 
     uint N = y_signal_elements.size();
 
