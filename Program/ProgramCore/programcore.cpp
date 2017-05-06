@@ -60,9 +60,9 @@ void ProgramCore::InitializeSocketObjects() {
 }
 
 void ProgramCore::InitializeDigitizer() {
-    ats9462 = std::shared_ptr<ATS9462Engine>( new ATS9462Engine( digitizer_rate_MHz*1e6, 5, 500e6 ) );
+    ats9462 = std::shared_ptr<ATS9462Engine>( new ATS9462Engine( digitizer_rate_MHz*1e6, num_averages, 500e6 ) );
 
-    ats9462->ThreadPoolSize( 10 );
+    ats9462->ThreadPoolSize( 8 );
     ats9462->SetSampleRate( digitizer_rate_MHz*1e6 );
 
     ats9462->StartCapture();

@@ -44,16 +44,16 @@ class ProgramCore: public QObject {
     void MoveToStartLength();
 
     const std::string save_file_path = "/home/admx/Electric_Tiger_Data/";
-    const double length_of_tune = 0.5;
-    const double revs_per_iterations = 2.5;
-    const double start_length = 8.0;
+    const double length_of_tune = 2.0;
+    const double revs_per_iterations = 1;
+    const double start_length = 7.0;
     const double background_scan_length = 5.0;
     const double nwa_span_MHz = 400.0;
     const uint nwa_points = 401;
     const double nwa_power_dBm = -15.0;
     const double signal_generator_power_dBm = 15.0; //Recommended power for Polyphase P/N IRM3570B
     const double freq_window_MHz = 100.0;
-    const double digitizer_rate_MHz = 100.0;
+    const double digitizer_rate_MHz = 180.0;
     const double na_min_freq = 3000.0;
     const double na_max_freq = 4600.0;
     const uint num_averages = 10000;
