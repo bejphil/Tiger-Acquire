@@ -34,6 +34,41 @@ void ProgramFrame::SetBackground() {
     MoveToStartLength();
 
 }
+template < typename T >
+uint GetRebinSize( T f_res, T time_int ) {
+    T delta_f = static_cast<T>( 1 )/( time_int );
+    T f_axion = f_res*1e6 / ( static_cast<T>( 1e6 ) * static_cast<T>( 2 ) );
+
+    return static_cast< uint >( std::floor( f_axion / delta_f ) );
+}
+
+void ProgramFrame::EstablishBinSize() {
+
+    MoveToEndLength();
+
+    auto network_analyzer_scan = hp8757_c->TakeDataMultiple();
+
+    emit UpdateNA( network_analyzer_scan, nwa_span_MHz*4.0 );
+
+    auto formatted_na_scan = power_to_data_list( network_analyzer_scan, na_min_freq, na_max_freq );
+
+    double peak_position = 0;
+
+    for( uint i = 0; i < 10; i ++ ) {
+
+        try {
+            peak_position = FindMinimaPeak( formatted_na_scan );
+            break;
+        } catch (const mode_track_failure& e) {
+            Jitter();
+        }
+
+    }
+
+    MoveToStartLength();
+
+    rebin_size = GetRebinSize<double>( peak_position, 1.0 );
+}
 
 double ProgramFrame::FindMinimaPeak(data_list formatted_points ) {
     return mode_tracker.GetPeaksBiLat( formatted_points, 1 );
@@ -158,8 +193,8 @@ std::vector< T > ProgramFrame::data_list_to_power( std::vector< data_triple <T> 
 }
 
 std::vector< data_triple<double> > ProgramFrame::power_to_data_list ( std::vector< float > power_list,
-                                                                      float min_freq,
-                                                                      float max_freq ) {
+        float min_freq,
+        float max_freq ) {
 
     uint number_of_points = power_list.size();
 
@@ -187,8 +222,8 @@ std::vector< data_triple<double> > ProgramFrame::power_to_data_list ( std::vecto
 }
 
 std::vector< data_triple<double> > ProgramFrame::power_to_data_list ( std::vector< double > power_list,
-                                                                      double min_freq,
-                                                                      double max_freq ) {
+        double min_freq,
+        double max_freq ) {
 
     uint number_of_points = power_list.size();
 //    double max_freq = center_frequency + nwa_span_MHz / 2.0;

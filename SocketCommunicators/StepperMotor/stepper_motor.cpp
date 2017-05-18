@@ -50,6 +50,9 @@ void StepperMotor::TuneCavity( double length_of_tune ) {
 
     socket->SendScl( command );
 
+    double delay_time = std::abs( length_of_tune );
+    sleep( delay_time );
+
     socket->CloseConnection();
 }
 

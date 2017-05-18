@@ -105,8 +105,25 @@ void ProgramCore::MoveToStartLength() {
 }
 
 void ProgramCore::MoveToBGSubtractionLength() {
+
     double current_length = arduino->GetCavityLength();
     stm23_ee->TuneToLength( background_scan_length, current_length );
+
+}
+
+void ProgramCore::MoveToEndLength() {
+
+    double current_length = arduino->GetCavityLength();
+    double end_length = start_length + length_of_tune;
+    stm23_ee->TuneToLength( end_length, current_length );
+
+}
+
+void ProgramCore::Jitter() {
+
+    stm23_ee->TuneCavity( - 0.1 );
+    stm23_ee->TuneCavity( 0.1 );
+
 }
 
 }

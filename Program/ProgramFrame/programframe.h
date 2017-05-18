@@ -30,6 +30,7 @@ class ProgramFrame : public ProgramCore {
     void Prequel();
     void ShiftFrequencyWindow( double center_frequency );
     void SetBackground();
+    void EstablishBinSize();
     double FindMinimaPeak( data_list formatted_points);
 
   protected:

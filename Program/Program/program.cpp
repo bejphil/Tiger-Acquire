@@ -77,10 +77,13 @@ std::vector< data_triple<double> > Program::TakeData( double mode_frequency ) {
         throw( daq_failure( "Signal could not be read from digitizer." ) );
     }
 
-    finished_signal_binner( signal, mode_frequency, 1.0 );
+//    finished_signal_binner( signal, mode_frequency, 1.0 );
+
+//    signal = finished_signal_binner.RebinnedSignal();
+//    rebin_size = finished_signal_binner.RebinSize();
+    finished_signal_binner( signal, rebin_size );
 
     signal = finished_signal_binner.RebinnedSignal();
-    rebin_size = finished_signal_binner.RebinSize();
 
     float nyquist_over_2 = static_cast< float >( digitizer_rate_MHz )/4.0f;
     float min_freq = mode_frequency - nyquist_over_2;

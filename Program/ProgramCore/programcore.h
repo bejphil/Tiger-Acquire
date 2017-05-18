@@ -37,11 +37,13 @@ class ProgramCore: public QObject {
     void PrequelTransmission();
     void PrequelReflection();
     void NextIteration();
+    void Jitter();
 
   protected:
 
     void MoveToBGSubtractionLength();
     void MoveToStartLength();
+    void MoveToEndLength();
 
     const std::string save_file_path = "/home/admx/Electric_Tiger_Data/";
     const double length_of_tune = 2.0;
