@@ -1,6 +1,0 @@
-\form#0:$ \{p_1,p_2,...,p_n\}$
-\form#1:$ f(x) = a x^2+b x+c$
-\form#2:$ f'(n) \approx \frac{-f(n+2)+8*f(n+1)-8*f(n-1)+f(n-2)}{12} $
-\form#3:$ \frac{n}{n-1} $
-\form#4:$ \{a_1,a_2...,a_i\}$
-\form#5:$ \sqrt{\sum_{i=1}^n | a_i |^2} = 1 $

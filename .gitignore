@@ -1,2 +1,5 @@
 # Documents auto-gen'd by Qt-Creator
 *.pro.usr*
+
+# Doxygen folder
+/doxygen
