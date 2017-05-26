@@ -1,7 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classetig_1_1_program_core.html" title="etig::ProgramCore" alt="" coords="5,5,133,32"/>
-<area shape="rect" id="node2" href="$classetig_1_1_program_frame.html" title="etig::ProgramFrame" alt="" coords="181,5,319,32"/>
-<area shape="rect" id="node3" href="$classetig_1_1_program.html" title="etig::Program" alt="" coords="384,5,484,32"/>
-<area shape="rect" id="node5" href="$class_q_socket_comm.html" title="QSocketComm" alt="" coords="378,56,490,83"/>
-<area shape="rect" id="node6" href="$class_q_socket_intermitten.html" title="QSocketIntermitten" alt="" coords="367,107,501,133"/>
-</map>

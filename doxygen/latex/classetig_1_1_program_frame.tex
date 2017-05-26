@@ -1,0 +1,104 @@
+\hypertarget{classetig_1_1_program_frame}{}\section{etig\+:\+:Program\+Frame Class Reference}
+\label{classetig_1_1_program_frame}\index{etig\+::\+Program\+Frame@{etig\+::\+Program\+Frame}}
+
+
+Inheritance diagram for etig\+:\+:Program\+Frame\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=183pt]{classetig_1_1_program_frame__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for etig\+:\+:Program\+Frame\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classetig_1_1_program_frame__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries Update\+NA} (std\+::vector$<$ double $>$ na\+\_\+data, double na\+\_\+span)\hypertarget{classetig_1_1_program_frame_a824d1e9e44d999d4a5a587b3f9613fa8}{}\label{classetig_1_1_program_frame_a824d1e9e44d999d4a5a587b3f9613fa8}
+
+\item 
+void {\bfseries Update\+Spec} (std\+::vector$<$ float $>$ spec\+\_\+data, uint digi\+\_\+rate)\hypertarget{classetig_1_1_program_frame_ad9248e8416130ac077fd4d765382a093}{}\label{classetig_1_1_program_frame_ad9248e8416130ac077fd4d765382a093}
+
+\item 
+void {\bfseries To\+Transmission} ()\hypertarget{classetig_1_1_program_frame_ae39d5e3b652f9725e31d8969be4e108b}{}\label{classetig_1_1_program_frame_ae39d5e3b652f9725e31d8969be4e108b}
+
+\item 
+void {\bfseries To\+Reflection} ()\hypertarget{classetig_1_1_program_frame_a391fa1884342324998b4a6b12d009db4}{}\label{classetig_1_1_program_frame_a391fa1884342324998b4a6b12d009db4}
+
+\item 
+void {\bfseries Output\+To\+Digitizer} ()\hypertarget{classetig_1_1_program_frame_a5a6803a49009713800cab9b931326dc6}{}\label{classetig_1_1_program_frame_a5a6803a49009713800cab9b931326dc6}
+
+\item 
+void {\bfseries Output\+To\+NA} ()\hypertarget{classetig_1_1_program_frame_a47f1db16a6ca7f0a2c95c94f11d89128}{}\label{classetig_1_1_program_frame_a47f1db16a6ca7f0a2c95c94f11d89128}
+
+\item 
+void {\bfseries Iteration} (uint iter)\hypertarget{classetig_1_1_program_frame_a35e9a4ff69d563cef9f43bf737a17880}{}\label{classetig_1_1_program_frame_a35e9a4ff69d563cef9f43bf737a17880}
+
+\item 
+void {\bfseries Cavity\+Length} (double length)\hypertarget{classetig_1_1_program_frame_a6e05071a1bf4649e1ec1082581a451c7}{}\label{classetig_1_1_program_frame_a6e05071a1bf4649e1ec1082581a451c7}
+
+\item 
+void {\bfseries L\+O\+Frequency} (double lo\+\_\+freq)\hypertarget{classetig_1_1_program_frame_a1209484236960c92deea722171b2a783}{}\label{classetig_1_1_program_frame_a1209484236960c92deea722171b2a783}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Program\+Frame} (Q\+Object $\ast$parent)\hypertarget{classetig_1_1_program_frame_a69871d3d3ee8ca09985eea46ab2df1de}{}\label{classetig_1_1_program_frame_a69871d3d3ee8ca09985eea46ab2df1de}
+
+\item 
+void {\bfseries Prequel} ()\hypertarget{classetig_1_1_program_frame_a2da29d05f66287788c42ba5ba28e5b9b}{}\label{classetig_1_1_program_frame_a2da29d05f66287788c42ba5ba28e5b9b}
+
+\item 
+void {\bfseries Shift\+Frequency\+Window} (double center\+\_\+frequency)\hypertarget{classetig_1_1_program_frame_a4b5a587570c2dbad42af57575b395bbb}{}\label{classetig_1_1_program_frame_a4b5a587570c2dbad42af57575b395bbb}
+
+\item 
+void {\bfseries Set\+Background} ()\hypertarget{classetig_1_1_program_frame_af41867166a0bc9c5f488107595fedb13}{}\label{classetig_1_1_program_frame_af41867166a0bc9c5f488107595fedb13}
+
+\item 
+void {\bfseries Establish\+Bin\+Size} ()\hypertarget{classetig_1_1_program_frame_a04305476dafab8c721d7b8eb41549239}{}\label{classetig_1_1_program_frame_a04305476dafab8c721d7b8eb41549239}
+
+\item 
+double {\bfseries Find\+Minima\+Peak} (data\+\_\+list formatted\+\_\+points)\hypertarget{classetig_1_1_program_frame_a72eedcd0f69f164ab687f8244a3ec530}{}\label{classetig_1_1_program_frame_a72eedcd0f69f164ab687f8244a3ec530}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+data\+\_\+list {\bfseries power\+\_\+to\+\_\+data\+\_\+list} (std\+::vector$<$ float $>$ power\+\_\+list, float min\+\_\+freq, float max\+\_\+freq)\hypertarget{classetig_1_1_program_frame_a1e970cac4d1173733d27cd8f3bbaf2fb}{}\label{classetig_1_1_program_frame_a1e970cac4d1173733d27cd8f3bbaf2fb}
+
+\item 
+data\+\_\+list {\bfseries power\+\_\+to\+\_\+data\+\_\+list} (std\+::vector$<$ double $>$ power\+\_\+list, double min\+\_\+freq, double max\+\_\+freq)\hypertarget{classetig_1_1_program_frame_add41bacb448ca38d6923a2a31b71a497}{}\label{classetig_1_1_program_frame_add41bacb448ca38d6923a2a31b71a497}
+
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::vector$<$ T $>$ {\bfseries data\+\_\+list\+\_\+to\+\_\+power} (std\+::vector$<$ \hyperlink{structdata__triple}{data\+\_\+triple}$<$ T $>$ $>$ data)\hypertarget{classetig_1_1_program_frame_aacd3bf2aed00a0ae7d6c6c99348a7f6d}{}\label{classetig_1_1_program_frame_aacd3bf2aed00a0ae7d6c6c99348a7f6d}
+
+\item 
+double {\bfseries Check\+Peak} (double possible\+\_\+mode\+\_\+position)\hypertarget{classetig_1_1_program_frame_a6bd23443debb7304d18de76d7550c8dd}{}\label{classetig_1_1_program_frame_a6bd23443debb7304d18de76d7550c8dd}
+
+\item 
+std\+::string {\bfseries Build\+Header} ()\hypertarget{classetig_1_1_program_frame_a74ffbb16b183e7b3d485183f41501e75}{}\label{classetig_1_1_program_frame_a74ffbb16b183e7b3d485183f41501e75}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_mode_track}{Mode\+Track} {\bfseries mode\+\_\+tracker}\hypertarget{classetig_1_1_program_frame_aea8eb7ef9e89cb2647a43e29bde12c98}{}\label{classetig_1_1_program_frame_aea8eb7ef9e89cb2647a43e29bde12c98}
+
+\item 
+\hyperlink{class_flat_file_saver}{Flat\+File\+Saver} {\bfseries data\+\_\+saver} \{ save\+\_\+file\+\_\+path \}\hypertarget{classetig_1_1_program_frame_a4338418648f4eff77b8fd7666e1938ea}{}\label{classetig_1_1_program_frame_a4338418648f4eff77b8fd7666e1938ea}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/bephillips2/\+Qt-\/\+Projects/\+Electric\+\_\+\+Tiger\+\_\+\+D\+A\+Q/\+Program/\+Program\+Frame/programframe.\+h\item 
+/home/bephillips2/\+Qt-\/\+Projects/\+Electric\+\_\+\+Tiger\+\_\+\+D\+A\+Q/\+Program/\+Program\+Frame/programframe.\+cpp\end{DoxyCompactItemize}

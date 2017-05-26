@@ -1,0 +1,73 @@
+\hypertarget{class_arduino}{}\section{Arduino Class Reference}
+\label{class_arduino}\index{Arduino@{Arduino}}
+
+
+Object to send and receive commands from an \hyperlink{class_arduino}{Arduino} Uno (R3)  
+
+
+
+
+{\ttfamily \#include $<$arduino.\+h$>$}
+
+
+
+Inheritance diagram for Arduino\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{class_arduino__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Arduino\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{class_arduino__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Arduino} (std\+::string ip\+\_\+addr, uint port\+\_\+number, Q\+Object $\ast$parent=0)\hypertarget{class_arduino_a89116271522c40d0e248a6958e27e408}{}\label{class_arduino_a89116271522c40d0e248a6958e27e408}
+
+\item 
+\hyperlink{class_arduino}{Arduino} \& {\bfseries operator=} (const \hyperlink{class_arduino}{Arduino} \&)=delete\hypertarget{class_arduino_a73d294f82c38557d1872cadd372c0b8b}{}\label{class_arduino_a73d294f82c38557d1872cadd372c0b8b}
+
+\item 
+double \hyperlink{class_arduino_a0ae462174c61881ccd5f78af5130eceb}{Get\+Cavity\+Length} ()
+\begin{DoxyCompactList}\small\item\em Get the current cavity length from the \hyperlink{class_arduino}{Arduino}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Object to send and receive commands from an \hyperlink{class_arduino}{Arduino} Uno (R3) 
+
+\hyperlink{class_arduino}{Arduino} is expected to be equipped with an Ethernet Shield and string potentiometer. 
+
+\subsection{Member Function Documentation}
+\index{Arduino@{Arduino}!Get\+Cavity\+Length@{Get\+Cavity\+Length}}
+\index{Get\+Cavity\+Length@{Get\+Cavity\+Length}!Arduino@{Arduino}}
+\subsubsection[{\texorpdfstring{Get\+Cavity\+Length()}{GetCavityLength()}}]{\setlength{\rightskip}{0pt plus 5cm}double Arduino\+::\+Get\+Cavity\+Length (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_arduino_a0ae462174c61881ccd5f78af5130eceb}{}\label{class_arduino_a0ae462174c61881ccd5f78af5130eceb}
+
+
+Get the current cavity length from the \hyperlink{class_arduino}{Arduino}. 
+
+This function will poll the \hyperlink{class_arduino}{Arduino} until a non-\/empty string is returned, guaranteeing that the return value will be valid.
+
+Note that this does not elminate the problem of getting \textquotesingle{}doubled\textquotesingle{} responses, e.\+g. \char`\"{}7.\+5\textbackslash{}r\textbackslash{}n7.\+5\char`\"{}
+
+\begin{DoxyReturn}{Returns}
+Current length of the cavity, in inches 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/bephillips2/\+Qt-\/\+Projects/\+Electric\+\_\+\+Tiger\+\_\+\+D\+A\+Q/\+Socket\+Communicators/\+Arduino/arduino.\+h\item 
+/home/bephillips2/\+Qt-\/\+Projects/\+Electric\+\_\+\+Tiger\+\_\+\+D\+A\+Q/\+Socket\+Communicators/\+Arduino/arduino.\+cpp\end{DoxyCompactItemize}

@@ -1,7 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_abstract_socket_communicator.html" title="AbstractSocketCommunicator" alt="" coords="5,81,203,108"/>
-<area shape="rect" id="node2" href="$class_arduino.html" title="Object to send and receive commands from an Arduino Uno (R3) " alt="" coords="279,5,345,32"/>
-<area shape="rect" id="node3" href="$class_network_analyzer.html" title="Object to communicate with the HP8757 C Network Analyzer. " alt="" coords="251,56,373,83"/>
-<area shape="rect" id="node4" href="$class_signal_generator.html" title="SignalGenerator" alt="" coords="255,107,369,133"/>
-<area shape="rect" id="node5" href="$class_switch.html" title="Switch" alt="" coords="281,157,343,184"/>
-</map>
